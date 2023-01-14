@@ -13,6 +13,24 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  //Buttons
+  public static final int ACTUATOR_EXTEND_BUTTON = 5;
+  public static final int ACTUATOR_RETRACT_BUTTON = 7;
+
+  //This was copied from old code but controller
+      public static final int CONTROLLER = 2;
+
+
+
+  //Idk the motor
+  public static final int ACTUATOR_MOTOR = 1;
+
+  //Motor speed ?
+   public static final double ACTUATOR_EXTEND = 0.5;
+   public static final double ACTUATOR_RETRACT = -0.5;
+   public static final double ACTUATOR_STOP = 0;
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
