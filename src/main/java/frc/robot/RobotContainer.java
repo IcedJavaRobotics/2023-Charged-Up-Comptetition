@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -27,9 +26,9 @@ public class RobotContainer {
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  CommandXboxController xboxController = new CommandXboxController(Constants.CONTROLLER);
-  CommandJoystick flightStick = new CommandJoystick(Constants.JOYSTICK);
-  CommandJoystick driverStation = new CommandJoystick(Constants.DRIVER_STATION);
+  XboxController xboxController = new XboxController(Constants.CONTROLLER);
+  Joystick flightStick = new Joystick(Constants.JOYSTICK);
+  Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -37,7 +36,7 @@ public class RobotContainer {
     configureBindings(); {}
     
     driveTrainSubsystem.setDefaultCommand(
-      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem)
+      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
     );
 
   }

@@ -43,15 +43,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void mecanumDrive( double X, double Y, double R, double Z ) {
+  public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom ) {
 
-    // if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
-    //   Z = 1;
-    //   rampUpTime = 1;
-    // } else {                //Normal ramp up time, speed dependant on the slider (Z)
-    //   Z = ( -Z + 1 )/2;
-    //   rampUpTime = 1.5;
-    // }
+    if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
+      Z = 1;
+      rampUpTime = 1;
+    } else {                //Normal ramp up time, speed dependant on the slider (Z)
+      Z = ( -Z + 1 )/2;
+      rampUpTime = 1.5;
+    }
 
     if ( Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0 ) {
 
