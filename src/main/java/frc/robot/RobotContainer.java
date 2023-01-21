@@ -36,7 +36,7 @@ public class RobotContainer {
     configureBindings(); {}
     
     driveTrainSubsystem.setDefaultCommand(
-      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
+      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1), flightStick.getRawButton(0)), driveTrainSubsystem)
     );
 
   }
