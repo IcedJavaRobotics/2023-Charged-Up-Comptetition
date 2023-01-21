@@ -28,16 +28,17 @@ public class RobotContainer {
   private final ClawSubsystem clawSubsystem = new ClawSubsystem();
 
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
-  
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings(); {
 
       new JoystickButton(xboxController, Constants.CLAW_CLOSE_BUTTON)
-       .whileTrue( new ClawCloseCommand(clawSubsystem));
+        .whileTrue(new ClawCloseCommand(clawSubsystem));
       new JoystickButton(xboxController, Constants.CLAW_OPEN_BUTTON)
-       .whileTrue( new ClawOpenCommand(clawSubsystem));
+        .whileTrue(new ClawOpenCommand(clawSubsystem));
+
     }
   }
 
