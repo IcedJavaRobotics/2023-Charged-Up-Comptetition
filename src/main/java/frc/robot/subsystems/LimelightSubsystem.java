@@ -31,7 +31,15 @@ public class LimelightSubsystem extends SubsystemBase {
   public void turnLightLightBlue(){
     blinkin.set(0.81);
   }
-
+  public void turnGreen(){
+    blinkin.set(0.73);
+  }
+  public void flashRed(){
+    blinkin.set(-0.11);
+  }
+  public void turnDarkGreen(){
+    blinkin.set(0.75);
+  }
 
   @Override
   public void periodic() {
