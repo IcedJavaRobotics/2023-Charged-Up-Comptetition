@@ -30,10 +30,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     SmartDashboard.putString("Version", "1.0");
-    SmartDashboard.putString("Author", "Alexa");
-    SmartDashboard.putString("Description", "Charged Up, Mecanum drive train");
-    SmartDashboard.putString("Changes", "Added drive train, SmartDashboard information, and controllers");
-    SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
+    SmartDashboard.putString("Author", "Fen");
+    SmartDashboard.putString("Description", "Charged Up, Auto balance feature");
+    SmartDashboard.putString("Changes", "added pid loop for balancing on the charging station");
+    SmartDashboard.putString("Driver tain status", "Untested");
+    SmartDashboard.putString("Auto balance feature status", "Untested");
   }
 
   /**
