@@ -26,5 +26,10 @@ public final class Constants {
   public static final int CONTROLLER = 2;
       // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
+
+  //Joystick button values
+  public static final int ZOOM_BUTTON = 1;
+  public static final int BALANCE_BUTTON = 0;
+      // indicates the button on the joystick used
   
 }

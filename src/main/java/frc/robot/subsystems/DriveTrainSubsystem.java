@@ -6,8 +6,10 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,13 +25,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double driveTime;
   double speedMod;
   double rampUpTime = 1.5;
-  double kP = 0;
-  double kI = 0;
-  double kD = 0;
-  int gyroPort;
+  double kP = 0.3;
+  double kI = 0.05;                                                               //PID values
+  double kD = 0.1;
 
-  private final AHRS ahrs = new AHRS(gyroPort);
-  public final PIDController balanceController = new PIDController(kP, kI, kD); 
+  private final AHRS ahrs = new AHRS(SPI.Port.kMXP);                              //the gyro being declared
+  public final PIDController balanceController = new PIDController(kP, kI, kD);   //PID controller being declared
 
   public DriveTrainSubsystem() {
 
@@ -54,11 +55,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom, boolean balance ) {
 
-    if (balance == false) {
+    if (balance == true) {    //the autobalance button is held down
+
+      moveMotor( balanceController.calculate(ahrs.getAngle(), 0), frontLeftTalon);  //move method, PIDController, get speed when setpoint is 0, motor
+      moveMotor( balanceController.calculate(ahrs.getAngle(), 0), backLeftTalon);
+      moveMotor( balanceController.calculate(ahrs.getAngle(), 0), frontRightTalon);
+      moveMotor( balanceController.calculate(ahrs.getAngle(), 0), backRightTalon);
 
 
-
-    } else {
+    } else {                  //the autobalance button is not held down
       
       if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
         Z = 1;
