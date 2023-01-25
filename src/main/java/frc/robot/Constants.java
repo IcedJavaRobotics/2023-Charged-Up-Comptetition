@@ -14,22 +14,24 @@ package frc.robot;
  */
 public final class Constants {
 
+  //Extendo
+  public static final int EXTENDO_MOTOR = 5;
+
+
+  //Limit Switches
+  public static final int EXTENDO_LIMIT_SWITCH = 2;
+  public static final double EXTENDO_SPEED = 0.45;
+
+
   //Buttons
-  public static final int ACTUATOR_EXTEND_BUTTON = 5;
-  public static final int ACTUATOR_RETRACT_BUTTON = 7;
-
-  //This was copied from old code but controller
-      public static final int CONTROLLER = 2;
 
 
 
-  //Idk the motor
-  public static final int ACTUATOR_MOTOR = 1;
+  //Controllers
 
-  //Motor speed ?
-   public static final double ACTUATOR_EXTEND = 0.5;
-   public static final double ACTUATOR_RETRACT = -0.5;
-   public static final double ACTUATOR_STOP = 0;
+  public static final int CONTROLLER = 2;
+
+
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
