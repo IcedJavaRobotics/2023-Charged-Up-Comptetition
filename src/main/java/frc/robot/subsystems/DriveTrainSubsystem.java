@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,6 +23,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double driveTime;
   double speedMod;
   double rampUpTime = 1.5;
+  double kP = 0.3;
+  double kI = 0.05;                                                               //PID values
+  double kD = 0.1;
+  double leftSideSetpoint = 15;
+  double midSetpoint = 0;
+  double rightSideSetpoint = -15;
+  
+  public final PIDController scoreController = new PIDController(kP, kI, kD);   //PID controller being declared
 
   public DriveTrainSubsystem() {
 
@@ -28,6 +38,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
     backLeftTalon.setInverted(true);
     frontRightTalon.setInverted(false);
     backRightTalon.setInverted(false);
+
+    scoreController.setTolerance(5, 10);
+    scoreController.setIntegratorRange(-0.5, 0.5);
 
   }
 
@@ -45,25 +58,38 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom) {
 
+    double horiOffset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+
     switch (GlobalVariablesSubsystem.slotGoal) {
-      case 1:
+      case 1: //far left on grid
+      case 4: //mid left on grid
+      case 7: //close left on grid
+
+        moveMotor( scoreController.calculate(horiOffset, leftSideSetpoint), frontLeftTalon);
+        moveMotor( -scoreController.calculate(horiOffset, leftSideSetpoint), backLeftTalon);
+        moveMotor( scoreController.calculate(horiOffset, leftSideSetpoint), frontRightTalon);
+        moveMotor( -scoreController.calculate(horiOffset, leftSideSetpoint), backRightTalon);
 
         break;
-      case 2:
+      case 2: //far mid on grid
+      case 5: //mid mid on grid
+      case 8: //close mid on grid
+
+        moveMotor( scoreController.calculate(horiOffset, midSetpoint), frontLeftTalon);
+        moveMotor( -scoreController.calculate(horiOffset, midSetpoint), backLeftTalon);
+        moveMotor( scoreController.calculate(horiOffset, midSetpoint), frontRightTalon);
+        moveMotor( -scoreController.calculate(horiOffset, midSetpoint), backRightTalon);
+
         break;
-      case 3:
-        break;
-      case 4:
-        break;
-      case 5:
-        break;
-      case 6:
-        break;
-      case 7:
-        break;
-      case 8:
-        break;
-      case 9:
+      case 3: //far right on grid
+      case 6: //mid right on grid
+      case 9: //close right on grid
+      
+        moveMotor( scoreController.calculate(horiOffset, rightSideSetpoint), frontLeftTalon);
+        moveMotor( -scoreController.calculate(horiOffset, rightSideSetpoint), backLeftTalon);
+        moveMotor( scoreController.calculate(horiOffset, rightSideSetpoint), frontRightTalon);
+        moveMotor( -scoreController.calculate(horiOffset, rightSideSetpoint), backRightTalon);
+
         break;
       default:
         if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
