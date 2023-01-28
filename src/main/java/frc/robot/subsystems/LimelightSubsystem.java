@@ -42,6 +42,46 @@ public class LimelightSubsystem extends SubsystemBase {
     blinkin.set(0.75);
   }
 
+  
+
+  //Methods of what to do, robot is very polite
+  public void rotateRight(){
+    // limelightSubsystem.turnDarkBlue();
+    System.out.println("A little right please");
+  }
+
+  public void rotateLeft(){
+    //limelightSubsystem.turnLightLightBlue();
+    System.out.println("A little left please");
+  }
+
+  public void driveForward(){
+    //when you have apriltag centered but far
+    // limelightSubsystem.turnGreen();
+    System.out.println("Go forward please");
+  }
+
+  public void stopAndSeek(){
+    //when you are close but not perfectly centered
+    // limelightSubsystem.flashRed();
+    if(tx>=1){
+    System.out.println("Seeking TARGET...Turn LEFT please.");
+    }if(tx<=-1){
+      System.out.println("Seeking TARGET...Turn RIGHT please.");
+    }
+  }
+
+  public void stopAndDestroy(){
+    //when you are close and perfectly centered
+    // limelightSubsystem.turnDarkGreen();
+    System.out.println("i am in range of the apriltag "+tid+"! Great work me!");
+  }
+
+  public void searchingForTargets(){
+    //no apriltags seen
+    // limelightSubsystem.turnRed();
+    System.out.println("Scanning for Targets....");
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

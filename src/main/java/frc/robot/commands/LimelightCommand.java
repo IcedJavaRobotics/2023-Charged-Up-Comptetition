@@ -10,12 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-// import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 
 
 public class LimelightCommand extends CommandBase {
 
-// private final LimelightSubsystem limelightSubsystem;
+private final LimelightSubsystem limelightSubsystem;
   private boolean targetFound = false;
   private double range = 10;
   private double tx = 0.0;
@@ -28,12 +29,12 @@ public class LimelightCommand extends CommandBase {
   
 
 
-  /* Creates a new Limelight. */
-  //  public LimelightCommand(LimelightSubsystem subsystem) {
-  //   limelightSubsystem=subsystem;
-  //   // Use addRequirements() here to declare subsystem dependencies.
-  //   addRequirements(limelightSubsystem);
-  // }
+  /*  Creates a new Limelight. */
+    public LimelightCommand(LimelightSubsystem subsystem) {
+     limelightSubsystem=subsystem;
+     // Use addRequirements() here to declare subsystem dependencies.
+     addRequirements(limelightSubsystem);
+   }
   
 
 
@@ -77,11 +78,11 @@ if(targetFound){
 
       if(tx>=range){
         //runs if apriltag is on left to center
-        rotateRight();
+        LimelightSubsystem.rotateRight();
 
       }else if(tx<=-range){
         //runs if apriltag is on right to center
-        rotateLeft();
+        LimelightSubsystem.rotateLeft();
 
       }else{
         //runs if apriltag is in the center of the screen(y is ignored)
@@ -134,44 +135,7 @@ SmartDashboard.putNumber("Distance",distance);
     return false;
   }
 
-  //Methods of what to do, robot is very polite
-  public void rotateRight(){
-    // limelightSubsystem.turnDarkBlue();
-    System.out.println("A little right please");
-  }
-
-  public void rotateLeft(){
-    //limelightSubsystem.turnLightLightBlue();
-    System.out.println("A little left please");
-  }
-
-  public void driveForward(){
-    //when you have apriltag centered but far
-    // limelightSubsystem.turnGreen();
-    System.out.println("Go forward please");
-  }
-
-  public void stopAndSeek(){
-    //when you are close but not perfectly centered
-    // limelightSubsystem.flashRed();
-    if(tx>=1){
-    System.out.println("Seeking TARGET...Turn LEFT please.");
-    }if(tx<=-1){
-      System.out.println("Seeking TARGET...Turn RIGHT please.");
-    }
-  }
-
-  public void stopAndDestroy(){
-    //when you are close and perfectly centered
-    // limelightSubsystem.turnDarkGreen();
-    System.out.println("i am in range of the apriltag "+tid+"! Great work me!");
-  }
-
-  public void searchingForTargets(){
-    //no apriltags seen
-    // limelightSubsystem.turnRed();
-    System.out.println("Scanning for Targets....");
-  }
+  
 
   
   public double getDistance(){
