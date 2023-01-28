@@ -22,7 +22,7 @@ private final LimelightSubsystem limelightSubsystem;
   private double ta = 0.0;
   private double tv = 0.0;
   private double camtran = 0.0;
-  
+  private double distance = 0.0;
 
 
   /* Creates a new Limelight. */
@@ -67,6 +67,8 @@ tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").ge
 //  NumberArray: Translation (x,y,z) Rotation(pitch,yaw,roll)
 camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDouble(0);
 
+//distance
+distance = getDistance();
 
 //translating tv into targetFound for convenience
 if (tv == 0){targetFound = false;}else{targetFound = true;}
@@ -116,6 +118,7 @@ SmartDashboard.putNumber("LimelightArea", ta);
 SmartDashboard.putNumber("LimelightTV", tv);
 SmartDashboard.putNumber("AprilTagID", tid);
 SmartDashboard.putBoolean("TargetSpotted", targetFound);
+SmartDashboard.putNumber("Distance",distance);
 
 
 }//end of execute
@@ -163,6 +166,8 @@ SmartDashboard.putBoolean("TargetSpotted", targetFound);
     limelightSubsystem.turnRed();
     System.out.println("Scanning for Targets....");
   }
+
+  
   public double getDistance(){
     
 
