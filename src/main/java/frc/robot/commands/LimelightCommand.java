@@ -24,7 +24,7 @@ private final LimelightSubsystem limelightSubsystem;
   private double ta = 0.0;
   private double tv = 0.0;
   private double camtran = 0.0;
-  
+  private double distance = 0.0;
 
   private boolean isPolite = true;
 
@@ -95,6 +95,8 @@ tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").ge
 //  NumberArray: Translation (x,y,z) Rotation(pitch,yaw,roll)
 camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDouble(0);
 
+//distance
+distance = getDistance();
 
 feelings[0] = true; //isPolite
 feelings[1] = false; //isTired
@@ -150,6 +152,7 @@ SmartDashboard.putNumber("LimelightArea", ta);
 SmartDashboard.putNumber("LimelightTV", tv);
 SmartDashboard.putNumber("AprilTagID", tid);
 SmartDashboard.putBoolean("TargetSpotted", targetFound);
+SmartDashboard.putNumber("Distance",distance);
 
 SmartDashboard.putString("Current Mood:", mood);
 
@@ -227,6 +230,8 @@ SmartDashboard.putString("Current Mood:", mood);
       System.out.println("I DONT SEE NUTHIN!");
     }
   }
+
+  
   public double getDistance(){
     
 
