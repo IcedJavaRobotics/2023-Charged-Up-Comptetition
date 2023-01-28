@@ -29,14 +29,37 @@ public class RobotContainer {
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
+  private int pos = 0;                      //tells driveTrain which button is pressed for auto scoring
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings(); {}
     
+    if(driverStation.getRawButtonPressed(1)) {
+      pos = 1;
+    } else if (driverStation.getRawButtonPressed(2)) {
+      pos = 2;
+    } else if (driverStation.getRawButtonPressed(3)) {
+      pos = 3;
+    } else if (driverStation.getRawButtonPressed(4)) {
+      pos = 4;
+    } else if (driverStation.getRawButtonPressed(5)) {
+      pos = 5;
+    } else if (driverStation.getRawButtonPressed(6)) {
+      pos = 6;
+    } else if (driverStation.getRawButtonPressed(7)) {
+      pos = 7;
+    } else if (driverStation.getRawButtonPressed(8)) {
+      pos = 8;
+    } else if (driverStation.getRawButtonPressed(9)) {
+      pos = 9;
+    } else {
+      pos = 0;
+    }
+
     driveTrainSubsystem.setDefaultCommand(
-      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
+      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1), pos), driveTrainSubsystem)
     );
 
   }
