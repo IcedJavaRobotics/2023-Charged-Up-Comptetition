@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 
+import java.util.List;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -25,7 +27,21 @@ private final LimelightSubsystem limelightSubsystem;
   private double distance = 0.0;
 
   private boolean isPolite = true;
-  private String personality = "Humble yet moody";
+
+  /*
+   * 0: isPolite
+   * 1: isTired
+   * 2: isHungry
+   */
+
+  private Boolean[] feelings  = new Boolean[3];
+  
+
+  private String mood = "Humble yet moody";
+
+  private String favoriteColor = "Blue";
+  private String teamColor = "Red";
+
   
 
   //Isaac Asimov's Three laws of robotics
@@ -45,7 +61,10 @@ private final LimelightSubsystem limelightSubsystem;
   @Override
   public void initialize() {
   //called when robot is first started up
-
+    if(favoriteColor==teamColor){
+      System.out.println("Woohoo! i love this color");
+    }else{
+      System.out.println("Aww man i hate this color");}
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -78,6 +97,12 @@ camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camt
 
 //distance
 distance = getDistance();
+
+feelings[0] = true; //isPolite
+feelings[1] = false; //isTired
+feelings[2] = false; //isHungry
+
+if(teamColor != favoriteColor){feelings[0]=false;}
 
 //translating tv into targetFound for convenience
 if (tv == 0){targetFound = false;}else{targetFound = true;}
@@ -129,7 +154,7 @@ SmartDashboard.putNumber("AprilTagID", tid);
 SmartDashboard.putBoolean("TargetSpotted", targetFound);
 SmartDashboard.putNumber("Distance",distance);
 
-SmartDashboard.putString("Current Mood:", personality);
+SmartDashboard.putString("Current Mood:", mood);
 
 
 }//end of execute
@@ -147,7 +172,7 @@ SmartDashboard.putString("Current Mood:", personality);
   //Methods of what to do, robot is very polite
   public void rotateRight(){
     limelightSubsystem.turnDarkBlue();
-    if(isPolite){
+    if(feelings[0]){
     System.out.println("A little right please");
     }else{
       System.out.println("Go right idiot");
@@ -155,7 +180,7 @@ SmartDashboard.putString("Current Mood:", personality);
   }
   public void rotateLeft(){
     limelightSubsystem.turnLightLightBlue();
-    if(isPolite){
+    if(feelings[0]){
     System.out.println("A little left please");
     }else{
       System.out.println("turn left stupid");
@@ -164,7 +189,7 @@ SmartDashboard.putString("Current Mood:", personality);
   public void driveForward(){
     //when you have apriltag centered but far
     limelightSubsystem.turnGreen();
-    if(isPolite){
+    if(feelings[0]){
     System.out.println("Go forward please");
     }else{
       System.out.println("MOVE FASTER HUMAN");
@@ -174,13 +199,13 @@ SmartDashboard.putString("Current Mood:", personality);
     //when you are close but not perfectly centered
     limelightSubsystem.flashRed();
     if(tx>=1){
-      if(isPolite){
+      if(feelings[0]){
     System.out.println("Seeking TARGET...Turn LEFT please.");
       }else{
         System.out.println("WHERE THE HECK IS THE TARGET? TURN LEFT BOZO");
       }
     }if(tx<=-1){
-      if(isPolite){
+      if(feelings[0]){
       System.out.println("Seeking TARGET...Turn RIGHT please.");
       }else{
         System.out.println("WHERE THE HECK IS THE TARGET? TURN RIGHT BOZO");
@@ -190,7 +215,7 @@ SmartDashboard.putString("Current Mood:", personality);
   public void stopAndDestroy(){
     //when you are close and perfectly centered
     limelightSubsystem.turnDarkGreen();
-    if(isPolite){
+    if(feelings[0]){
       System.out.println("i am in range of the apriltag!");
     }else{
     System.out.println("DESTROYING APRILTAG "+tid + " GRAAAHH");
@@ -199,7 +224,7 @@ SmartDashboard.putString("Current Mood:", personality);
   public void searchingForTargets(){
     //no apriltags seen
     limelightSubsystem.turnRed();
-    if(isPolite){
+    if(feelings[0]){
     System.out.println("Scanning for Targets....");
     }else{
       System.out.println("I DONT SEE NUTHIN!");
