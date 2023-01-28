@@ -26,29 +26,6 @@ private final LimelightSubsystem limelightSubsystem;
   private double camtran = 0.0;
   private double distance = 0.0;
 
-  private boolean isPolite = true;
-
-  /*
-   * 0: isPolite
-   * 1: isTired
-   * 2: isHungry
-   */
-
-  private Boolean[] feelings  = new Boolean[3];
-  
-
-  private String mood = "Humble yet moody";
-
-  private String favoriteColor = "Blue";
-  private String teamColor = "Red";
-
-  
-
-  //Isaac Asimov's Three laws of robotics
-  /*  A robot may not injure a human being or, through inaction, allow a human being to come to harm.
-      A robot must obey orders given it by human beings except where such orders would conflict with the First Law. 
-      A robot must protect its own existence as long as such protection does not conflict with the First or Second Law. 
-  */
 
   /* Creates a new Limelight. */
    public LimelightCommand(LimelightSubsystem subsystem) {
@@ -61,10 +38,7 @@ private final LimelightSubsystem limelightSubsystem;
   @Override
   public void initialize() {
   //called when robot is first started up
-    if(favoriteColor==teamColor){
-      System.out.println("Woohoo! i love this color");
-    }else{
-      System.out.println("Aww man i hate this color");}
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -98,11 +72,9 @@ camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camt
 //distance
 distance = getDistance();
 
-feelings[0] = true; //isPolite
-feelings[1] = false; //isTired
-feelings[2] = false; //isHungry
 
-if(teamColor != favoriteColor){feelings[0]=false;}
+
+
 
 //translating tv into targetFound for convenience
 if (tv == 0){targetFound = false;}else{targetFound = true;}
@@ -154,7 +126,7 @@ SmartDashboard.putNumber("AprilTagID", tid);
 SmartDashboard.putBoolean("TargetSpotted", targetFound);
 SmartDashboard.putNumber("Distance",distance);
 
-SmartDashboard.putString("Current Mood:", mood);
+
 
 
 }//end of execute
@@ -172,63 +144,53 @@ SmartDashboard.putString("Current Mood:", mood);
   //Methods of what to do, robot is very polite
   public void rotateRight(){
     limelightSubsystem.turnDarkBlue();
-    if(feelings[0]){
+    
     System.out.println("A little right please");
-    }else{
-      System.out.println("Go right idiot");
-    }
+    
+      
   }
   public void rotateLeft(){
     limelightSubsystem.turnLightLightBlue();
-    if(feelings[0]){
+    
     System.out.println("A little left please");
-    }else{
-      System.out.println("turn left stupid");
-    }
+   
+    
+    
   }
   public void driveForward(){
     //when you have apriltag centered but far
     limelightSubsystem.turnGreen();
-    if(feelings[0]){
+    
     System.out.println("Go forward please");
-    }else{
-      System.out.println("MOVE FASTER HUMAN");
-    }
+    
+      
   }
   public void stopAndSeek(){
     //when you are close but not perfectly centered
     limelightSubsystem.flashRed();
     if(tx>=1){
-      if(feelings[0]){
+     
     System.out.println("Seeking TARGET...Turn LEFT please.");
-      }else{
-        System.out.println("WHERE THE HECK IS THE TARGET? TURN LEFT BOZO");
-      }
+     
     }if(tx<=-1){
-      if(feelings[0]){
+      
       System.out.println("Seeking TARGET...Turn RIGHT please.");
-      }else{
-        System.out.println("WHERE THE HECK IS THE TARGET? TURN RIGHT BOZO");
-      }
+     
     }
   }
   public void stopAndDestroy(){
     //when you are close and perfectly centered
     limelightSubsystem.turnDarkGreen();
-    if(feelings[0]){
+   
       System.out.println("i am in range of the apriltag!");
-    }else{
-    System.out.println("DESTROYING APRILTAG "+tid + " GRAAAHH");
-    }
+  
   }
   public void searchingForTargets(){
     //no apriltags seen
     limelightSubsystem.turnRed();
-    if(feelings[0]){
+   
     System.out.println("Scanning for Targets....");
-    }else{
-      System.out.println("I DONT SEE NUTHIN!");
-    }
+   
   }
 
   
