@@ -50,21 +50,21 @@ private final LimelightSubsystem limelightSubsystem;
   public void execute() {
 
 //Whether the limelight has any valid targets (0 or 1)
-tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+tv = LimelightSubsystem.getTv();
 
 //Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
-tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+tx = LimelightSubsystem.getTx();
 //Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
-ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+ty = LimelightSubsystem.getTy();
 
 //Target Area (0% of image to 100% of image)
-ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+ta = LimelightSubsystem.getTa();
 
 //ID of primary AprilTag
-tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
+tid = LimelightSubsystem.getTid();
 
 //distance
-distance = getDistance();
+distance = LimelightSubsystem.getDistance();
 
 
 
@@ -89,15 +89,15 @@ if(targetFound){
 
         if(ta<=1.5){
           //if tag is small/far
-        driveForward();
+        LimelightSubsystem.driveForward();
         }else{
           //if tag is close up
           if(tx>=-1 && tx<=1){
             //if the tag is perfectly centered with the crosshairs x
-          stopAndDestroy();
+          LimelightSubsystem.stopAndDestroy();
           }else{
             //if you are close, but not quite centered perfectly.
-          stopAndSeek();
+          LimelightSubsystem.stopAndSeek();
           }
 
         }
@@ -107,7 +107,7 @@ if(targetFound){
 
 }else{
   //turns red if it doesnt see apriltag
-  searchingForTargets();
+  LimelightSubsystem.searchingForTargets();
 
 }
 
@@ -134,38 +134,9 @@ SmartDashboard.putNumber("Distance",distance);
   public boolean isFinished() {
     return false;
   }
+}
 
   
 
   
-  public double getDistance(){
-    
-double targetOffsetAngle_Vertical = ty;
-// 9.69
 
-// how many degrees back is your limelight rotated from perfectly vertical?
-double limelightMountAngleDegrees = 3.0;
-
-// distance from the center of the Limelight lens to the floor
-double limelightLensHeightInches = 18.5;
-
-// distance from the target to the floor in inches
-double goalHeightInches = 14.25;
-if(tid==4||tid==5){
-  //tid 4 and 5 are the double substations
-goalHeightInches = 23.375;
-}
-
-double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical; 
-double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
-
-//calculate distance
-if(ty>=0){
-  return (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
-}else{
-  return (limelightLensHeightInches)/Math.tan(angleToGoalRadians);
-}
-
-    
-  }
-}

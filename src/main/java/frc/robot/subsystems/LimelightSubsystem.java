@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -14,7 +15,55 @@ public class LimelightSubsystem extends SubsystemBase {
   public LimelightSubsystem() {
 
   }
+  
+  public double getTid(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
+  }
+  public double getTx(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+  }
+  public double getTy(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+  }
+  public double getTa(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
+  }
+  public double getTv(){
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+  }
 
+
+  public double getDistance(){
+    
+    double targetOffsetAngle_Vertical = getTy();
+    // 9.69
+    
+    // how many degrees back is your limelight rotated from perfectly vertical?
+    double limelightMountAngleDegrees = 3.0;
+    
+    // distance from the center of the Limelight lens to the floor
+    double limelightLensHeightInches = 18.5;
+    
+    // distance from the target to the floor in inches
+    double goalHeightInches = 14.25;
+    if(getTid()==4||getTid()==5){
+      //tid 4 and 5 are the double substations
+    goalHeightInches = 23.375;
+    }
+    
+    double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical; 
+    double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    
+    //calculate distance
+    if(getTy()>=0){
+      return (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+    }else{
+      return (limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+    }
+    
+        
+      }
+    
   //colors
   
   public void turnRed(){
@@ -64,9 +113,9 @@ public class LimelightSubsystem extends SubsystemBase {
   public void stopAndSeek(){
     //when you are close but not perfectly centered
     // limelightSubsystem.flashRed();
-    if(tx>=1){
+    if(getTx()>=1){
     System.out.println("Seeking TARGET...Turn LEFT please.");
-    }if(tx<=-1){
+    }if(getTx()<=-1){
       System.out.println("Seeking TARGET...Turn RIGHT please.");
     }
   }
@@ -74,7 +123,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public void stopAndDestroy(){
     //when you are close and perfectly centered
     // limelightSubsystem.turnDarkGreen();
-    System.out.println("i am in range of the apriltag "+tid+"! Great work me!");
+    System.out.println("i am in range of the apriltag "+getTid()+"! Great work me!");
   }
 
   public void searchingForTargets(){
