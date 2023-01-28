@@ -163,4 +163,25 @@ SmartDashboard.putBoolean("TargetSpotted", targetFound);
     limelightSubsystem.turnRed();
     System.out.println("Scanning for Targets....");
   }
+  public double getDistance(){
+    
+
+double targetOffsetAngle_Vertical = ty;
+
+// how many degrees back is your limelight rotated from perfectly vertical?
+double limelightMountAngleDegrees = 25.0;
+
+// distance from the center of the Limelight lens to the floor
+double limelightLensHeightInches = 20.0;
+
+// distance from the target to the floor
+double goalHeightInches = 23.375;
+
+double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+
+//calculate distance
+return (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+    
+  }
 }
