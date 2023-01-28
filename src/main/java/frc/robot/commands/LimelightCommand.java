@@ -26,6 +26,8 @@ private final LimelightSubsystem limelightSubsystem;
   private double camtran = 0.0;
   private double distance = 0.0;
 
+  
+
 
   /* Creates a new Limelight. */
    public LimelightCommand(LimelightSubsystem subsystem) {
@@ -182,7 +184,7 @@ SmartDashboard.putNumber("Distance",distance);
     //when you are close and perfectly centered
     limelightSubsystem.turnDarkGreen();
    
-      System.out.println("i am in range of the apriltag!");
+    System.out.println("i am in range of the apriltag!");
   
   }
   public void searchingForTargets(){
@@ -200,13 +202,17 @@ SmartDashboard.putNumber("Distance",distance);
 double targetOffsetAngle_Vertical = ty;
 
 // how many degrees back is your limelight rotated from perfectly vertical?
-double limelightMountAngleDegrees = 25.0;
+double limelightMountAngleDegrees = 30.0;
 
 // distance from the center of the Limelight lens to the floor
 double limelightLensHeightInches = 20.0;
 
-// distance from the target to the floor
-double goalHeightInches = 23.375;
+// distance from the target to the floor in inches
+double goalHeightInches = 14.25;
+if(tid==4||tid==5){
+  //tid 4 and 5 are the double substations
+goalHeightInches = 23.375;
+}
 
 double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
 double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
