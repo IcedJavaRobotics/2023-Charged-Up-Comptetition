@@ -4,13 +4,8 @@
 
 package frc.robot.commands;
 
-
-
-
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 
 
@@ -18,7 +13,6 @@ public class LimelightCommand extends CommandBase {
 
 private final LimelightSubsystem limelightSubsystem;
   private boolean targetFound = false;
-  private double range = 10;
   private double tx = 0.0;
   private double ty = 0.0;
   private double tid = 0.0;
@@ -26,8 +20,7 @@ private final LimelightSubsystem limelightSubsystem;
   private double tv = 0.0;
   private double distance = 0.0;
 
-  
-
+  private double range = 10;
 
   /*  Creates a new Limelight. */
     public LimelightCommand(LimelightSubsystem subsystem) {
@@ -36,9 +29,6 @@ private final LimelightSubsystem limelightSubsystem;
      addRequirements(limelightSubsystem);
    }
   
-
-
- 
   @Override
   public void initialize() {
   //called when robot is first started up
@@ -51,27 +41,21 @@ private final LimelightSubsystem limelightSubsystem;
 
 //Whether the limelight has any valid targets (0 or 1)
 tv = limelightSubsystem.getTv();
-
 //Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
 tx = limelightSubsystem.getTx();
 //Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
 ty = limelightSubsystem.getTy();
-
 //Target Area (0% of image to 100% of image)
 ta = limelightSubsystem.getTa();
-
 //ID of primary AprilTag
 tid = limelightSubsystem.getTid();
-
 //distance
 distance = limelightSubsystem.getDistance();
 
-
-
-
-
 //translating tv into targetFound for convenience
 if (tv == 0){targetFound = false;}else{targetFound = true;}
+
+
 
 //Runs only if AprilTag is detected
 if(targetFound){
@@ -89,15 +73,15 @@ if(targetFound){
 
         if(ta<=1.5){
           //if tag is small/far
-        limelightSubsystem.driveForward();
+          limelightSubsystem.driveForward();
         }else{
           //if tag is close up
           if(tx>=-1 && tx<=1){
             //if the tag is perfectly centered with the crosshairs x
-          limelightSubsystem.stopAndDestroy();
+            limelightSubsystem.stopAndDestroy();
           }else{
             //if you are close, but not quite centered perfectly.
-          limelightSubsystem.stopAndSeek();
+            limelightSubsystem.stopAndSeek();
           }
 
         }
