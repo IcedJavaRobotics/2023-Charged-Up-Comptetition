@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 
-import java.util.List;
+
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LimelightSubsystem;
+// import frc.robot.subsystems.LimelightSubsystem;
 
 
 public class LimelightCommand extends CommandBase {
 
-private final LimelightSubsystem limelightSubsystem;
+// private final LimelightSubsystem limelightSubsystem;
   private boolean targetFound = false;
   private double range = 10;
   private double tx = 0.0;
@@ -23,18 +23,19 @@ private final LimelightSubsystem limelightSubsystem;
   private double tid = 0.0;
   private double ta = 0.0;
   private double tv = 0.0;
-  private double camtran = 0.0;
   private double distance = 0.0;
 
   
 
 
   /* Creates a new Limelight. */
-   public LimelightCommand(LimelightSubsystem subsystem) {
-    limelightSubsystem=subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(limelightSubsystem);
-  }
+  //  public LimelightCommand(LimelightSubsystem subsystem) {
+  //   limelightSubsystem=subsystem;
+  //   // Use addRequirements() here to declare subsystem dependencies.
+  //   addRequirements(limelightSubsystem);
+  // }
+  
+
 
  
   @Override
@@ -46,12 +47,6 @@ private final LimelightSubsystem limelightSubsystem;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-//variables for examples
-  // final double STEER_K = 0.03;                    // how hard to turn toward the target
-  // final double DRIVE_K = 0.26;                    // how hard to drive fwd toward the target
-  // final double DESIRED_TARGET_AREA = 13.0;        // Area of the target when the robot reaches the wall
-  // final double MAX_DRIVE = 0.7;                   // Simple speed limit so we don't drive too fast
-
 
 //Whether the limelight has any valid targets (0 or 1)
 tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
@@ -66,10 +61,6 @@ ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getD
 
 //ID of primary AprilTag
 tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
-
-// Camera transform in target space of primary apriltag or solvepnp target.
-//  NumberArray: Translation (x,y,z) Rotation(pitch,yaw,roll)
-camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDouble(0);
 
 //distance
 distance = getDistance();
@@ -145,67 +136,54 @@ SmartDashboard.putNumber("Distance",distance);
 
   //Methods of what to do, robot is very polite
   public void rotateRight(){
-    limelightSubsystem.turnDarkBlue();
-    
+    // limelightSubsystem.turnDarkBlue();
     System.out.println("A little right please");
-    
-      
   }
+
   public void rotateLeft(){
-    limelightSubsystem.turnLightLightBlue();
-    
+    //limelightSubsystem.turnLightLightBlue();
     System.out.println("A little left please");
-   
-    
-    
   }
+
   public void driveForward(){
     //when you have apriltag centered but far
-    limelightSubsystem.turnGreen();
-    
+    // limelightSubsystem.turnGreen();
     System.out.println("Go forward please");
-    
-      
   }
+
   public void stopAndSeek(){
     //when you are close but not perfectly centered
-    limelightSubsystem.flashRed();
+    // limelightSubsystem.flashRed();
     if(tx>=1){
-     
     System.out.println("Seeking TARGET...Turn LEFT please.");
-     
     }if(tx<=-1){
-      
       System.out.println("Seeking TARGET...Turn RIGHT please.");
-     
     }
   }
+
   public void stopAndDestroy(){
     //when you are close and perfectly centered
-    limelightSubsystem.turnDarkGreen();
-   
-    System.out.println("i am in range of the apriltag!");
-  
+    // limelightSubsystem.turnDarkGreen();
+    System.out.println("i am in range of the apriltag "+tid+"! Great work me!");
   }
+
   public void searchingForTargets(){
     //no apriltags seen
-    limelightSubsystem.turnRed();
-   
+    // limelightSubsystem.turnRed();
     System.out.println("Scanning for Targets....");
-   
   }
 
   
   public double getDistance(){
     
-
 double targetOffsetAngle_Vertical = ty;
+// 9.69
 
 // how many degrees back is your limelight rotated from perfectly vertical?
-double limelightMountAngleDegrees = 30.0;
+double limelightMountAngleDegrees = 3.0;
 
 // distance from the center of the Limelight lens to the floor
-double limelightLensHeightInches = 20.0;
+double limelightLensHeightInches = 18.5;
 
 // distance from the target to the floor in inches
 double goalHeightInches = 14.25;
@@ -214,11 +192,16 @@ if(tid==4||tid==5){
 goalHeightInches = 23.375;
 }
 
-double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical; 
 double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
 
 //calculate distance
-return (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+if(ty>=0){
+  return (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+}else{
+  return (limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+}
+
     
   }
 }

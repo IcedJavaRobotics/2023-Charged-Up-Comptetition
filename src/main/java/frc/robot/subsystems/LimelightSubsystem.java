@@ -10,12 +10,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LimelightSubsystem extends SubsystemBase {
 
   private Spark blinkin = new Spark(0); //Creates a blinkin as if it were a spark.
-  /** Creates a new LimelightSubsystem. */
+   //Creates a new LimelightSubsystem. 
   public LimelightSubsystem() {
 
   }
 
   //colors
+  
   public void turnRed(){
   blinkin.set(0.61);
   }

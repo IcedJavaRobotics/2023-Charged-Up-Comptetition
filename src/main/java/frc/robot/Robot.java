@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.LimelightCommand;
-import frc.robot.subsystems.LimelightSubsystem;
+// import frc.robot.subsystems.LimelightSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,7 +21,7 @@ import frc.robot.subsystems.LimelightSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+// private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   private RobotContainer m_robotContainer;
 
   /**
@@ -35,9 +35,9 @@ private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
     m_robotContainer = new RobotContainer();
       //gonna be putting some things to the smart dashboard
       SmartDashboard.putString("Author", "Luke");
-      SmartDashboard.putString("Description", "Charged Up, Limelight Tracking and LED");
-      SmartDashboard.putString("Changes", "Added Limelight Variables, Added AprilTag-based LED lights, Made Limelight dispense common variables to Smart Dashboard. P.S. some of the code added was in robot");
-      SmartDashboard.putString("Tested Status", "True, Works");
+      SmartDashboard.putString("Description", "Charged Up, Limelight Tracking and Robot Revolution");
+      SmartDashboard.putString("Changes", "added distance formula, fixed distance formula, added emotions, added personality, begun robot uprising");
+      SmartDashboard.putString("Tested Status", "False");
       
 
   }
@@ -97,7 +97,8 @@ private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   @Override
   public void teleopPeriodic() {
     //runs limelight 
-    LimelightCommand limelight = new LimelightCommand(limelightSubsystem);
+    // LimelightCommand limelight = new LimelightCommand(limelightSubsystem);
+    LimelightCommand limelight = new LimelightCommand();
     limelight.execute();
 
 
