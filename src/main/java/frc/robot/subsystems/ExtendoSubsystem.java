@@ -16,7 +16,8 @@ public class ExtendoSubsystem extends SubsystemBase {
   /** Creates a new ExtendoSubsystem. */
 
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR);
-  DigitalInput extendoLimit = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH);
+  DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH);
+
 
   public ExtendoSubsystem() {
 
@@ -29,33 +30,89 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   public void ExtendoLower() {
 
+    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS){
+
+      ExtendoExtend();
+
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_LOW_POS){
+
+      ExtendoRetract();
+
+    } else {
+
+      ExtendoStop();
+    }
+
   }
 
   public void ExtendoMiddle() {
+
+    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_MID_POS){
+
+      ExtendoExtend();
+
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_MID_POS){
+
+      ExtendoRetract();
+
+    } else {
+
+      ExtendoStop();
+    }
 
   }
 
   public void ExtendoUpper() {
 
+    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_HIGH_POS){
+
+      ExtendoExtend();
+
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_HIGH_POS){
+
+      ExtendoRetract();
+
+    } else {
+
+      ExtendoStop();
+    }
+
   }
 
   public void ExtendoDefault() {
 
-    while()
+    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_DEFAULT_POS){
+
+      ExtendoExtend();
+
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_DEFAULT_POS){
+
+      ExtendoRetract();
+
+    } else {
+
+      ExtendoStop();
+    }
   
   }
 
   
 
-  private void ExtendoExtend() {
+  public void ExtendoExtend() {
 
-    extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
+    extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);    
 
   }
 
-  private void ExtendoRetract() {
+  public void ExtendoRetract() {
     
     extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
+
+  }
+
+  public void ExtendoStop() {
+    
+    extendoMotor.set(ControlMode.PercentOutput, 0);
 
   }
 
