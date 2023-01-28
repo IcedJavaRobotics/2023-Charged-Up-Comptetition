@@ -4,16 +4,27 @@
 
 package frc.robot;
 
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Autos;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.SetSlotGoal1Command;
+import frc.robot.commands.SetSlotGoal2Command;
+import frc.robot.commands.SetSlotGoal3Command;
+import frc.robot.commands.SetSlotGoal4Command;
+import frc.robot.commands.SetSlotGoal5Command;
+import frc.robot.commands.SetSlotGoal6Command;
+import frc.robot.commands.SetSlotGoal7Command;
+import frc.robot.commands.SetSlotGoal8Command;
+import frc.robot.commands.SetSlotGoal9Command;
+import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GlobalVariablesSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,41 +36,46 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final GlobalVariablesSubsystem globalVariablesSubsystem = new GlobalVariablesSubsystem();
 
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
-  private int pos = 0;                      //tells driveTrain which button is pressed for auto scoring
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings(); {}
     
-    if(driverStation.getRawButtonPressed(1)) {
-      pos = 1;
-    } else if (driverStation.getRawButtonPressed(2)) {
-      pos = 2;
-    } else if (driverStation.getRawButtonPressed(3)) {
-      pos = 3;
-    } else if (driverStation.getRawButtonPressed(4)) {
-      pos = 4;
-    } else if (driverStation.getRawButtonPressed(5)) {
-      pos = 5;
-    } else if (driverStation.getRawButtonPressed(6)) {
-      pos = 6;
-    } else if (driverStation.getRawButtonPressed(7)) {
-      pos = 7;
-    } else if (driverStation.getRawButtonPressed(8)) {
-      pos = 8;
-    } else if (driverStation.getRawButtonPressed(9)) {
-      pos = 9;
-    } else {
-      pos = 0;
-    }
+    new JoystickButton(driverStation, 1)
+      .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 2)
+      .whileTrue(new SetSlotGoal2Command(globalVariablesSubsystem));
+    
+    new JoystickButton(driverStation, 3)
+      .whileTrue(new SetSlotGoal3Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 4)
+      .whileTrue(new SetSlotGoal4Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 5)
+      .whileTrue(new SetSlotGoal5Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 6)
+      .whileTrue(new SetSlotGoal6Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 7)
+      .whileTrue(new SetSlotGoal7Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 8)
+      .whileTrue(new SetSlotGoal8Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 9)
+      .whileTrue(new SetSlotGoal9Command(globalVariablesSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
-      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1), pos), driveTrainSubsystem)
+      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
     );
 
   }

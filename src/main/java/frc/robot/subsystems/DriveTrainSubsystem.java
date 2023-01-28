@@ -43,10 +43,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom, int pos ) {
+  public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom) {
 
-    switch (pos) {
+    switch (GlobalVariablesSubsystem.slotGoal) {
       case 1:
+
         break;
       case 2:
         break;
