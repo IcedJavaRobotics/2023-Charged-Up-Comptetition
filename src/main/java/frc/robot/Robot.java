@@ -29,11 +29,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    SmartDashboard.putString("Version", "1.0");
+    SmartDashboard.putString("Version", "1.1");
     SmartDashboard.putString("Author", "Alexa");
     SmartDashboard.putString("Description", "Charged Up, Mecanum drive train");
     SmartDashboard.putString("Changes", "Added drive train, SmartDashboard information, and controllers");
-    SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
+    SmartDashboard.putString("DriveTrainSubsystem status", "Tested");
   }
 
   /**
