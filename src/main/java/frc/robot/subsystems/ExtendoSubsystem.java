@@ -28,89 +28,89 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
-  public void ExtendoLower() {
+  public void extendoLower() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS){
 
-      ExtendoExtend();
+      extendoExtend();
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_LOW_POS){
 
-      ExtendoRetract();
+      extendoRetract();
 
     } else {
 
-      ExtendoStop();
+      extendoStop();
     }
 
   }
 
-  public void ExtendoMiddle() {
+  public void extendoMiddle() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_MID_POS){
 
-      ExtendoExtend();
+      extendoExtend();
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_MID_POS){
 
-      ExtendoRetract();
+      extendoRetract();
 
     } else {
 
-      ExtendoStop();
+      extendoStop();
     }
 
   }
 
-  public void ExtendoUpper() {
+  public void extendoUpper() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_HIGH_POS){
 
-      ExtendoExtend();
+      extendoExtend();
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_HIGH_POS){
 
-      ExtendoRetract();
+      extendoRetract();
 
     } else {
 
-      ExtendoStop();
+      extendoStop();
     }
 
   }
 
-  public void ExtendoDefault() {
+  public void extendoDefault() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_DEFAULT_POS){
 
-      ExtendoExtend();
+      extendoExtend();
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_DEFAULT_POS){
 
-      ExtendoRetract();
+      extendoRetract();
 
     } else {
 
-      ExtendoStop();
+      extendoStop();
     }
   
   }
 
   
 
-  public void ExtendoExtend() {
+  public void extendoExtend() {
 
     extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);    
 
   }
 
-  public void ExtendoRetract() {
+  public void extendoRetract() {
     
     extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
 
   }
 
-  public void ExtendoStop() {
+  public void extendoStop() {
     
     extendoMotor.set(ControlMode.PercentOutput, 0);
 
