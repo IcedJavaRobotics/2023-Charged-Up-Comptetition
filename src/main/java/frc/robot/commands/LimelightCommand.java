@@ -24,6 +24,15 @@ private final LimelightSubsystem limelightSubsystem;
   private double camtran = 0.0;
   private double distance = 0.0;
 
+  private boolean isPolite = true;
+  private String personality = "Humble yet moody";
+  
+
+  //Isaac Asimov's Three laws of robotics
+  /*  A robot may not injure a human being or, through inaction, allow a human being to come to harm.
+      A robot must obey orders given it by human beings except where such orders would conflict with the First Law. 
+      A robot must protect its own existence as long as such protection does not conflict with the First or Second Law. 
+  */
 
   /* Creates a new Limelight. */
    public LimelightCommand(LimelightSubsystem subsystem) {
@@ -120,6 +129,8 @@ SmartDashboard.putNumber("AprilTagID", tid);
 SmartDashboard.putBoolean("TargetSpotted", targetFound);
 SmartDashboard.putNumber("Distance",distance);
 
+SmartDashboard.putString("Current Mood:", personality);
+
 
 }//end of execute
 
@@ -136,35 +147,63 @@ SmartDashboard.putNumber("Distance",distance);
   //Methods of what to do, robot is very polite
   public void rotateRight(){
     limelightSubsystem.turnDarkBlue();
+    if(isPolite){
     System.out.println("A little right please");
+    }else{
+      System.out.println("Go right idiot");
+    }
   }
   public void rotateLeft(){
     limelightSubsystem.turnLightLightBlue();
+    if(isPolite){
     System.out.println("A little left please");
+    }else{
+      System.out.println("turn left stupid");
+    }
   }
   public void driveForward(){
     //when you have apriltag centered but far
     limelightSubsystem.turnGreen();
-    System.out.println("GO GO GO");
+    if(isPolite){
+    System.out.println("Go forward please");
+    }else{
+      System.out.println("MOVE FASTER HUMAN");
+    }
   }
   public void stopAndSeek(){
     //when you are close but not perfectly centered
     limelightSubsystem.flashRed();
     if(tx>=1){
+      if(isPolite){
     System.out.println("Seeking TARGET...Turn LEFT please.");
+      }else{
+        System.out.println("WHERE THE HECK IS THE TARGET? TURN LEFT BOZO");
+      }
     }if(tx<=-1){
+      if(isPolite){
       System.out.println("Seeking TARGET...Turn RIGHT please.");
+      }else{
+        System.out.println("WHERE THE HECK IS THE TARGET? TURN RIGHT BOZO");
+      }
     }
   }
   public void stopAndDestroy(){
     //when you are close and perfectly centered
     limelightSubsystem.turnDarkGreen();
-    System.out.println("DESTROYING APRILTAG "+tid);
+    if(isPolite){
+      System.out.println("i am in range of the apriltag!");
+    }else{
+    System.out.println("DESTROYING APRILTAG "+tid + " GRAAAHH");
+    }
   }
   public void searchingForTargets(){
     //no apriltags seen
     limelightSubsystem.turnRed();
+    if(isPolite){
     System.out.println("Scanning for Targets....");
+    }else{
+      System.out.println("I DONT SEE NUTHIN!");
+    }
   }
 
   
