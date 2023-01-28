@@ -21,7 +21,7 @@ import frc.robot.subsystems.LimelightSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-// private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   private RobotContainer m_robotContainer;
 
   /**
@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //runs limelight 
-    LimelightCommand limelight = new LimelightCommand(LimelightSubsystem);
+    LimelightCommand limelight = new LimelightCommand(limelightSubsystem);
     limelight.execute();
 
 

@@ -50,21 +50,21 @@ private final LimelightSubsystem limelightSubsystem;
   public void execute() {
 
 //Whether the limelight has any valid targets (0 or 1)
-tv = LimelightSubsystem.getTv();
+tv = limelightSubsystem.getTv();
 
 //Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
-tx = LimelightSubsystem.getTx();
+tx = limelightSubsystem.getTx();
 //Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
-ty = LimelightSubsystem.getTy();
+ty = limelightSubsystem.getTy();
 
 //Target Area (0% of image to 100% of image)
-ta = LimelightSubsystem.getTa();
+ta = limelightSubsystem.getTa();
 
 //ID of primary AprilTag
-tid = LimelightSubsystem.getTid();
+tid = limelightSubsystem.getTid();
 
 //distance
-distance = LimelightSubsystem.getDistance();
+distance = limelightSubsystem.getDistance();
 
 
 
@@ -78,26 +78,26 @@ if(targetFound){
 
       if(tx>=range){
         //runs if apriltag is on left to center
-        LimelightSubsystem.rotateRight();
+        limelightSubsystem.rotateRight();
 
       }else if(tx<=-range){
         //runs if apriltag is on right to center
-        LimelightSubsystem.rotateLeft();
+        limelightSubsystem.rotateLeft();
 
       }else{
         //runs if apriltag is in the center of the screen(y is ignored)
 
         if(ta<=1.5){
           //if tag is small/far
-        LimelightSubsystem.driveForward();
+        limelightSubsystem.driveForward();
         }else{
           //if tag is close up
           if(tx>=-1 && tx<=1){
             //if the tag is perfectly centered with the crosshairs x
-          LimelightSubsystem.stopAndDestroy();
+          limelightSubsystem.stopAndDestroy();
           }else{
             //if you are close, but not quite centered perfectly.
-          LimelightSubsystem.stopAndSeek();
+          limelightSubsystem.stopAndSeek();
           }
 
         }
@@ -107,7 +107,7 @@ if(targetFound){
 
 }else{
   //turns red if it doesnt see apriltag
-  LimelightSubsystem.searchingForTargets();
+  limelightSubsystem.searchingForTargets();
 
 }
 

@@ -36,7 +36,6 @@ public class LimelightSubsystem extends SubsystemBase {
   public double getDistance(){
     
     double targetOffsetAngle_Vertical = getTy();
-    // 9.69
     
     // how many degrees back is your limelight rotated from perfectly vertical?
     double limelightMountAngleDegrees = 3.0;
@@ -46,6 +45,7 @@ public class LimelightSubsystem extends SubsystemBase {
     
     // distance from the target to the floor in inches
     double goalHeightInches = 14.25;
+    
     if(getTid()==4||getTid()==5){
       //tid 4 and 5 are the double substations
     goalHeightInches = 23.375;
