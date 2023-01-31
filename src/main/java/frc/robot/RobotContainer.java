@@ -4,13 +4,27 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.SetSlotGoal1Command;
+import frc.robot.commands.SetSlotGoal2Command;
+import frc.robot.commands.SetSlotGoal3Command;
+import frc.robot.commands.SetSlotGoal4Command;
+import frc.robot.commands.SetSlotGoal5Command;
+import frc.robot.commands.SetSlotGoal6Command;
+import frc.robot.commands.SetSlotGoal7Command;
+import frc.robot.commands.SetSlotGoal8Command;
+import frc.robot.commands.SetSlotGoal9Command;
+import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.GlobalVariablesSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,16 +34,82 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final GlobalVariablesSubsystem globalVariablesSubsystem = new GlobalVariablesSubsystem();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  XboxController xboxController = new XboxController(Constants.CONTROLLER);
+  Joystick flightStick = new Joystick(Constants.JOYSTICK);
+  Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings();
+    configureBindings(); {}
+    
+    new JoystickButton(driverStation, 1)
+      .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 2)
+      .whileTrue(new SetSlotGoal2Command(globalVariablesSubsystem));
+    
+    new JoystickButton(driverStation, 3)
+      .whileTrue(new SetSlotGoal3Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 4)
+      .whileTrue(new SetSlotGoal4Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 5)
+      .whileTrue(new SetSlotGoal5Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 6)
+      .whileTrue(new SetSlotGoal6Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 7)
+      .whileTrue(new SetSlotGoal7Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 8)
+      .whileTrue(new SetSlotGoal8Command(globalVariablesSubsystem));
+
+    new JoystickButton(driverStation, 9)
+      .whileTrue(new SetSlotGoal9Command(globalVariablesSubsystem));
+
+    driveTrainSubsystem.setDefaultCommand(
+      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
+    );
+
+  }
+
+  private double deadZoneMod(double val) {      //Creates a range where the robot will not recieve input to prevent controller drift
+    if (Math.abs(val) <= Constants.DEADZONE) {
+      return 0;
+    } else {
+      return ((Math.abs(val) - 0.2) * 1.25) * (val/Math.abs(val));
+    }
+  }
+
+  public double getJoystickX() {
+    if ( flightStick != null ) {
+      return deadZoneMod(flightStick.getX());
+    } else {
+      return 0;
+    }
+  }
+
+  public double getJoystickY() {
+    if ( flightStick != null ) {
+      return deadZoneMod(flightStick.getY());
+    } else {
+      return 0;
+    }
+  }
+
+  public double getJoystickTwist() {
+    if ( flightStick != null ) {
+      return deadZoneMod(flightStick.getTwist());
+    } else {
+      return 0;
+    }
   }
 
   /**
@@ -48,7 +128,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**
