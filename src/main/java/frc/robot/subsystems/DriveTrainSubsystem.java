@@ -8,13 +8,17 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import frc.robot.commands.LimelightCommand;
+
+
 public class DriveTrainSubsystem extends SubsystemBase {
   /** Creates a new DriveTrainSubsystem. */ 
+  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+  LimelightCommand limelight = new LimelightCommand(limelightSubsystem);
 
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
@@ -26,6 +30,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double kP = 0.3;
   double kI = 0.05;                                                               //PID values
   double kD = 0.1;
+
   double leftSideSetpoint = 15;
   double midSetpoint = 0;
   double rightSideSetpoint = -15;
@@ -43,6 +48,24 @@ public class DriveTrainSubsystem extends SubsystemBase {
     scoreController.setIntegratorRange(-0.5, 0.5);
 
   }
+  public void rotateLeft(double speed) {
+      moveMotor(-speed, frontLeftTalon);
+      moveMotor(-speed, backLeftTalon);
+      moveMotor(speed, frontRightTalon);
+      moveMotor(speed, backRightTalon);
+  }
+  public void rotateRight(double speed) {
+      moveMotor(speed, frontLeftTalon);
+      moveMotor(speed, backLeftTalon);
+      moveMotor(-speed, frontRightTalon);
+      moveMotor(-speed, backRightTalon);
+  }
+  public void  stopMotor() {
+      moveMotor(0, frontLeftTalon);
+      moveMotor(0, backLeftTalon);
+      moveMotor(0, frontRightTalon);
+      moveMotor(0, backRightTalon);
+  }
 
   public void moveMotor( double speed, TalonFX talon ) {
 
@@ -58,7 +81,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom) {
 
-    double horiOffset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    double horiOffset = limelightSubsystem.getTx();
+    //double floorDistance = limelightSubsystem.getDistance(); //distance to apriltag for when needed
+    
 
     switch (GlobalVariablesSubsystem.slotGoal) {
       case 1: //far left on grid
