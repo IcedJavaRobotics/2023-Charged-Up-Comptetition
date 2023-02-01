@@ -11,7 +11,9 @@ public class GlobalVariablesSubsystem extends SubsystemBase {
 
   public static int slotGoal = 0;
 
-  public GlobalVariablesSubsystem() {}
+  public GlobalVariablesSubsystem() {
+    System.out.println("slotGoal set");
+  }
 
   public void slotGoal1() {
 

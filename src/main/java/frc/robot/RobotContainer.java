@@ -47,32 +47,61 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings(); {}
     
-    new JoystickButton(driverStation, 1)
-      .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
+    // new JoystickButton(driverStation, 1)
+    //   .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
 
-    new JoystickButton(driverStation, 2)
+    // new JoystickButton(driverStation, 2)
+    //   .whileTrue(new SetSlotGoal2Command(globalVariablesSubsystem));
+    
+    // new JoystickButton(driverStation, 3)
+    //   .whileTrue(new SetSlotGoal3Command(globalVariablesSubsystem));
+
+    // new JoystickButton(driverStation, 4)
+    //   .whileTrue(new SetSlotGoal4Command(globalVariablesSubsystem));
+
+    // new JoystickButton(driverStation, 5)
+    //   .whileTrue(new SetSlotGoal5Command(globalVariablesSubsystem));
+
+    // new JoystickButton(driverStation, 6)
+    //   .whileTrue(new SetSlotGoal6Command(globalVariablesSubsystem));
+
+    // new JoystickButton(driverStation, 7)
+    //   .whileTrue(new SetSlotGoal7Command(globalVariablesSubsystem));
+
+    // new JoystickButton(driverStation, 8)
+    //   .whileTrue(new SetSlotGoal8Command(globalVariablesSubsystem));
+
+    // new JoystickButton(driverStation, 9)
+    //   .whileTrue(new SetSlotGoal9Command(globalVariablesSubsystem));
+
+    
+    new JoystickButton(flightStick, 2)
       .whileTrue(new SetSlotGoal2Command(globalVariablesSubsystem));
     
-    new JoystickButton(driverStation, 3)
+    new JoystickButton(flightStick, 3)
       .whileTrue(new SetSlotGoal3Command(globalVariablesSubsystem));
 
-    new JoystickButton(driverStation, 4)
+    new JoystickButton(flightStick, 4)
       .whileTrue(new SetSlotGoal4Command(globalVariablesSubsystem));
 
-    new JoystickButton(driverStation, 5)
+    new JoystickButton(flightStick, 5)
       .whileTrue(new SetSlotGoal5Command(globalVariablesSubsystem));
 
-    new JoystickButton(driverStation, 6)
+    new JoystickButton(flightStick, 6)
       .whileTrue(new SetSlotGoal6Command(globalVariablesSubsystem));
 
-    new JoystickButton(driverStation, 7)
+    new JoystickButton(flightStick, 7)
       .whileTrue(new SetSlotGoal7Command(globalVariablesSubsystem));
 
-    new JoystickButton(driverStation, 8)
+    new JoystickButton(flightStick, 8)
       .whileTrue(new SetSlotGoal8Command(globalVariablesSubsystem));
 
-    new JoystickButton(driverStation, 9)
+    new JoystickButton(flightStick, 9)
       .whileTrue(new SetSlotGoal9Command(globalVariablesSubsystem));
+      
+    new JoystickButton(flightStick, 10)
+      .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
+
 
     driveTrainSubsystem.setDefaultCommand(
       new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)

@@ -23,9 +23,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double driveTime;
   double speedMod;
   double rampUpTime = 1.5;
-  double kP = 0.3;
-  double kI = 0.05;                                                               //PID values
-  double kD = 0.1;
+  double kP = 0.1;
+  double kI = 0.01;                                                               //PID values
+  double kD = 0.01;
   double leftSideSetpoint = 15;
   double midSetpoint = 0;
   double rightSideSetpoint = -15;
@@ -64,31 +64,59 @@ public class DriveTrainSubsystem extends SubsystemBase {
       case 1: //far left on grid
       case 4: //mid left on grid
       case 7: //close left on grid
+        if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
 
-        moveMotor( scoreController.calculate(horiOffset, leftSideSetpoint), frontLeftTalon);
-        moveMotor( -scoreController.calculate(horiOffset, leftSideSetpoint), backLeftTalon);
-        moveMotor( scoreController.calculate(horiOffset, leftSideSetpoint), frontRightTalon);
-        moveMotor( -scoreController.calculate(horiOffset, leftSideSetpoint), backRightTalon);
+          moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
+          moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
+          moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
+          moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
+
+          System.out.println("slotGoal get a");
+
+        }  else {
+
+          System.out.println("Target not found");
+
+        }
 
         break;
       case 2: //far mid on grid
       case 5: //mid mid on grid
       case 8: //close mid on grid
 
-        moveMotor( scoreController.calculate(horiOffset, midSetpoint), frontLeftTalon);
-        moveMotor( -scoreController.calculate(horiOffset, midSetpoint), backLeftTalon);
-        moveMotor( scoreController.calculate(horiOffset, midSetpoint), frontRightTalon);
-        moveMotor( -scoreController.calculate(horiOffset, midSetpoint), backRightTalon);
+        if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
+          moveMotor( ensureRange(0.1 * scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
+          moveMotor( ensureRange(-0.1 * scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
+          moveMotor( ensureRange(-0.1 * scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
+          moveMotor( ensureRange(0.1 * scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
+
+          System.out.println("slotGoal get b");
+          System.out.println(horiOffset);
+        } else {
+
+          System.out.println("Target not found");
+
+        }
 
         break;
       case 3: //far right on grid
       case 6: //mid right on grid
       case 9: //close right on grid
       
-        moveMotor( scoreController.calculate(horiOffset, rightSideSetpoint), frontLeftTalon);
-        moveMotor( -scoreController.calculate(horiOffset, rightSideSetpoint), backLeftTalon);
-        moveMotor( scoreController.calculate(horiOffset, rightSideSetpoint), frontRightTalon);
-        moveMotor( -scoreController.calculate(horiOffset, rightSideSetpoint), backRightTalon);
+        if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) ==1) {
+
+          moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
+          moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
+          moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
+          moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
+
+          System.out.println("slotGoal get c");
+
+        } else{
+
+          System.out.println("Target not found");
+
+        }
 
         break;
       default:
