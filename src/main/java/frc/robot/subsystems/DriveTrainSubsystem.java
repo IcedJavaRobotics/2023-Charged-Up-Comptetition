@@ -48,6 +48,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     scoreController.setIntegratorRange(-0.5, 0.5);
 
   }
+  
   public void rotateLeft(double speed) {
       moveMotor(-speed, frontLeftTalon);
       moveMotor(-speed, backLeftTalon);
