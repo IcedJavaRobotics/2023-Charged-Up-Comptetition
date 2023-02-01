@@ -33,11 +33,7 @@ private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-      //gonna be putting some things to the smart dashboard
-      SmartDashboard.putString("Author", "Luke");
-      SmartDashboard.putString("Description", "Charged Up, Limelight Tracking and Robot Revolution");
-      SmartDashboard.putString("Changes", "added distance formula, fixed distance formula, added emotions, added personality, begun robot uprising");
-      SmartDashboard.putString("Tested Status", "False");
+      
       
 
   }
