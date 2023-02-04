@@ -26,5 +26,34 @@ public final class Constants {
   public static final int CONTROLLER = 2;
       // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
-  
+
+  //Claw
+  public static final int LEFT_CLAW = 7;
+  public static final int RIGHT_CLAW = 8;
+  public static final double CLAW_SPEED = .5;
+
+  //Digital imputs
+  public static final int RIGHT_CLAW_LIMIT = 0;
+  public static final int LEFT_CLAW_LIMIT = 1;
+  public static final int EXTENDO_LIMIT_SWITCH = 2;
+  public static final int ARM_LIMIT_SWITCH = 3;
+  public static final int ARM_ENCODER = 4;
+
+  // Extendo
+  public static final int EXTENDO_MOTOR = 5;
+  public static final double EXTENDO_SPEED = 0.45;
+    // Encoder values for set arm positions
+  public static final int LOW_BOUND_DEFAULT_POS = 10;
+  public static final int HIGH_BOUND_DEFAULT_POS = 100;
+  public static final int LOW_BOUND_LOW_POS = 100;
+  public static final int HIGH_BOUND_LOW_POS = 1000;
+  public static final int LOW_BOUND_MID_POS = 1000;
+  public static final int HIGH_BOUND_MID_POS = 2000;
+  public static final int LOW_BOUND_HIGH_POS = 2000;
+  public static final int HIGH_BOUND_HIGH_POS = 3000;
+
+  // Arm
+  public static final int ARM_VICTOR = 6;
+  public static final double ARM_SPEED = 0.4;
+
 }
