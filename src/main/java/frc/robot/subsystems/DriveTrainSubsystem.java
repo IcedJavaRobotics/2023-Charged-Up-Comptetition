@@ -56,70 +56,134 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom) {
+  public boolean moveLeft() {
 
     double horiOffset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    
+    if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
+
+      if(horiOffset > 15) {
+
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
+
+        return true;
+
+      } else if(horiOffset < 15) {
+
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
+
+        return true;
+
+      }
+
+    }  else {
+      System.out.println("Target not found");
+    }
+
+    return false;
+
+  }
+
+  public boolean moveRight() {
+
+    double horiOffset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    
+    if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
+
+      if(horiOffset > -15) {
+
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
+
+        return true;
+
+      } else if(horiOffset < -15) {
+
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
+
+        return true;
+
+      }
+
+    }  else {
+      System.out.println("Target not found");
+    }
+
+    return false;
+
+  }
+
+  public boolean moveCenter() {
+
+    double horiOffset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    
+    if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
+
+      if(horiOffset > 0) {
+
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
+
+        return true;
+
+      } else if(horiOffset < 0) {
+
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
+        moveMotor( ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
+        moveMotor( ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
+
+        return true;
+
+      }
+
+    }  else {
+      System.out.println("Target not found");
+    }
+
+    return false;
+
+  }
+
+  public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom) {
 
     switch (GlobalVariablesSubsystem.slotGoal) {
       case 1: //far left on grid
       case 4: //mid left on grid
       case 7: //close left on grid
-        if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
 
-          moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-          moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-          moveMotor( ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-          moveMotor( ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
-
-          System.out.println("slotGoal get a");
-
-        }  else {
-
-          System.out.println("Target not found");
-
-        }
+        moveLeft();
 
         break;
       case 2: //far mid on grid
       case 5: //mid mid on grid
       case 8: //close mid on grid
 
-        if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
-          moveMotor( ensureRange(0.1 * scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-          moveMotor( ensureRange(-0.1 * scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-          moveMotor( ensureRange(-0.1 * scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-          moveMotor( ensureRange(0.1 * scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
-
-          System.out.println("slotGoal get b");
-          System.out.println(horiOffset);
-        } else {
-
-          System.out.println("Target not found");
-
-        }
+        moveCenter();
 
         break;
       case 3: //far right on grid
       case 6: //mid right on grid
       case 9: //close right on grid
       
-        if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) ==1) {
-
-          moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-          moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-          moveMotor( ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-          moveMotor( ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
-
-          System.out.println("slotGoal get c");
-
-        } else{
-
-          System.out.println("Target not found");
-
-        }
+        moveRight();
 
         break;
       default:
+
         if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
           Z = 1;
           rampUpTime = 1;
