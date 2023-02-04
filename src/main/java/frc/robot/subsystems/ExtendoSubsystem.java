@@ -28,6 +28,18 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
+  public void extendoJoystick(double I) {
+
+    if ( I >= 0.5 ) {
+      extendoExtend();
+    } else if ( I <= -0.5 ) {
+      extendoRetract();
+    } else {
+      extendoStop();
+    }
+
+  }
+
   public void extendoLower() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS){

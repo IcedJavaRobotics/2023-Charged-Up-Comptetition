@@ -9,6 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ExtendoSubsystem;
 
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
@@ -28,6 +29,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -41,7 +43,11 @@ public class RobotContainer {
     armSubsystem.setDefaultCommand(
       new RunCommand(() -> armSubsystem.armJoystick( -xboxController.getLeftY()), armSubsystem)
     );
-    
+
+    extendoSubsystem.setDefaultCommand(
+      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
+    );
+
   }
 
  
