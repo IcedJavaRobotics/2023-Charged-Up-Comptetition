@@ -39,6 +39,18 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
+  public void armJoystick(double I) {
+
+    if ( I >= 0.5 ) {
+      raiseArm();
+    } else if ( I <= -0.5 ) {
+      lowerArm();
+    } else {
+      stopArm();
+    }
+
+  }
+
   public void bottomArm() {
 
     // moveMotor( armController.calculate( encoder value, bottomValue ), armMotor);
@@ -65,8 +77,11 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void raiseArm() {
 
-    armMotor.set(ControlMode.PercentOutput, Constants.ARM_SPEED);
-
+    // if (encoder < upperLimit) {
+      armMotor.set(ControlMode.PercentOutput, Constants.ARM_SPEED);
+    // }else {
+    //    stopArm;  
+    // }
   }
 
   public void lowerArm() {
