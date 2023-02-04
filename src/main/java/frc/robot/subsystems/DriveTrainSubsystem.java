@@ -160,62 +160,35 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom) {
 
-    switch (GlobalVariablesSubsystem.slotGoal) {
-      case 1: //far left on grid
-      case 4: //mid left on grid
-      case 7: //close left on grid
+    if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
+      Z = 1;
+      rampUpTime = 1;
+    } else {                //Normal ramp up time, speed dependant on the slider (Z)
+      Z = ( -Z + 1 )/2;
+      rampUpTime = 1.5;
+    }
 
-        moveLeft();
+    if ( Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0 ) {
 
-        break;
-      case 2: //far mid on grid
-      case 5: //mid mid on grid
-      case 8: //close mid on grid
-
-        moveCenter();
-
-        break;
-      case 3: //far right on grid
-      case 6: //mid right on grid
-      case 9: //close right on grid
-      
-        moveRight();
-
-        break;
-      default:
-
-        if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
-          Z = 1;
-          rampUpTime = 1;
-        } else {                //Normal ramp up time, speed dependant on the slider (Z)
-          Z = ( -Z + 1 )/2;
-          rampUpTime = 1.5;
-        }
-
-        if ( Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0 ) {
-
-          driveTime = Timer.getMatchTime();
-    
-        }
-
-        if ( Timer.getMatchTime() - driveTime <= rampUpTime ) {
-
-          speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5) ;
-
-        } else {
-
-          speedMod = 1;
-
-        }
-
-        moveMotor( Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
-        moveMotor( Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
-        moveMotor( Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
-        moveMotor( Z * speedMod * ensureRange(Y + X - R), backRightTalon);
+      driveTime = Timer.getMatchTime();
 
     }
 
-    
+    if ( Timer.getMatchTime() - driveTime <= rampUpTime ) {
+
+      speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5) ;
+
+    } else {
+
+      speedMod = 1;
+
+    }
+
+    moveMotor( Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
+    moveMotor( Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
+    moveMotor( Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
+    moveMotor( Z * speedMod * ensureRange(Y + X - R), backRightTalon);
+
   }
 
   @Override
