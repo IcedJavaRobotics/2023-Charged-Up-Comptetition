@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class LimelightSubsystem extends SubsystemBase {
 
@@ -37,19 +38,10 @@ public class LimelightSubsystem extends SubsystemBase {
     
     double targetOffsetAngle_Vertical = getTy();
     
-    // how many degrees back is your limelight rotated from perfectly vertical?
-    double limelightMountAngleDegrees = 3.0;
-    
-    // distance from the center of the Limelight lens to the floor
-    double limelightLensHeightInches = 18.5;
-    
-    // distance from the target to the floor in inches
-    double goalHeightInches = 14.25;
-    
-    if(getTid()==4||getTid()==5){
-      //tid 4 and 5 are the double substations
-    goalHeightInches = 23.375;
-    }
+    final double limelightMountAngleDegrees = Constants.LIMELIGHT_ANGLE;      // how many degrees back is your limelight rotated from perfectly vertical?
+    final double limelightLensHeightInches = Constants.LIMELIGHT_HEIGHT;      // distance from the center of the Limelight lens to the floor
+    double goalHeightInches = Constants.APRILTAG_HEIGHT;                // distance from the target to the floor in inches
+    if(getTid()==4||getTid()==5){goalHeightInches = Constants.APRILTAG_DOUBLE_SUBSTATION_HEIGHT;}//tid 4 and 5 are the double substations
     
     double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical; 
     double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);

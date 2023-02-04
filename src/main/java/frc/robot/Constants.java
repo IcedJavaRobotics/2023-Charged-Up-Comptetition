@@ -27,4 +27,9 @@ public final class Constants {
       // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
   
+  //Limelight
+  public static final double LIMELIGHT_ANGLE = 3.0;    //upward angle of limelight camera [degrees]
+  public static final double LIMELIGHT_HEIGHT = 18.5;  //distance lens from floor [inches]
+  public static final double APRILTAG_HEIGHT = 14.25;  //distance from apriltag to floor(bottom of tag) [inches]
+  public static final double APRILTAG_DOUBLE_SUBSTATION_HEIGHT = 23.375; //ditto but on the double substations [inches]
 }
