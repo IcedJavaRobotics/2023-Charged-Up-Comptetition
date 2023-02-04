@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,6 +16,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public LimelightSubsystem() {
 
   }
+
   
   public double getTid(){
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
@@ -32,6 +34,10 @@ public class LimelightSubsystem extends SubsystemBase {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
   }
 
+  public double[] getBotpose(){
+    // Robot transform in field-space. Translation (X,Y,Z) Rotation(X,Y,Z)
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
+  }
 
   public double getDistance(){
     

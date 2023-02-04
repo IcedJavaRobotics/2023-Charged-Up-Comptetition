@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.commands.ExampleButton;
 import frc.robot.commands.LimelightCommand;
 import frc.robot.subsystems.LimelightSubsystem;
 
@@ -39,6 +39,7 @@ private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
       SmartDashboard.putString("Changes", "added limelight tracking, variables(in and out), and LED command");
       SmartDashboard.putString("Tested Status", "True");
       
+      SmartDashboard.putData("ExampleButtonLED", new ExampleButton());
 
   }
 

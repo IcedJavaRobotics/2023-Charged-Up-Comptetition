@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -20,6 +21,7 @@ private final LimelightSubsystem limelightSubsystem;
   private double tv = 0.0;
   private double distance = 0.0;
 
+  private double[] botpose = {0,0,0,0,0,0};
   private double range = 10;
 
   /*  Creates a new Limelight. */
@@ -52,8 +54,14 @@ tid = limelightSubsystem.getTid();
 //distance
 distance = limelightSubsystem.getDistance();
 
+//botpose: Robot transform in field-space. Translation (X,Y,Z) Rotation(X,Y,Z)
+botpose = limelightSubsystem.getBotpose();
+
+
 //translating tv into targetFound for convenience
 if (tv == 0){targetFound = false;}else{targetFound = true;}
+
+
 
 
 
@@ -95,6 +103,7 @@ if(targetFound){
 
 }
 
+
 //post to smart dashboard periodically
 SmartDashboard.putNumber("LimelightX", tx);
 SmartDashboard.putNumber("LimelightY", ty);
@@ -103,6 +112,8 @@ SmartDashboard.putNumber("LimelightTV", tv);
 SmartDashboard.putNumber("AprilTagID", tid);
 SmartDashboard.putBoolean("TargetSpotted", targetFound);
 SmartDashboard.putNumber("Distance",distance);
+
+SmartDashboard.putNumberArray("Botpose", botpose);
 
 
 
