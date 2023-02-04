@@ -37,12 +37,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   public void clawOpen() {
 
-    //Arms fold out (no limit switch)
-    rightClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
-    leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
-
-    // Arms fold out until limit switch is hit if limit switches are added
-    /*
+    // Arms fold out until limit switch is hit
     if (leftLimit.get() == false) {
 
       leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
@@ -62,7 +57,7 @@ public class ClawSubsystem extends SubsystemBase {
       rightClawMotor.set(ControlMode.PercentOutput, 0);
 
     }
-    */
+  
   }
 
   public void clawStop() {
