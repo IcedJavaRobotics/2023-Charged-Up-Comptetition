@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import frc.robot.commands.LimelightCommand;
+import frc.robot.subsystems.LimelightSubsystem;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -18,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   private RobotContainer m_robotContainer;
 
   /**
@@ -29,11 +33,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    SmartDashboard.putString("Version", "1.0");
-    SmartDashboard.putString("Author", "Alexa");
-    SmartDashboard.putString("Description", "Charged Up, Mecanum drive train");
-    SmartDashboard.putString("Changes", "Added drive train, SmartDashboard information, and controllers");
-    SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
+      //gonna be putting some things to the smart dashboard
+      SmartDashboard.putString("Author", "Luke");
+      SmartDashboard.putString("Description", "Charged Up, Limelight Tracking");
+      SmartDashboard.putString("Changes", "added limelight tracking, variables(in and out), and LED command");
+      SmartDashboard.putString("Tested Status", "True");
+      
+
   }
 
   /**
@@ -50,6 +56,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+  
+  
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -87,7 +95,13 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    //runs limelight 
+    LimelightCommand limelight = new LimelightCommand(limelightSubsystem);
+    limelight.execute();
+
+
+  }
 
   @Override
   public void testInit() {
