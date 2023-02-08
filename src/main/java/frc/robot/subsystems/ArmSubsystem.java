@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.hal.util.HalHandleException;
@@ -18,7 +19,7 @@ import frc.robot.Constants;
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
 
-  private VictorSPX armMotor = new VictorSPX(Constants.ARM_VICTOR);
+  private TalonSRX armMotor = new TalonSRX(Constants.ARM_TALON);
   DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
   double kP = 0;
@@ -51,27 +52,30 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
-  public void bottomArm() {
+  public boolean bottomArm() {
 
-    // moveMotor( armController.calculate( encoder value, bottomValue ), armMotor);
-
-  }
-
-  public void middleArm() {
-
-    // moveMotor( armController.calculate( encoder value, middleValue ), armMotor);
+    moveMotor( armController.calculate( armMotor.getSelectedSensorPosition(), bottomValue ), armMotor);
+    return false;
 
   }
 
-  public void highArm() {
+  public boolean middleArm() {
 
-    // moveMotor( armController.calculate( encoder value, highValue ), armMotor);
-    
+    moveMotor( armController.calculate( armMotor.getSelectedSensorPosition(), middleValue ), armMotor);
+    return false;
+
   }
 
-  public void moveMotor( double speed, VictorSPX victor) {
+  public boolean highArm() {
 
-    victor.set(ControlMode.PercentOutput, speed);
+    moveMotor( armController.calculate( armMotor.getSelectedSensorPosition(), highValue ), armMotor);
+    return false;
+
+  }
+
+  public void moveMotor( double speed, TalonSRX talon) {
+
+    talon.set(ControlMode.PercentOutput, speed);
 
   }
 

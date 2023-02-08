@@ -13,18 +13,20 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.SetSlotGoal1Command;
-import frc.robot.commands.SetSlotGoal2Command;
-import frc.robot.commands.SetSlotGoal3Command;
-import frc.robot.commands.SetSlotGoal4Command;
-import frc.robot.commands.SetSlotGoal5Command;
-import frc.robot.commands.SetSlotGoal6Command;
-import frc.robot.commands.SetSlotGoal7Command;
-import frc.robot.commands.SetSlotGoal8Command;
-import frc.robot.commands.SetSlotGoal9Command;
+import frc.robot.commands.Goal1Command;
+import frc.robot.commands.Goal2Command;
+import frc.robot.commands.Goal3Command;
+import frc.robot.commands.Goal4Command;
+import frc.robot.commands.Goal5Command;
+import frc.robot.commands.Goal6Command;
+import frc.robot.commands.Goal7Command;
+import frc.robot.commands.Goal8Command;
+import frc.robot.commands.Goal9Command;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.GlobalVariablesSubsystem;
+import frc.robot.subsystems.ExtendoSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -35,8 +37,10 @@ import frc.robot.subsystems.GlobalVariablesSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+  private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  private final ClawSubsystem clawSubsystem = new ClawSubsystem();
+  private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final GlobalVariablesSubsystem globalVariablesSubsystem = new GlobalVariablesSubsystem();
 
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
@@ -47,60 +51,60 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings(); {}
     
-    // new JoystickButton(driverStation, 1)
-    //   .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
+    new JoystickButton(driverStation, 1)
+      .whileTrue(new Goal1Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    // new JoystickButton(driverStation, 2)
+    new JoystickButton(driverStation, 2)
+      .whileTrue(new Goal2Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+    
+    new JoystickButton(driverStation, 3)
+      .whileTrue(new Goal3Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 4)
+      .whileTrue(new Goal4Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 5)
+      .whileTrue(new Goal5Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 6)
+      .whileTrue(new Goal6Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 7)
+      .whileTrue(new Goal7Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 8)
+      .whileTrue(new Goal8Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 9)
+      .whileTrue(new Goal9Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+
+    
+    // new JoystickButton(flightStick, 2)
     //   .whileTrue(new SetSlotGoal2Command(globalVariablesSubsystem));
     
-    // new JoystickButton(driverStation, 3)
+    // new JoystickButton(flightStick, 3)
     //   .whileTrue(new SetSlotGoal3Command(globalVariablesSubsystem));
 
-    // new JoystickButton(driverStation, 4)
+    // new JoystickButton(flightStick, 4)
     //   .whileTrue(new SetSlotGoal4Command(globalVariablesSubsystem));
 
-    // new JoystickButton(driverStation, 5)
+    // new JoystickButton(flightStick, 5)
     //   .whileTrue(new SetSlotGoal5Command(globalVariablesSubsystem));
 
-    // new JoystickButton(driverStation, 6)
+    // new JoystickButton(flightStick, 6)
     //   .whileTrue(new SetSlotGoal6Command(globalVariablesSubsystem));
 
-    // new JoystickButton(driverStation, 7)
+    // new JoystickButton(flightStick, 7)
     //   .whileTrue(new SetSlotGoal7Command(globalVariablesSubsystem));
 
-    // new JoystickButton(driverStation, 8)
+    // new JoystickButton(flightStick, 8)
     //   .whileTrue(new SetSlotGoal8Command(globalVariablesSubsystem));
 
-    // new JoystickButton(driverStation, 9)
+    // new JoystickButton(flightStick, 9)
     //   .whileTrue(new SetSlotGoal9Command(globalVariablesSubsystem));
-
-    
-    new JoystickButton(flightStick, 2)
-      .whileTrue(new SetSlotGoal2Command(globalVariablesSubsystem));
-    
-    new JoystickButton(flightStick, 3)
-      .whileTrue(new SetSlotGoal3Command(globalVariablesSubsystem));
-
-    new JoystickButton(flightStick, 4)
-      .whileTrue(new SetSlotGoal4Command(globalVariablesSubsystem));
-
-    new JoystickButton(flightStick, 5)
-      .whileTrue(new SetSlotGoal5Command(globalVariablesSubsystem));
-
-    new JoystickButton(flightStick, 6)
-      .whileTrue(new SetSlotGoal6Command(globalVariablesSubsystem));
-
-    new JoystickButton(flightStick, 7)
-      .whileTrue(new SetSlotGoal7Command(globalVariablesSubsystem));
-
-    new JoystickButton(flightStick, 8)
-      .whileTrue(new SetSlotGoal8Command(globalVariablesSubsystem));
-
-    new JoystickButton(flightStick, 9)
-      .whileTrue(new SetSlotGoal9Command(globalVariablesSubsystem));
       
-    new JoystickButton(flightStick, 10)
-      .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
+    // new JoystickButton(flightStick, 10)
+    //   .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
 
 
     driveTrainSubsystem.setDefaultCommand(

@@ -40,55 +40,63 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
-  public void extendoLower() {
+  public boolean extendoLower() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS){
 
       extendoExtend();
+      return true;
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_LOW_POS){
 
       extendoRetract();
+      return true;
 
     } else {
 
       extendoStop();
     }
-
+    return false;
   }
 
-  public void extendoMiddle() {
+  public boolean extendoMiddle() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_MID_POS){
 
       extendoExtend();
+      return true;
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_MID_POS){
 
       extendoRetract();
+      return true;
 
     } else {
 
       extendoStop();
+  
     }
-
+    return false;
   }
 
-  public void extendoUpper() {
+  public boolean extendoUpper() {
 
     if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_HIGH_POS){
 
       extendoExtend();
+      return true;
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_HIGH_POS){
 
       extendoRetract();
+      return true;
 
     } else {
 
       extendoStop();
+      
     }
-
+    return false;
   }
 
   public void extendoDefault() {
