@@ -7,8 +7,10 @@ package frc.robot.commands;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -41,7 +43,17 @@ public class ExampleCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    /**
+     * If we wanted the drive train to be in brake mode during autonomous
+     */
+    // m_subsystem.frontLeftTalon.setNeutralMode(NeutralMode.Brake);
+    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
+    // m_subsystem.frontRightTalon.setNeutralMode(NeutralMode.Brake);
+    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -50,8 +62,8 @@ public class ExampleCommand extends CommandBase {
     m_subsystem.moveLeft();
     if(m_subsystem.moveLeft() == false) {       //Checks if moveLeft is done
 
-      e_Subsystem.extendoUpper();
       a_Subsystem.highArm();
+      e_Subsystem.extendoUpper();
 
       if((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false) ) {
 
@@ -60,15 +72,31 @@ public class ExampleCommand extends CommandBase {
       }
     }
 
+
+    
+  
+    
+
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+    /**
+     * If we wanted the drive train to be in brake mode during autonomous
+     */
+    // m_subsystem.frontLeftTalon.setNeutralMode(NeutralMode.Coast);
+    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
+    // m_subsystem.frontRightTalon.setNeutralMode(NeutralMode.Coast);
+    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
     return false;
   }
 }

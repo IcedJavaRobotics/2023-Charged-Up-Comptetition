@@ -53,7 +53,7 @@ public final class Constants {
   public static final int HIGH_BOUND_HIGH_POS = 3000;
 
   // Arm
-  public static final int ARM_VICTOR = 6;
+  public static final int ARM_TALON = 6;
   public static final double ARM_SPEED = 0.4;
 
 }
