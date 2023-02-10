@@ -7,9 +7,10 @@ package frc.robot.commands;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -20,24 +21,26 @@ public class ExampleCommand extends CommandBase {
   private final ClawSubsystem c_Subsystem;
   private final ArmSubsystem a_Subsystem;
   private final ExtendoSubsystem e_Subsystem;
-
+  private final ExampleSubsystem Subsystem;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem, ArmSubsystem asubsystem, ExtendoSubsystem esubsystem) {
+  public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem, ArmSubsystem asubsystem, ExtendoSubsystem esubsystem) {
 
     m_subsystem = msubsystem;
     c_Subsystem = csubsystem;
     a_Subsystem = asubsystem;
     e_Subsystem = esubsystem;
+    Subsystem = subsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(msubsystem);
     addRequirements(csubsystem);
     addRequirements(asubsystem);
     addRequirements(esubsystem);
+    addRequirements(subsystem);
 
   }
 

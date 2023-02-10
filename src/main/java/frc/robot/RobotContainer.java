@@ -6,8 +6,11 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ExtendoSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,7 +28,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
+  private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  private final ClawSubsystem clawSubsystem = new ClawSubsystem();
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
@@ -102,6 +107,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return Autos.exampleAuto(m_exampleSubsystem,driveTrainSubsystem,clawSubsystem,armSubsystem,extendoSubsystem);
   }
 }
