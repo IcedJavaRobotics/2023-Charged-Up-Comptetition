@@ -37,20 +37,18 @@ public class LimelightSubsystem extends SubsystemBase {
   public double getDistance(){
     
     double targetOffsetAngle_Vertical = getTy();
+    double goalHeightInches = Constants.APRILTAG_HEIGHT;   
+    double angleToGoalRadians = (Constants.LIMELIGHT_ANGLE + targetOffsetAngle_Vertical)*(3.14159/180); 
     
-    final double limelightMountAngleDegrees = Constants.LIMELIGHT_ANGLE;      // how many degrees back is your limelight rotated from perfectly vertical?
-    final double limelightLensHeightInches = Constants.LIMELIGHT_HEIGHT;      // distance from the center of the Limelight lens to the floor
-    double goalHeightInches = Constants.APRILTAG_HEIGHT;                // distance from the target to the floor in inches
     if(getTid()==4||getTid()==5){goalHeightInches = Constants.APRILTAG_DOUBLE_SUBSTATION_HEIGHT;}//tid 4 and 5 are the double substations
     
-    double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical; 
-    double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    
     
     //calculate distance
     if(getTy()>=0){
-      return (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+      return (goalHeightInches - Constants.LIMELIGHT_HEIGHT)/Math.tan(angleToGoalRadians);
     }else{
-      return (limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+      return (Constants.LIMELIGHT_HEIGHT)/Math.tan(angleToGoalRadians);
     }
     
         
