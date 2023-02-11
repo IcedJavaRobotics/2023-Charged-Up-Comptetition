@@ -4,12 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClawSubsystem;
-import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.ExtendoSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -94,7 +89,7 @@ public class ExampleCommand extends CommandBase {
   }
 
   public void modeFunction(int Mode) {
-    if (mode == 1) {
+    if (Mode == 1) {
       m_subsystem.moveLeft();
       if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
 
@@ -110,7 +105,7 @@ public class ExampleCommand extends CommandBase {
           }
         }
       }
-    } else if (mode == 2) {
+    } else if (Mode == 2) {
       m_subsystem.moveLeft();
       if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
 
@@ -127,7 +122,7 @@ public class ExampleCommand extends CommandBase {
         }
       }
 
-    } else if (mode == 3) {
+    } else if (Mode == 3) {
       // TODO put third option here.
 
     } else {

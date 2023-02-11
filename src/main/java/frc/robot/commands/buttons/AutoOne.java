@@ -25,5 +25,6 @@ public class AutoOne extends InstantCommand {
   @Override
   public void initialize() {
     exampleSubsystem.setMode(1);
+    
   }
 }

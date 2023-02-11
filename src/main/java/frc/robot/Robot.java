@@ -51,6 +51,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Button One", new AutoOne(examplesubsystem));
     SmartDashboard.putData("Button Two", new AutoTwo(examplesubsystem));
     SmartDashboard.putData("Button Three", new AutoThree(examplesubsystem));
+
+    System.out.println(examplesubsystem.getMode());
   }
 
   /**
