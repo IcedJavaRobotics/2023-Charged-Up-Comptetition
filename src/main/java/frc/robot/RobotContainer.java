@@ -29,9 +29,12 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
@@ -46,83 +49,59 @@ public class RobotContainer {
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings(); {}
-    
+    configureBindings();
+    {
+    }
+
     new JoystickButton(driverStation, 1)
-      .whileTrue(new Goal1Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 2)
-      .whileTrue(new Goal2Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-    
-    new JoystickButton(driverStation, 3)
-      .whileTrue(new Goal3Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 4)
-      .whileTrue(new Goal4Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 5)
-      .whileTrue(new Goal5Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 6)
-      .whileTrue(new Goal6Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 7)
-      .whileTrue(new Goal7Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 8)
-      .whileTrue(new Goal8Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+        .whileTrue(new Goal1Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
     new JoystickButton(driverStation, 9)
-      .whileTrue(new Goal9Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+        .whileTrue(new Goal2Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    
-    // new JoystickButton(flightStick, 2)
-    //   .whileTrue(new SetSlotGoal2Command(globalVariablesSubsystem));
-    
-    // new JoystickButton(flightStick, 3)
-    //   .whileTrue(new SetSlotGoal3Command(globalVariablesSubsystem));
+    new JoystickButton(driverStation, 2)
+        .whileTrue(new Goal3Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    // new JoystickButton(flightStick, 4)
-    //   .whileTrue(new SetSlotGoal4Command(globalVariablesSubsystem));
+    new JoystickButton(driverStation, 6)
+        .whileTrue(new Goal4Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    // new JoystickButton(flightStick, 5)
-    //   .whileTrue(new SetSlotGoal5Command(globalVariablesSubsystem));
+    new JoystickButton(driverStation, 8)
+        .whileTrue(new Goal5Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    // new JoystickButton(flightStick, 6)
-    //   .whileTrue(new SetSlotGoal6Command(globalVariablesSubsystem));
+    new JoystickButton(driverStation, 3)
+        .whileTrue(new Goal6Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    // new JoystickButton(flightStick, 7)
-    //   .whileTrue(new SetSlotGoal7Command(globalVariablesSubsystem));
+    new JoystickButton(driverStation, 5)
+        .whileTrue(new Goal7Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    // new JoystickButton(flightStick, 8)
-    //   .whileTrue(new SetSlotGoal8Command(globalVariablesSubsystem));
+    new JoystickButton(driverStation, 4)
+        .whileTrue(new Goal8Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
-    // new JoystickButton(flightStick, 9)
-    //   .whileTrue(new SetSlotGoal9Command(globalVariablesSubsystem));
-      
-    // new JoystickButton(flightStick, 10)
-    //   .whileTrue(new SetSlotGoal1Command(globalVariablesSubsystem));
-
+    new JoystickButton(driverStation, 10)
+        .whileTrue(new Goal9Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
-      new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(), 0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1) ), driveTrainSubsystem)
-    );
+        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
+            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));
 
   }
 
-  private double deadZoneMod(double val) {      //Creates a range where the robot will not recieve input to prevent controller drift
+  private double deadZoneMod(double val) { // Creates a range where the robot will not recieve input to prevent
+                                           // controller drift
     if (Math.abs(val) <= Constants.DEADZONE) {
       return 0;
     } else {
-      return ((Math.abs(val) - 0.2) * 1.25) * (val/Math.abs(val));
+      return ((Math.abs(val) - 0.2) * 1.25) * (val / Math.abs(val));
     }
   }
 
   public double getJoystickX() {
-    if ( flightStick != null ) {
+    if (flightStick != null) {
       return deadZoneMod(flightStick.getX());
     } else {
       return 0;
@@ -130,7 +109,7 @@ public class RobotContainer {
   }
 
   public double getJoystickY() {
-    if ( flightStick != null ) {
+    if (flightStick != null) {
       return deadZoneMod(flightStick.getY());
     } else {
       return 0;
@@ -138,7 +117,7 @@ public class RobotContainer {
   }
 
   public double getJoystickTwist() {
-    if ( flightStick != null ) {
+    if (flightStick != null) {
       return deadZoneMod(flightStick.getTwist());
     } else {
       return 0;
@@ -146,12 +125,17 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * Use this method to define your trigger->command mappings. Triggers can be
+   * created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+   * an arbitrary
    * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * {@link
+   * CommandXboxController
+   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
   private void configureBindings() {
@@ -159,7 +143,8 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
+    // pressed,
     // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
