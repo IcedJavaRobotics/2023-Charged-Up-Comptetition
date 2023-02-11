@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -18,11 +19,10 @@ public class ExtendoSubsystem extends SubsystemBase {
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR);
   DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH);
 
-
   public ExtendoSubsystem() {
 
-    //Change when testing
-    extendoMotor.setInverted(null);
+    // Change when testing
+    extendoMotor.setInverted(InvertType.None);
 
     extendoMotor.setNeutralMode(NeutralMode.Brake);
 
@@ -30,11 +30,11 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   public void extendoLower() {
 
-    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS){
+    if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS) {
 
       extendoExtend();
 
-    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_LOW_POS){
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_LOW_POS) {
 
       extendoRetract();
 
@@ -43,16 +43,15 @@ public class ExtendoSubsystem extends SubsystemBase {
       extendoStop();
     }
 
-
   }
 
   public void extendoMiddle() {
 
-    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_MID_POS){
+    if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_MID_POS) {
 
       extendoExtend();
 
-    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_MID_POS){
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_MID_POS) {
 
       extendoRetract();
 
@@ -65,12 +64,12 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   public boolean extendoUpper() {
 
-    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_HIGH_POS){
+    if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_HIGH_POS) {
 
       extendoExtend();
       return true;
 
-    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_HIGH_POS){
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_HIGH_POS) {
 
       extendoRetract();
       return true;
@@ -78,18 +77,18 @@ public class ExtendoSubsystem extends SubsystemBase {
     } else {
 
       extendoStop();
-  
+
     }
     return false;
   }
 
   public void extendoDefault() {
 
-    if(extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_DEFAULT_POS){
+    if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_DEFAULT_POS) {
 
       extendoExtend();
 
-    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_DEFAULT_POS){
+    } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_DEFAULT_POS) {
 
       extendoRetract();
 
@@ -97,25 +96,23 @@ public class ExtendoSubsystem extends SubsystemBase {
 
       extendoStop();
     }
-  
-  }
 
-  
+  }
 
   public void extendoExtend() {
 
-    extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);    
+    extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
 
   }
 
   public void extendoRetract() {
-    
+
     extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
 
   }
 
   public void extendoStop() {
-    
+
     extendoMotor.set(ControlMode.PercentOutput, 0);
 
   }

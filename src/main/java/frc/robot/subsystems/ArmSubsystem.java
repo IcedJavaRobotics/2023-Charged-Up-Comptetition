@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -32,7 +33,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
 
     //Change when testing
-    armMotor.setInverted(null);
+    armMotor.setInverted(InvertType.None);
 
     armMotor.setNeutralMode(NeutralMode.Brake);
 

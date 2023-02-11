@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -22,8 +23,8 @@ public class ClawSubsystem extends SubsystemBase {
   public ClawSubsystem() {
 
     // Need to set this during testing
-    rightClawMotor.setInverted(null);
-    leftClawMotor.setInverted(null);
+    rightClawMotor.setInverted(InvertType.None);
+    leftClawMotor.setInverted(InvertType.None);
 
   }
 
