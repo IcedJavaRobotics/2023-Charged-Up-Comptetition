@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.LimelightCommand;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.commands.buttons.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -43,6 +44,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Description", "Charged Up, Mecanum drive train");
     SmartDashboard.putString("Changes", "Added drive train, SmartDashboard information, and controllers");
     SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
+
+    // SmartDashboard.putData("Mode One", AutoOne());
   }
 
   /**

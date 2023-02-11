@@ -65,7 +65,7 @@ public class ClawSubsystem extends SubsystemBase {
     // Stops claw
     leftClawMotor.set(ControlMode.PercentOutput, 0);
     rightClawMotor.set(ControlMode.PercentOutput, 0);
-
+    
   }
 
   @Override

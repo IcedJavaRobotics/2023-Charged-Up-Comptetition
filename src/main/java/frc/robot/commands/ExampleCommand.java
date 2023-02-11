@@ -10,6 +10,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -22,6 +23,7 @@ public class ExampleCommand extends CommandBase {
   private final ExampleSubsystem Subsystem;
   private final LimelightSubsystem l_subsystem;
   private int mode = 1;
+  private double time;
 
   /**
    * Creates a new ExampleCommand.
@@ -67,54 +69,8 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    switch (mode) {
-      case 1:
-        m_subsystem.moveLeft();
-        if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
+    modeFunction(mode);
 
-          a_Subsystem.highArm();
-          e_Subsystem.extendoUpper();
-
-          if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
-
-            c_Subsystem.clawOpen();
-
-          }
-        }
-        break;
-
-      case 2:
-        m_subsystem.moveLeft();
-        if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
-
-          a_Subsystem.highArm();
-          e_Subsystem.extendoUpper();
-
-          if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
-
-            c_Subsystem.clawOpen();
-
-          }
-        }
-        break;
-      case 3:
-        m_subsystem.moveLeft();
-        if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
-
-          a_Subsystem.highArm();
-          e_Subsystem.extendoUpper();
-
-          if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
-
-            c_Subsystem.clawOpen();
-
-          }
-        }
-        break;
-      default:
-        System.out.println("mode isnt a mode set, mode is: " + mode);
-
-    }
   }
 
   // Called once the command ends or is interrupted.
@@ -135,5 +91,47 @@ public class ExampleCommand extends CommandBase {
     // m_subsystem.frontRightTalon.setNeutralMode(NeutralMode.Coast);
     // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
     return false;
+  }
+
+  public void modeFunction(int Mode) {
+    if (mode == 1) {
+      m_subsystem.moveLeft();
+      if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
+
+        a_Subsystem.highArm();
+        e_Subsystem.extendoUpper();
+
+        if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
+          time = Timer.getMatchTime();
+          c_Subsystem.clawOpen();
+
+          if ((Timer.getMatchTime() - 2) == time) {
+            m_subsystem.taxiOutShort();
+          }
+        }
+      }
+    } else if (mode == 2) {
+      m_subsystem.moveLeft();
+      if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
+
+        a_Subsystem.highArm();
+        e_Subsystem.extendoUpper();
+
+        if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
+          time = Timer.getMatchTime();
+          c_Subsystem.clawOpen();
+
+          if ((Timer.getMatchTime() - 2) == time) {
+            m_subsystem.taxiOutLong();
+          }
+        }
+      }
+
+    } else if (mode == 3) {
+      // TODO put third option here.
+
+    } else {
+      System.out.println("error mode not found");
+    }
   }
 }
