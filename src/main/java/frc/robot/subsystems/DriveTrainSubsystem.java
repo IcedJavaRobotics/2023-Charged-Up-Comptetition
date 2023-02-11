@@ -78,9 +78,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public boolean moveLeft() {
 
-    double horiOffset = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    double horiOffset = limelight.getTx();
 
-    if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
+    if (limelight.getTv() == 1) {
 
       if (horiOffset > leftSideSetpoint) {
 
