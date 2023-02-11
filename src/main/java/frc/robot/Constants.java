@@ -56,4 +56,12 @@ public final class Constants {
   public static final int ARM_TALON = 6;
   public static final double ARM_SPEED = 0.4;
 
+    //Limelight
+    public static final double LIMELIGHT_ANGLE = 3.0;    //upward angle of limelight camera [degrees]
+    public static final double LIMELIGHT_HEIGHT = 18.5;  //distance lens from floor [inches]
+    public static final double APRILTAG_HEIGHT = 14.25;  //distance from apriltag to floor(bottom of tag) [inches]
+    public static final double APRILTAG_DOUBLE_SUBSTATION_HEIGHT = 23.375; //ditto but on the double substations [inches]
+  
+  
+
 }
