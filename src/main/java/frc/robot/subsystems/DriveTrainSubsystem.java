@@ -58,21 +58,25 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void taxiOutShort() {
+
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
     moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backLeftTalon);
     moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontRightTalon);
     moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backRightTalon);
+
   }
 
   public void taxiOutLong() {
+
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backLeftTalon);
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontRightTalon);
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backRightTalon);
+
   }
 
   public boolean moveLeft() {
@@ -102,7 +106,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
       }
 
     } else {
+
       System.out.println("Target not found");
+
     }
 
     return false;
@@ -135,7 +141,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
       }
 
     } else {
+
       System.out.println("Target not found");
+
     }
 
     return false;
@@ -168,7 +176,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
       }
 
     } else {
+
       System.out.println("Target not found");
+      
     }
 
     return false;

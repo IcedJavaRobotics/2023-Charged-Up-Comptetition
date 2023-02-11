@@ -89,35 +89,46 @@ public class ExampleCommand extends CommandBase {
   }
 
   public void modeFunction(int Mode) {
+
     if (Mode == 1) {
+
       m_subsystem.moveLeft();
+    
       if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
 
         a_Subsystem.highArm();
         e_Subsystem.extendoUpper();
 
         if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
+
           time = Timer.getMatchTime();
           c_Subsystem.clawOpen();
 
           if ((Timer.getMatchTime() - 2) == time) {
+
             m_subsystem.taxiOutShort();
+
           }
         }
       }
     } else if (Mode == 2) {
+
       m_subsystem.moveLeft();
+
       if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
 
         a_Subsystem.highArm();
         e_Subsystem.extendoUpper();
 
         if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
+
           time = Timer.getMatchTime();
           c_Subsystem.clawOpen();
 
           if ((Timer.getMatchTime() - 2) == time) {
+
             m_subsystem.taxiOutLong();
+
           }
         }
       }
@@ -126,7 +137,9 @@ public class ExampleCommand extends CommandBase {
       // TODO put third option here.
 
     } else {
+
       System.out.println("error mode not found");
+      
     }
   }
 }

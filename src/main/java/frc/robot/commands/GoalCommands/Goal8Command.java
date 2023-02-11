@@ -38,7 +38,9 @@ public class Goal8Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
     m_subsystem.moveCenter();
+    
     if(m_subsystem.moveCenter() == false) {       //Checks if moveLeft is done
 
       e_subsystem.extendoLower();

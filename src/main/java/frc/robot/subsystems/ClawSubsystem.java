@@ -43,7 +43,7 @@ public class ClawSubsystem extends SubsystemBase {
 
       leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
 
-    }else {
+    } else {
 
       leftClawMotor.set(ControlMode.PercentOutput, 0);
 
@@ -53,7 +53,7 @@ public class ClawSubsystem extends SubsystemBase {
 
       rightClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
   
-    }else {
+    } else {
 
       rightClawMotor.set(ControlMode.PercentOutput, 0);
 
