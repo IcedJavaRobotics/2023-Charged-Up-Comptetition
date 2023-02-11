@@ -9,7 +9,7 @@ import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
-
+import frc.robot.subsystems.LimelightSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -20,6 +20,7 @@ public class ExampleCommand extends CommandBase {
   private final ArmSubsystem a_Subsystem;
   private final ExtendoSubsystem e_Subsystem;
   private final ExampleSubsystem Subsystem;
+  private final LimelightSubsystem l_subsystem;
   private int mode = 1;
 
   /**
@@ -28,13 +29,14 @@ public class ExampleCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem,
-      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem) {
+      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, LimelightSubsystem lsubsystem) {
 
     m_subsystem = msubsystem;
     c_Subsystem = csubsystem;
     a_Subsystem = asubsystem;
     e_Subsystem = esubsystem;
     Subsystem = subsystem;
+    l_subsystem = lsubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(msubsystem);
@@ -42,6 +44,7 @@ public class ExampleCommand extends CommandBase {
     addRequirements(asubsystem);
     addRequirements(esubsystem);
     addRequirements(subsystem);
+    addRequirements(lsubsystem);
 
   }
 
