@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import frc.robot.commands.LimelightCommand;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+
 import frc.robot.commands.buttons.*;
 
 /**
@@ -26,6 +28,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+  private final ExampleSubsystem examplesubsystem = new ExampleSubsystem();
   private RobotContainer m_robotContainer;
 
   /**
@@ -45,7 +48,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Changes", "Added drive train, SmartDashboard information, and controllers");
     SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
 
-    // SmartDashboard.putData("Mode One", AutoOne());
+    SmartDashboard.putData("Button One", new AutoOne(examplesubsystem));
+    SmartDashboard.putData("Button Two", new AutoTwo(examplesubsystem));
+    SmartDashboard.putData("Button Three", new AutoThree(examplesubsystem));
   }
 
   /**
