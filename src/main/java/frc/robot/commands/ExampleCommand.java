@@ -10,24 +10,25 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 
-
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class ExampleCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrainSubsystem m_subsystem;
   private final ClawSubsystem c_Subsystem;
   private final ArmSubsystem a_Subsystem;
   private final ExtendoSubsystem e_Subsystem;
   private final ExampleSubsystem Subsystem;
+  private int mode = 1;
+
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem, ArmSubsystem asubsystem, ExtendoSubsystem esubsystem) {
+  public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem,
+      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem) {
 
     m_subsystem = msubsystem;
     c_Subsystem = csubsystem;
@@ -47,6 +48,7 @@ public class ExampleCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    mode = Subsystem.getMode();
 
     /**
      * If we wanted the drive train to be in brake mode during autonomous
@@ -62,25 +64,54 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    m_subsystem.moveLeft();
-    if(m_subsystem.moveLeft() == false) {       //Checks if moveLeft is done
+    switch (mode) {
+      case 1:
+        m_subsystem.moveLeft();
+        if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
 
-      a_Subsystem.highArm();
-      e_Subsystem.extendoUpper();
+          a_Subsystem.highArm();
+          e_Subsystem.extendoUpper();
 
-      if((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false) ) {
+          if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
 
-        c_Subsystem.clawOpen();
+            c_Subsystem.clawOpen();
 
-      }
+          }
+        }
+        break;
+
+      case 2:
+        m_subsystem.moveLeft();
+        if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
+
+          a_Subsystem.highArm();
+          e_Subsystem.extendoUpper();
+
+          if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
+
+            c_Subsystem.clawOpen();
+
+          }
+        }
+        break;
+      case 3:
+        m_subsystem.moveLeft();
+        if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
+
+          a_Subsystem.highArm();
+          e_Subsystem.extendoUpper();
+
+          if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
+
+            c_Subsystem.clawOpen();
+
+          }
+        }
+        break;
+      default:
+        System.out.println("mode isnt a mode set, mode is: " + mode);
+
     }
-
-
-    
-  
-    
-
-
   }
 
   // Called once the command ends or is interrupted.
