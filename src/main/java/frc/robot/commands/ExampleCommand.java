@@ -18,7 +18,6 @@ public class ExampleCommand extends CommandBase {
   private final ExampleSubsystem Subsystem;
   private final LimelightSubsystem l_subsystem;
   private int mode = 1;
-  private double time;
 
   /**
    * Creates a new ExampleCommand.
@@ -89,57 +88,40 @@ public class ExampleCommand extends CommandBase {
   }
 
   public void modeFunction(int Mode) {
-
+    // sees which mode you are on(check buttons folder)
     if (Mode == 1) {
-
-      m_subsystem.moveLeft();
-    
+      // first mode-(insert what the mode does here)
       if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
 
-        a_Subsystem.highArm();
-        e_Subsystem.extendoUpper();
-
-        if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
-
-          time = Timer.getMatchTime();
-          c_Subsystem.clawOpen();
-
-          if ((Timer.getMatchTime() - 2) == time) {
-
+        if ((!a_Subsystem.highArm()) && (!e_Subsystem.extendoUpper())) {
+          // runs high arm until done, then runs extendoUpper until done
+          if (!c_Subsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
             m_subsystem.taxiOutShort();
-
           }
+
         }
       }
     } else if (Mode == 2) {
+      // second mode-(insert what the mode does here)
+      if (m_subsystem.moveLeft() == false) { // runs only if moveLeft is done
 
-      m_subsystem.moveLeft();
-
-      if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
-
-        a_Subsystem.highArm();
-        e_Subsystem.extendoUpper();
-
-        if ((a_Subsystem.highArm() == false) && (e_Subsystem.extendoUpper() == false)) {
-
-          time = Timer.getMatchTime();
-          c_Subsystem.clawOpen();
-
-          if ((Timer.getMatchTime() - 2) == time) {
-
+        if ((!a_Subsystem.highArm()) && (!e_Subsystem.extendoUpper())) {
+          // runs high arm until done, then runs extendoUpper until done
+          if (!c_Subsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutLong
             m_subsystem.taxiOutLong();
-
           }
+
         }
       }
 
     } else if (Mode == 3) {
+      // third mode-(insert what the mode does here)
       // TODO put third option here.
 
     } else {
 
-      System.out.println("error mode not found");
-      
+      System.out.println("error 404: mode not found");
+
     }
   }
 }

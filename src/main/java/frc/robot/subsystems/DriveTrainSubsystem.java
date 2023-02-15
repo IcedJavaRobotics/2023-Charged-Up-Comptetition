@@ -58,7 +58,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void taxiOutShort() {
-
+    //makes robot move backwards out of the community
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
@@ -69,7 +69,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void taxiOutLong() {
-
+    //makes robot move forwards out of the community
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
