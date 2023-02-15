@@ -64,7 +64,7 @@ public class ExtendoSubsystem extends SubsystemBase {
     
   }
 
-  public boolean extendoUpper() {
+  public boolean extendoUpper() {             //does this
 
     if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_HIGH_POS) {
 
@@ -84,19 +84,22 @@ public class ExtendoSubsystem extends SubsystemBase {
     return false;
   }
 
-  public void extendoDefault() {
+  public Boolean extendoDefault() {                //does this
 
     if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_DEFAULT_POS) {
 
       extendoExtend();
+      return true;
 
     } else if (extendoMotor.getSelectedSensorPosition() >= Constants.HIGH_BOUND_DEFAULT_POS) {
 
       extendoRetract();
+      return true;
 
     } else {
 
       extendoStop();
+      return false;
     }
 
   }

@@ -45,6 +45,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  /**
+   * Makes the motor move forward
+   * 
+   * @param speed speed of the motor
+   * @return returns nothing
+   * 
+   * 
+   */
   public void moveMotor(double speed, TalonFX talon) {
 
     talon.set(ControlMode.PercentOutput, speed);
@@ -58,7 +66,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void taxiOutShort() {
-    //makes robot move backwards out of the community
+    // makes robot move backwards out of the community
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
@@ -69,7 +77,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void taxiOutLong() {
-    //makes robot move forwards out of the community
+    // makes robot move forwards out of the community
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
@@ -114,6 +122,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     return false;
 
   }
+
   public boolean moveRight() {
 
     double horiOffset = limelight.getTx();
@@ -149,11 +158,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
     return false;
 
   }
+
   public boolean moveCenter() {
 
     double horiOffset = limelight.getTx();
 
-    if (limelight.getTv()== 1) {
+    if (limelight.getTv() == 1) {
 
       if (horiOffset > 0) {
 
@@ -178,12 +188,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
     } else {
 
       System.out.println("Target not found");
-      
+
     }
 
     return false;
 
   }
+
   public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
 
     if (zoom == true) { // When speed button is pressed it shortens ramp up time and puts it at max

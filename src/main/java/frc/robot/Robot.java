@@ -42,10 +42,11 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    SmartDashboard.putString("Version", "1.0");
-    SmartDashboard.putString("Author", "Alexa");
+    SmartDashboard.putString("Version", "1.1");
+    SmartDashboard.putString("Author", "Luke");
     SmartDashboard.putString("Description", "Charged Up, Mecanum drive train");
-    SmartDashboard.putString("Changes", "Added drive train, SmartDashboard information, and controllers");
+    SmartDashboard.putString("Changes",
+        "imported other code like buttons, goalCommands, and the arm parts. added code for autonomous");
     SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
 
     SmartDashboard.putData("Button One", new AutoOne(examplesubsystem));

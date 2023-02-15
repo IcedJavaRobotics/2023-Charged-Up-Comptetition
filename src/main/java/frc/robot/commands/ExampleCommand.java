@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class ExampleCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final DriveTrainSubsystem m_subsystem;
-  private final ClawSubsystem c_Subsystem;
-  private final ArmSubsystem a_Subsystem;
-  private final ExtendoSubsystem e_Subsystem;
-  private final ExampleSubsystem Subsystem;
-  private final LimelightSubsystem l_subsystem;
+  private final DriveTrainSubsystem driveTrainSubsystem;
+  private final ClawSubsystem clawSubsystem;
+  private final ArmSubsystem armSubsystem;
+  private final ExtendoSubsystem extendoSubsystem;
+  private final ExampleSubsystem exampleSubsystem;
+  private final LimelightSubsystem limelightSubsystem;
   private int mode = 1;
 
   /**
@@ -27,12 +27,12 @@ public class ExampleCommand extends CommandBase {
   public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem,
       ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, LimelightSubsystem lsubsystem) {
 
-    m_subsystem = msubsystem;
-    c_Subsystem = csubsystem;
-    a_Subsystem = asubsystem;
-    e_Subsystem = esubsystem;
-    Subsystem = subsystem;
-    l_subsystem = lsubsystem;
+    driveTrainSubsystem = msubsystem;
+    clawSubsystem = csubsystem;
+    armSubsystem = asubsystem;
+    extendoSubsystem = esubsystem;
+    exampleSubsystem = subsystem;
+    limelightSubsystem = lsubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(msubsystem);
@@ -47,15 +47,15 @@ public class ExampleCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    mode = Subsystem.getMode();
+    mode = exampleSubsystem.getMode();
 
     /**
      * If we wanted the drive train to be in brake mode during autonomous
      */
-    // m_subsystem.frontLeftTalon.setNeutralMode(NeutralMode.Brake);
-    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
-    // m_subsystem.frontRightTalon.setNeutralMode(NeutralMode.Brake);
-    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
+    // driveTrainSubsystem.frontLeftTalon.setNeutralMode(NeutralMode.Brake);
+    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
+    // driveTrainSubsystem.frontRightTalon.setNeutralMode(NeutralMode.Brake);
+    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
 
   }
 
@@ -63,7 +63,7 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    modeFunction(mode);
+    modeFunction(mode); // changes what its excecuting based on which mode its on
 
   }
 
@@ -80,35 +80,54 @@ public class ExampleCommand extends CommandBase {
     /**
      * If we wanted the drive train to be in brake mode during autonomous
      */
-    // m_subsystem.frontLeftTalon.setNeutralMode(NeutralMode.Coast);
-    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
-    // m_subsystem.frontRightTalon.setNeutralMode(NeutralMode.Coast);
-    // m_subsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
+    // driveTrainSubsystem.frontLeftTalon.setNeutralMode(NeutralMode.Coast);
+    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
+    // driveTrainSubsystem.frontRightTalon.setNeutralMode(NeutralMode.Coast);
+    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
     return false;
   }
 
   public void modeFunction(int Mode) {
     // sees which mode you are on(check buttons folder)
     if (Mode == 1) {
-      // first mode-(insert what the mode does here)
-      if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
+      /*
+       * first mode-
+       * moves left, then runs high arm, then extends arm to upper,
+       * then opens claw, then retracts arm,
+       * then lowers arm and makes robot move taxiOutShort backwards out of the
+       * community
+       */
+      if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
 
-        if ((!a_Subsystem.highArm()) && (!e_Subsystem.extendoUpper())) {
+        if ((!armSubsystem.highArm()) && (!extendoSubsystem.extendoUpper())) {
           // runs high arm until done, then runs extendoUpper until done
-          if (!c_Subsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
-            m_subsystem.taxiOutShort();
+          if (!clawSubsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
+            if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
+              armSubsystem.lowerArm();
+              driveTrainSubsystem.taxiOutShort(); // makes robot move backwards out of the community
+            }
           }
 
         }
       }
-    } else if (Mode == 2) {
-      // second mode-(insert what the mode does here)
-      if (m_subsystem.moveLeft() == false) { // runs only if moveLeft is done
 
-        if ((!a_Subsystem.highArm()) && (!e_Subsystem.extendoUpper())) {
+    } else if (Mode == 2) {
+      /*
+       * second mode-
+       * moves left, then runs high arm, then extends arm to upper,
+       * then opens claw, then retracts arm,
+       * then lowers arm and makes robot move taxiOutLong backward out of the
+       * community
+       */
+      if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
+
+        if ((!armSubsystem.highArm()) && (!extendoSubsystem.extendoUpper())) {
           // runs high arm until done, then runs extendoUpper until done
-          if (!c_Subsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutLong
-            m_subsystem.taxiOutLong();
+          if (!clawSubsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
+            if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
+              armSubsystem.lowerArm();
+              driveTrainSubsystem.taxiOutLong(); // makes robot move backwards out of the community
+            }
           }
 
         }
