@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import frc.robot.commands.LimelightCommand;
-import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 
 import frc.robot.commands.buttons.*;
@@ -27,7 +25,7 @@ import frc.robot.commands.buttons.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+  
   private final ExampleSubsystem examplesubsystem = new ExampleSubsystem();
   private RobotContainer m_robotContainer;
 
@@ -119,11 +117,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    // runs limelight
-    LimelightCommand limelight = new LimelightCommand(limelightSubsystem);
-    limelight.execute();
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {

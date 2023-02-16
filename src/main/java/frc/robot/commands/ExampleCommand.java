@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.Timer;
+// import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -87,6 +87,17 @@ public class ExampleCommand extends CommandBase {
     return false;
   }
 
+  /**
+   * <ul>
+   * <li>mode 1: TaxiOutShort
+   * <li>mode 2: TaxiOutLong
+   * <li>mode 3: WIP
+   * </ul>
+   * 
+   * @param Mode which mode you want,
+   * 
+   * 
+   */
   public void modeFunction(int Mode) {
     // sees which mode you are on(check buttons folder)
     if (Mode == 1) {

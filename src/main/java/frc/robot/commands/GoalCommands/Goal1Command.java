@@ -1,6 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
+// https://www.coolmathgames.com/0-duck-life
 
 package frc.robot.commands.GoalCommands;
 
@@ -42,7 +43,7 @@ public class Goal1Command extends CommandBase {
   public void execute() {
 
     m_subsystem.moveLeft();
-    
+
     if (m_subsystem.moveLeft() == false) { // Checks if moveLeft is done
 
       e_subsystem.extendoUpper();

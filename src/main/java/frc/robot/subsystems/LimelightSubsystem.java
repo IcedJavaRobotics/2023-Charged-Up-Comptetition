@@ -34,10 +34,23 @@ public class LimelightSubsystem extends SubsystemBase {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
   }
 
-  public double getTv() {
-    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+  /**
+   * whether or not the limelight sees a apriltag
+   * @return true if it sees an apriltag, false if the obvious happens
+   */
+  public Boolean tagDetected() {
+
+    if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
+      return true;
+    }
+      return false;
   }
 
+  /**
+   * command for calculating limelight distance
+   * 
+   * @return horizontal floor distance from robot to apriltag
+   */
   public double getDistance() {
 
     double targetOffsetAngle_Vertical = getTy();
@@ -85,44 +98,45 @@ public class LimelightSubsystem extends SubsystemBase {
   // }
 
   // Methods of what to do, robot is very polite
-  public void rotateRight() {
-    // limelightSubsystem.turnDarkBlue();
-    System.out.println("A little right please");
-  }
+  // public void rotateRight() {
+  // // limelightSubsystem.turnDarkBlue();
+  // System.out.println("A little right please");
+  // }
 
-  public void rotateLeft() {
-    // limelightSubsystem.turnLightLightBlue();
-    System.out.println("A little left please");
-  }
+  // public void rotateLeft() {
+  // // limelightSubsystem.turnLightLightBlue();
+  // System.out.println("A little left please");
+  // }
 
-  public void driveForward() {
-    // when you have apriltag centered but far
-    // limelightSubsystem.turnGreen();
-    System.out.println("Go forward please");
-  }
+  // public void driveForward() {
+  // // when you have apriltag centered but far
+  // // limelightSubsystem.turnGreen();
+  // System.out.println("Go forward please");
+  // }
 
-  public void stopAndSeek() {
-    // when you are close but not perfectly centered
-    // limelightSubsystem.flashRed();
-    if (getTx() >= 1) {
-      System.out.println("Seeking TARGET...Turn LEFT please.");
-    }
-    if (getTx() <= -1) {
-      System.out.println("Seeking TARGET...Turn RIGHT please.");
-    }
-  }
+  // public void stopAndSeek() {
+  // // when you are close but not perfectly centered
+  // // limelightSubsystem.flashRed();
+  // if (getTx() >= 1) {
+  // System.out.println("Seeking TARGET...Turn LEFT please.");
+  // }
+  // if (getTx() <= -1) {
+  // System.out.println("Seeking TARGET...Turn RIGHT please.");
+  // }
+  // }
 
-  public void stopAndDestroy() {
-    // when you are close and perfectly centered
-    // limelightSubsystem.turnDarkGreen();
-    System.out.println("i am in range of the apriltag " + getTid() + "! Great work me!");
-  }
+  // public void stopAndDestroy() {
+  // // when you are close and perfectly centered
+  // // limelightSubsystem.turnDarkGreen();
+  // System.out.println("i am in range of the apriltag " + getTid() + "! Great
+  // work me!");
+  // }
 
-  public void searchingForTargets() {
-    // no apriltags seen
-    // limelightSubsystem.turnRed();
-    System.out.println("Scanning for Targets....");
-  }
+  // public void searchingForTargets() {
+  // // no apriltags seen
+  // // limelightSubsystem.turnRed();
+  // System.out.println("Scanning for Targets....");
+  // }
 
   @Override
   public void periodic() {

@@ -91,7 +91,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     double horiOffset = limelight.getTx();
 
-    if (limelight.getTv() == 1) {
+    if (limelight.tagDetected()) {
 
       if (horiOffset > leftSideSetpoint) {
 
@@ -127,7 +127,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     double horiOffset = limelight.getTx();
 
-    if (limelight.getTv() == 1) {
+    if (limelight.tagDetected()) {
 
       if (horiOffset > -15) {
 
@@ -163,7 +163,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     double horiOffset = limelight.getTx();
 
-    if (limelight.getTv() == 1) {
+    if (limelight.tagDetected()) {
 
       if (horiOffset > 0) {
 
