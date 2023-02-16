@@ -7,18 +7,22 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.hal.util.HalHandleException;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
 
-  private VictorSPX armMotor = new VictorSPX(Constants.ARM_VICTOR);
+  private CANSparkMax armMotor = new CANSparkMax(Constants.ARM_SPARK, MotorType.kBrushless);
   DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
   double kP = 0;
@@ -27,24 +31,25 @@ public class ArmSubsystem extends SubsystemBase {
   int bottomValue = 0;
   int middleValue = 0;
   int highValue = 0;
+  double upperLimit = 0;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
   public ArmSubsystem() {
 
-    //Change when testing
-    armMotor.setInverted(null);
-
-    armMotor.setNeutralMode(NeutralMode.Brake);
+    // Change when testing
+    armMotor.setInverted(false);
 
   }
 
   public void armJoystick(double I) {
 
-    if ( I >= 0.5 ) {
+    if (I >= 0.5) {
       raiseArm();
-    } else if ( I <= -0.5 ) {
+      System.out.println(armMotor.getEncoder().getPosition());
+    } else if (I <= -0.5) {
       lowerArm();
+      System.out.println(armMotor.getEncoder().getPosition());
     } else {
       stopArm();
     }
@@ -53,51 +58,51 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void bottomArm() {
 
-    // moveMotor( armController.calculate( encoder value, bottomValue ), armMotor);
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), bottomValue), armMotor);
 
   }
 
   public void middleArm() {
 
-    // moveMotor( armController.calculate( encoder value, middleValue ), armMotor);
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), middleValue), armMotor);
 
   }
 
   public void highArm() {
 
-    // moveMotor( armController.calculate( encoder value, highValue ), armMotor);
-    
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), highValue), armMotor);
+
   }
 
-  public void moveMotor( double speed, VictorSPX victor) {
+  public void moveMotor(double speed, CANSparkMax sparkMax) {
 
-    victor.set(ControlMode.PercentOutput, speed);
+    sparkMax.set(speed);
 
   }
 
   public void raiseArm() {
 
-    // if (encoder < upperLimit) {
-      armMotor.set(ControlMode.PercentOutput, Constants.ARM_SPEED);
-    // }else {
-    //    stopArm;  
-    // }
+    if (armMotor.getEncoder().getPosition() < upperLimit) {
+      armMotor.set(Constants.ARM_SPEED);
+    } else {
+      stopArm();
+    }
   }
 
   public void lowerArm() {
 
     if (armLimitSwtich.get() == false) {
-      armMotor.set(ControlMode.PercentOutput, -Constants.ARM_SPEED);
+      armMotor.set(-Constants.ARM_SPEED);
     } else {
       stopArm();
-      //set encoder to 0
+      armMotor.getEncoder().setPosition(0);
     }
 
   }
 
   public void stopArm() {
 
-    armMotor.set(ControlMode.PercentOutput, 0);
+    armMotor.set(0);
 
   }
 
