@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrainSubsystem extends SubsystemBase {
-  /** Creates a new DriveTrainSubsystem. */
+
   final LimelightSubsystem limelight = new LimelightSubsystem();
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
@@ -65,8 +65,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  /** makes the robot move backwards out of the community */
   public void taxiOutShort() {
-    // makes robot move backwards out of the community
+
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
@@ -76,8 +77,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  /** makes robot move forwards out of the community */
   public void taxiOutLong() {
-    // makes robot move forwards out of the community
+
     double distance = limelight.getDistance();
 
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
@@ -87,6 +89,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  /**
+   * makes robot move left until it lines up with the aprilTag @return returns
+   * false when done
+   */
   public boolean moveLeft() {
 
     double horiOffset = limelight.getTx();
@@ -123,6 +129,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  /**
+   * makes robot move right until it lines up with the aprilTag @return returns
+   * false when done
+   */
   public boolean moveRight() {
 
     double horiOffset = limelight.getTx();
@@ -159,6 +169,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  /**
+   * makes robot move until it lines up accurately with the aprilTag @return
+   * returns false when done
+   */
   public boolean moveCenter() {
 
     double horiOffset = limelight.getTx();
@@ -194,6 +208,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
     return false;
 
   }
+
+  /**
+   * Moves the robot based on the controller
+   * 
+   * @param X    how far the joystick moved on the x axis(left and right)
+   * @param Y    how far the joystick moved on the y axis(up and down)
+   * @param R    how much the joystick has twisted
+   * @param Z    slider for speed
+   * @param zoom whether the speed button is pressed or not
+   */
 
   public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
 

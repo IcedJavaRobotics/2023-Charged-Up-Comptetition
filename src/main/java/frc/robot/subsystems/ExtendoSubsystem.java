@@ -27,7 +27,10 @@ public class ExtendoSubsystem extends SubsystemBase {
     extendoMotor.setNeutralMode(NeutralMode.Brake);
 
   }
-
+  /**
+   * method to extend the arm inward 
+   * @return false when finished
+   */
   public Boolean extendoLower() {
 
     if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS) {
@@ -45,7 +48,10 @@ public class ExtendoSubsystem extends SubsystemBase {
     }
 
   }
-
+  /**
+   * method to extend the arm to about the middle
+   * @return false when finished
+   */
   public Boolean extendoMiddle() {
 
     if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_MID_POS) {
@@ -63,7 +69,10 @@ public class ExtendoSubsystem extends SubsystemBase {
     }
     
   }
-
+/**
+   * method to extend the arm to very far
+   * @return false when finished
+   */
   public boolean extendoUpper() {             //does this
 
     if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_HIGH_POS) {
@@ -83,7 +92,10 @@ public class ExtendoSubsystem extends SubsystemBase {
     }
     return false;
   }
-
+/**
+   * method to extend the arm to the default position
+   * @return false when finished
+   */
   public Boolean extendoDefault() {                //does this
 
     if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_DEFAULT_POS) {

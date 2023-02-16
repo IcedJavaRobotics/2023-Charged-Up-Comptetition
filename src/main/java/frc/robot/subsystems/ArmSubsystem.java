@@ -18,7 +18,7 @@ public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
 
   private TalonSRX armMotor = new TalonSRX(Constants.ARM_TALON);
-  DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
+  DigitalInput armLimitSwitch = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
   double kP = 0;
   double kI = 0;
@@ -32,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmSubsystem() {
 
-    //Change when testing
+    // Change when testing
     armMotor.setInverted(InvertType.None);
 
     armMotor.setNeutralMode(NeutralMode.Brake);
@@ -41,56 +41,65 @@ public class ArmSubsystem extends SubsystemBase {
 
   public boolean bottomArm() {
 
-    moveMotor( armController.calculate( armMotor.getSelectedSensorPosition(), bottomValue ), armMotor);
+    moveMotor(armController.calculate(armMotor.getSelectedSensorPosition(), bottomValue), armMotor);
     return false;
 
   }
 
   public boolean middleArm() {
 
-    moveMotor( armController.calculate( armMotor.getSelectedSensorPosition(), middleValue ), armMotor);
+    moveMotor(armController.calculate(armMotor.getSelectedSensorPosition(), middleValue), armMotor);
     return false;
 
   }
 
   public boolean highArm() {
 
-    moveMotor( armController.calculate( armMotor.getSelectedSensorPosition(), highValue ), armMotor);
+    moveMotor(armController.calculate(armMotor.getSelectedSensorPosition(), highValue), armMotor);
     return false;
 
   }
 
-  public void moveMotor( double speed, TalonSRX talon) {
+  public void moveMotor(double speed, TalonSRX talon) {
 
     talon.set(ControlMode.PercentOutput, speed);
 
   }
 
+  /**
+   * moves the arm up unless it reaches the limit switch, stopping the arm when it
+   * does
+   */
   public void raiseArm() {
 
-    // if (encoder < upperlimit) {
-      armMotor.set(ControlMode.PercentOutput, Constants.ARM_SPEED);
+    // if ([insert limit switch here].get() == false) {
+    armMotor.set(ControlMode.PercentOutput, Constants.ARM_SPEED);
     // } else {
-    //   stopArm();
+    // stopArm();
     // }
 
   }
 
+  /**
+   * moves the arm down unless itreaches the limit switch, using stopArm() when it
+   * does
+   */
   public void lowerArm() {
 
-    if (armLimitSwtich.get() == false) {
+    if (armLimitSwitch.get() == false) {
 
       armMotor.set(ControlMode.PercentOutput, -Constants.ARM_SPEED);
 
     } else {
 
       stopArm();
-      //set encoder to 0
-      
+      // set encoder to 0
+
     }
 
   }
 
+  /** stops arm movement */
   public void stopArm() {
 
     armMotor.set(ControlMode.PercentOutput, 0);
