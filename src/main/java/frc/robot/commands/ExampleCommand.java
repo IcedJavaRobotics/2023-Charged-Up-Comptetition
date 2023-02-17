@@ -5,8 +5,11 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -14,8 +17,8 @@ public class ExampleCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrainSubsystem driveTrainSubsystem;
   private final ClawSubsystem clawSubsystem;
-  private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
+  private final ArmSubsystem armSubsystem;
+  private final ExtendoSubsystem extendoSubsystem;
   private final ExampleSubsystem exampleSubsystem;
   private final LimelightSubsystem limelightSubsystem;
   private int mode = 1;

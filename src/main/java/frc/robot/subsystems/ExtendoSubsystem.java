@@ -40,7 +40,7 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
-  /*public void extendoJoystick(double I) {
+  public void extendoJoystick(double I) {
 
     if ( I >= 0.5 ) {
       extendoExtend();
@@ -50,7 +50,7 @@ public class ExtendoSubsystem extends SubsystemBase {
       extendoStop();
     }
 
-  }*/
+  }
 
   public void extendoRetract() {
 

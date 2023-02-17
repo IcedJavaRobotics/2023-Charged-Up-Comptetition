@@ -56,21 +56,38 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
-  public void bottomArm() {
+  public boolean bottomArm() {
 
     moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), bottomValue), armMotor);
 
+    if (armController.atSetpoint()) {
+      return false;
+    } else {
+      return true;
+    }
+
   }
 
-  public void middleArm() {
+  public boolean middleArm() {
 
     moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), middleValue), armMotor);
 
+    if (armController.atSetpoint()) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
-  public void highArm() {
+  public boolean highArm() {
 
     moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), highValue), armMotor);
+
+    if (armController.atSetpoint()) {
+      return false;
+    } else {
+      return true;
+    }
 
   }
 
