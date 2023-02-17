@@ -30,6 +30,9 @@ public final class Constants {
   public static final int CONTROLLER = 2;
   // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
+  /*public static class OperatorConstants {
+    public static final int kDriverControllerPort = 0;
+  }*/
 
   // Claw
   public static final int LEFT_CLAW = 7;
@@ -54,7 +57,7 @@ public final class Constants {
   public static final int HIGH_SETPOINT = 2000;
 
   // Arm
-  public static final int ARM_TALON = 6;
+  public static final int ARM_SPARK = 6;
   public static final double ARM_SPEED = 0.4;
 
   // Limelight

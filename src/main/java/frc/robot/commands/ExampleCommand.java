@@ -4,8 +4,9 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.*;
-// import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ExtendoSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -13,8 +14,8 @@ public class ExampleCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrainSubsystem driveTrainSubsystem;
   private final ClawSubsystem clawSubsystem;
-  private final ArmSubsystem armSubsystem;
-  private final ExtendoSubsystem extendoSubsystem;
+  private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
   private final ExampleSubsystem exampleSubsystem;
   private final LimelightSubsystem limelightSubsystem;
   private int mode = 1;
@@ -48,6 +49,8 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void initialize() {
     mode = exampleSubsystem.getMode();
+    armSubsystem.lowerArm();
+    extendoSubsystem.extendoRetract();
 
     /**
      * If we wanted the drive train to be in brake mode during autonomous
@@ -70,7 +73,6 @@ public class ExampleCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
   }
 
   // Returns true when the command should end.

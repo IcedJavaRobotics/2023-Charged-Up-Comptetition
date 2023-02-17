@@ -40,14 +40,28 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
+  /*public void extendoJoystick(double I) {
+
+    if ( I >= 0.5 ) {
+      extendoExtend();
+    } else if ( I <= -0.5 ) {
+      extendoRetract();
+    } else {
+      extendoStop();
+    }
+
+  }*/
+
   public void extendoRetract() {
 
+    
     extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
 
   }
 
   public void extendoStop() {
 
+    
     extendoMotor.set(ControlMode.PercentOutput, 0);
 
   }

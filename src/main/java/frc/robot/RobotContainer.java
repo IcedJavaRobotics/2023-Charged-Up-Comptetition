@@ -7,6 +7,13 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ExtendoSubsystem;
+
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -32,6 +39,7 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClawSubsystem clawSubsystem = new ClawSubsystem();
   private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+  
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
@@ -71,7 +79,16 @@ public class RobotContainer {
 
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
-            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));
+            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
+    );
+
+    armSubsystem.setDefaultCommand(
+        new RunCommand(() -> armSubsystem.armJoystick( -xboxController.getLeftY()), armSubsystem)
+    );
+
+    extendoSubsystem.setDefaultCommand(
+      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
+    );
 
   }
 
@@ -107,6 +124,9 @@ public class RobotContainer {
       return 0;
     }
   }
+
+ 
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be

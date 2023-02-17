@@ -5,20 +5,25 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.hal.util.HalHandleException;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
 
-  private TalonSRX armMotor = new TalonSRX(Constants.ARM_TALON);
-  DigitalInput armLimitSwitch = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
+  private CANSparkMax armMotor = new CANSparkMax(Constants.ARM_SPARK, MotorType.kBrushless);
+  DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
   double kP = 0;
   double kI = 0;
@@ -26,83 +31,78 @@ public class ArmSubsystem extends SubsystemBase {
   int bottomValue = 0;
   int middleValue = 0;
   int highValue = 0;
-  double upperlimit = 0;
+  double upperLimit = 0;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
   public ArmSubsystem() {
 
     // Change when testing
-    armMotor.setInverted(InvertType.None);
-
-    armMotor.setNeutralMode(NeutralMode.Brake);
+    armMotor.setInverted(false);
 
   }
 
-  public boolean bottomArm() {
+  public void armJoystick(double I) {
 
-    moveMotor(armController.calculate(armMotor.getSelectedSensorPosition(), bottomValue), armMotor);
-    return false;
-
-  }
-
-  public boolean middleArm() {
-
-    moveMotor(armController.calculate(armMotor.getSelectedSensorPosition(), middleValue), armMotor);
-    return false;
-
-  }
-
-  public boolean highArm() {
-
-    moveMotor(armController.calculate(armMotor.getSelectedSensorPosition(), highValue), armMotor);
-    return false;
-
-  }
-
-  public void moveMotor(double speed, TalonSRX talon) {
-
-    talon.set(ControlMode.PercentOutput, speed);
-
-  }
-
-  /**
-   * moves the arm up unless it reaches the limit switch, stopping the arm when it
-   * does
-   */
-  public void raiseArm() {
-
-    // if ([insert limit switch here].get() == false) {
-    armMotor.set(ControlMode.PercentOutput, Constants.ARM_SPEED);
-    // } else {
-    // stopArm();
-    // }
-
-  }
-
-  /**
-   * moves the arm down unless itreaches the limit switch, using stopArm() when it
-   * does
-   */
-  public void lowerArm() {
-
-    if (armLimitSwitch.get() == false) {
-
-      armMotor.set(ControlMode.PercentOutput, -Constants.ARM_SPEED);
-
+    if (I >= 0.5) {
+      raiseArm();
+      System.out.println(armMotor.getEncoder().getPosition());
+    } else if (I <= -0.5) {
+      lowerArm();
+      System.out.println(armMotor.getEncoder().getPosition());
     } else {
-
       stopArm();
-      // set encoder to 0
-
     }
 
   }
 
-  /** stops arm movement */
+  public void bottomArm() {
+
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), bottomValue), armMotor);
+
+  }
+
+  public void middleArm() {
+
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), middleValue), armMotor);
+
+  }
+
+  public void highArm() {
+
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), highValue), armMotor);
+
+  }
+
+  public void moveMotor(double speed, CANSparkMax sparkMax) {
+
+    sparkMax.set(speed);
+
+  }
+
+  public void raiseArm() {
+
+    if (armMotor.getEncoder().getPosition() < upperLimit) {
+      armMotor.set(Constants.ARM_SPEED);
+    } else {
+      stopArm();
+    }
+  }
+
+  public void lowerArm() {
+
+    if (armLimitSwtich.get() == false) {
+      armMotor.set(-Constants.ARM_SPEED);
+    } else {
+      stopArm();
+      armMotor.getEncoder().setPosition(0);
+    }
+
+  }
+
   public void stopArm() {
 
-    armMotor.set(ControlMode.PercentOutput, 0);
+    armMotor.set(0);
 
   }
 
