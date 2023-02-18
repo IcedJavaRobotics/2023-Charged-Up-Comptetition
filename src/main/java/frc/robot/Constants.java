@@ -34,6 +34,10 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }*/
 
+  // Buttons
+  public static final int CLAW_CLOSE_BUTTON = 5;
+  public static final int CLAW_OPEN_BUTTON = 6;
+
   // Claw
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;

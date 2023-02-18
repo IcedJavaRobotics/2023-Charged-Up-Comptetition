@@ -14,7 +14,6 @@ import frc.robot.Constants;
 
 public class ClawSubsystem extends SubsystemBase {
   /** Creates a new ClawSubsystem. */
-
   private VictorSPX rightClawMotor = new VictorSPX(Constants.RIGHT_CLAW);
   private VictorSPX leftClawMotor = new VictorSPX(Constants.LEFT_CLAW);
   DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
@@ -23,8 +22,8 @@ public class ClawSubsystem extends SubsystemBase {
   public ClawSubsystem() {
 
     // Need to set this during testing
-    rightClawMotor.setInverted(InvertType.None);
-    leftClawMotor.setInverted(InvertType.None);
+    rightClawMotor.setInverted(null);
+    leftClawMotor.setInverted(null);
 
   }
 
@@ -36,14 +35,14 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
-  public Boolean clawOpen() {
+  public void clawOpen() {
 
     // Arms fold out until limit switch is hit
     if (leftLimit.get() == false) {
 
       leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
 
-    } else {
+    }else {
 
       leftClawMotor.set(ControlMode.PercentOutput, 0);
 
@@ -52,18 +51,13 @@ public class ClawSubsystem extends SubsystemBase {
     if (rightLimit.get() == false) {
 
       rightClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
-
-    } else {
+  
+    }else {
 
       rightClawMotor.set(ControlMode.PercentOutput, 0);
 
     }
-    if (!leftLimit.get() && !rightLimit.get()) {
-      return false; // returns false when done.
-    } else {
-      return true; // returns true when not done. duh.
-    }
-
+  
   }
 
   public void clawStop() {
