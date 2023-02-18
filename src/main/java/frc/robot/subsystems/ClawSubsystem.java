@@ -35,7 +35,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
-  public void clawOpen() {
+  public boolean clawOpen() {
 
     // Arms fold out until limit switch is hit
     if (leftLimit.get() == false) {
@@ -56,6 +56,12 @@ public class ClawSubsystem extends SubsystemBase {
 
       rightClawMotor.set(ControlMode.PercentOutput, 0);
 
+    }
+
+    if (!leftLimit.get() && !rightLimit.get()) {
+      return false; // returns false when done.
+    } else {
+      return true; // returns true when not done. duh.
     }
   
   }
