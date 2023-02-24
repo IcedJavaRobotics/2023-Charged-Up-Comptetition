@@ -87,7 +87,7 @@ public class RobotContainer {
     );
 
     extendoSubsystem.setDefaultCommand(
-      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightY()), extendoSubsystem)
+      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
     );
 
   }
