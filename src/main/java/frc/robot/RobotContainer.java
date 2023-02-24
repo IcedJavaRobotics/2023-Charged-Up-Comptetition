@@ -83,11 +83,11 @@ public class RobotContainer {
     );
 
     armSubsystem.setDefaultCommand(
-        new RunCommand(() -> armSubsystem.armJoystick( -xboxController.getLeftY()), armSubsystem)
+        new RunCommand(() -> armSubsystem.armJoystick( xboxController.getLeftY()), armSubsystem)
     );
 
     extendoSubsystem.setDefaultCommand(
-      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
+      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightY()), extendoSubsystem)
     );
 
   }

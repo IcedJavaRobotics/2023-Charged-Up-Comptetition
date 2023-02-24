@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -21,6 +22,8 @@ public class ExtendoSubsystem extends SubsystemBase {
   private double kI = 0;
   private double kD = 0;
 
+  double upperLimit = 10000;
+
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR);                //motor
   DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH);   //limit switch
   PIDController extendoController = new PIDController(kP, kI, kD);                      //PID controller
@@ -28,7 +31,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   public ExtendoSubsystem() {
 
     // Change when testing
-    extendoMotor.setInverted(InvertType.None);
+    extendoMotor.setInverted(false);
 
     extendoMotor.setNeutralMode(NeutralMode.Brake);
 
@@ -36,7 +39,13 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   public void extendoExtend() {
 
-    extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
+    System.out.println("extending");
+    // if (extendoMotor.getSelectedSensorPosition() <= upperLimit) {
+      extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
+    // } else {
+    //   extendoStop();
+    // }
+
 
   }
 
@@ -46,16 +55,10 @@ public class ExtendoSubsystem extends SubsystemBase {
       extendoExtend();
     } else if ( I <= -0.5 ) {
       extendoRetract();
+      SmartDashboard.putNumber("extendo encoder", extendoMotor.getSelectedSensorPosition());
     } else {
       extendoStop();
     }
-
-  }
-
-  public void extendoRetract() {
-
-    
-    extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
 
   }
 
@@ -64,6 +67,16 @@ public class ExtendoSubsystem extends SubsystemBase {
     
     extendoMotor.set(ControlMode.PercentOutput, 0);
 
+  }
+
+  public void extendoRetract() {
+    // System.out.println("Rectracting");
+    // if (extendoLimitSwitch.get() == false) {
+       extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
+    // }else {
+    //   extendoStop();
+    //   extendoMotor.setSelectedSensorPosition(0);
+    // }
   }
 
   public Boolean extendoLower() {             //extend to the lower goal method

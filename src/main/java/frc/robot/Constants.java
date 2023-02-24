@@ -19,10 +19,10 @@ package frc.robot;
 public final class Constants {
 
   // Drive train
-  public static final int FRONT_LEFT_TALON = 1;
-  public static final int FRONT_RIGHT_TALON = 2;
+  public static final int FRONT_LEFT_TALON = 4;
+  public static final int FRONT_RIGHT_TALON = 1;
   public static final int BACK_LEFT_TALON = 3;
-  public static final int BACK_RIGHT_TALON = 4;
+  public static final int BACK_RIGHT_TALON = 2;
 
   // Controllers
   public static final int JOYSTICK = 0;
@@ -37,14 +37,13 @@ public final class Constants {
   // Claw
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;
-  public static final double CLAW_SPEED = .5;
+  public static final double CLAW_SPEED = .2;
 
   //Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
   public static final int LEFT_CLAW_LIMIT = 1;
   public static final int EXTENDO_LIMIT_SWITCH = 2;
   public static final int ARM_LIMIT_SWITCH = 3;
-  public static final int ARM_ENCODER = 4;
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
@@ -58,7 +57,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 0.4;
+  public static final double ARM_SPEED = 0.2;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */

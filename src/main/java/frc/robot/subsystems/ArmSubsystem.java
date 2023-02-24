@@ -99,21 +99,21 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void raiseArm() {
 
-    if (armMotor.getEncoder().getPosition() < upperLimit) {
+    // if (armMotor.getEncoder().getPosition() < upperLimit) {
       armMotor.set(Constants.ARM_SPEED);
-    } else {
-      stopArm();
-    }
+    // } else {
+    //   stopArm();
+    // }
   }
 
   public void lowerArm() {
 
-    if (armLimitSwtich.get() == false) {
+    // if (armLimitSwtich.get() == false) {
       armMotor.set(-Constants.ARM_SPEED);
-    } else {
-      stopArm();
-      armMotor.getEncoder().setPosition(0);
-    }
+    // } else {
+    //  stopArm();
+    //  armMotor.getEncoder().setPosition(0);
+    //}
 
   }
 

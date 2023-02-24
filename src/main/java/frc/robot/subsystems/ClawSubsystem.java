@@ -23,8 +23,8 @@ public class ClawSubsystem extends SubsystemBase {
   public ClawSubsystem() {
 
     // Need to set this during testing
-    rightClawMotor.setInverted(InvertType.None);
-    leftClawMotor.setInverted(InvertType.None);
+    //rightClawMotor.setInverted(false);
+    //leftClawMotor.setInverted(InvertType.None);
 
   }
 
