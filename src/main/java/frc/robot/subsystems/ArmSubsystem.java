@@ -37,8 +37,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmSubsystem() {
 
-    // Change when testing
-    armMotor.setInverted(false);
+    armController.setTolerance(5, 10);
+    armController.setIntegratorRange(-1, 1);
 
   }
 
@@ -100,20 +100,20 @@ public class ArmSubsystem extends SubsystemBase {
   public void raiseArm() {
 
     // if (armMotor.getEncoder().getPosition() < upperLimit) {
-      armMotor.set(Constants.ARM_SPEED);
+    armMotor.set(Constants.ARM_SPEED);
     // } else {
-    //   stopArm();
+    // stopArm();
     // }
   }
 
   public void lowerArm() {
 
     // if (armLimitSwtich.get() == false) {
-      armMotor.set(-Constants.ARM_SPEED);
+    armMotor.set(-Constants.ARM_SPEED);
     // } else {
-    //  stopArm();
-    //  armMotor.getEncoder().setPosition(0);
-    //}
+    // stopArm();
+    // armMotor.getEncoder().setPosition(0);
+    // }
 
   }
 

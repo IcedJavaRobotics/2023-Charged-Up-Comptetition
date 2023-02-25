@@ -41,7 +41,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     backRightTalon.setInverted(false);
 
     scoreController.setTolerance(5, 10);
-    scoreController.setIntegratorRange(-0.5, 0.5);
+    scoreController.setIntegratorRange(-1, 1);
 
   }
 
@@ -90,7 +90,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * makes robot move left until it lines up with the aprilTag @return returns
+   * makes robot strafe until lined up with the left poles @return returns
    * false when done
    */
   public boolean moveLeft() {
@@ -101,19 +101,19 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
       if (horiOffset > leftSideSetpoint) {
 
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
 
         return true;
 
       } else if (horiOffset < leftSideSetpoint) {
 
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
 
         return true;
 
@@ -130,7 +130,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * makes robot move right until it lines up with the aprilTag @return returns
+   * makes the robot strafe until it is in line with the right poles from the
+   * april tags @return returns
    * false when done
    */
   public boolean moveRight() {
@@ -139,21 +140,21 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     if (limelight.tagDetected()) {
 
-      if (horiOffset > -15) {
+      if (horiOffset > rightSideSetpoint) {
 
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
 
         return true;
 
-      } else if (horiOffset < -15) {
+      } else if (horiOffset < rightSideSetpoint) {
 
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
 
         return true;
 
@@ -179,21 +180,21 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     if (limelight.tagDetected()) {
 
-      if (horiOffset > 0) {
+      if (horiOffset > midSetpoint) {
 
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
 
         return true;
 
-      } else if (horiOffset < 0) {
+      } else if (horiOffset < midSetpoint) {
 
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-        moveMotor(ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-        moveMotor(ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
 
         return true;
 
@@ -221,13 +222,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
 
-    // if (zoom == true) { // When speed button is pressed it shortens ramp up time and puts it at max
-    //                     // speed
-    //    Z = 1;
-    //    rampUpTime = 1;
+    // if (zoom == true) { // When speed button is pressed it shortens ramp up time
+    // and puts it at max
+    // // speed
+    // Z = 1;
+    // rampUpTime = 1;
     // } else { // Normal ramp up time, speed dependant on the slider (Z)
-      Z = (-Z + 1) / 2;
-      rampUpTime = 1.5;
+    Z = (-Z + 1) / 2;
+    rampUpTime = 1.5;
     // }
 
     if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
