@@ -37,7 +37,7 @@ public final class Constants {
   // Claw
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;
-  public static final double CLAW_SPEED = .2;
+  public static final double CLAW_SPEED = .4;
 
   //Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
