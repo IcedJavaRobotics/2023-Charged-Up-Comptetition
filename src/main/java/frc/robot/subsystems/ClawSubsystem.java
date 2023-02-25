@@ -57,6 +57,12 @@ public class ClawSubsystem extends SubsystemBase {
       rightClawMotor.set(ControlMode.PercentOutput, 0);
 
     }
+
+    if (!leftLimit.get() && !rightLimit.get()) {
+      return false; // returns false when done.
+    } else {
+      return true; // returns true when not done. duh.
+    }
   
   }
 
