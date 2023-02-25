@@ -52,7 +52,7 @@ public class ExtendoSubsystem extends SubsystemBase {
       extendoExtend();
     } else if (I <= -0.5) {
       extendoRetract();
-      SmartDashboard.putNumber("extendo encoder", extendoMotor.getSelectedSensorPosition());
+      // SmartDashboard.putNumber("extendo encoder", extendoMotor.getSelectedSensorPosition());
     } else {
       extendoStop();
     }
@@ -76,7 +76,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   }
 
   public Boolean extendoLower() { // extend to the lower goal method
-
+/*
     extendoMotor.set(ControlMode.PercentOutput,
         extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.LOW_SETPOINT));
 
@@ -112,45 +112,46 @@ public class ExtendoSubsystem extends SubsystemBase {
     // extendoStop();
     // return false;
     // }
-
+*/
+return false;
   }
 
   public Boolean extendoMiddle() {
 
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.MID_SETPOINT));
+    // extendoMotor.set(ControlMode.PercentOutput,
+    //     extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.MID_SETPOINT));
 
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
+    // if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
+    //   return false;
+    // } else {
       return true;
-    }
+    // }
 
   }
 
   public boolean extendoUpper() {
 
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.HIGH_SETPOINT));
+    // extendoMotor.set(ControlMode.PercentOutput,
+    //     extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.HIGH_SETPOINT));
 
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
+    // if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
+    //   return false;
+    // } else {
       return true;
-    }
+    // }
 
   }
 
   public boolean extendoDefault() {
 
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.DEFAULT_SETPOINT));
+    // extendoMotor.set(ControlMode.PercentOutput,
+    //     extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.DEFAULT_SETPOINT));
 
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
+    // if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
+    //   return false;
+    // } else {
       return true;
-    }
+    // }
 
   }
 

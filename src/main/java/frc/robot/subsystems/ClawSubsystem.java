@@ -38,31 +38,31 @@ public class ClawSubsystem extends SubsystemBase {
   public Boolean clawOpen() {
 
     // Arms fold out until limit switch is hit
-    // if (leftLimit.get() == false) {
+    if (leftLimit.get() == false) {
 
-    leftClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
+      leftClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
 
-    // } else {
+    } else {
 
-    // leftClawMotor.set(ControlMode.PercentOutput, 0);
+      leftClawMotor.set(ControlMode.PercentOutput, 0);
 
-    // }
+    }
 
-    // if (rightLimit.get() == false) {
+    if (rightLimit.get() == false) {
 
-    rightClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
+      rightClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
 
-    // } else {
+    } else {
 
-    // rightClawMotor.set(ControlMode.PercentOutput, 0);
+      rightClawMotor.set(ControlMode.PercentOutput, 0);
 
-    // }
+    }
 
-    // if (!leftLimit.get() && !rightLimit.get()) {
-    // return false; // returns false when done.
-    // } else {
-    return true; // returns true when not done. duh.
-    // }
+    if (!leftLimit.get() && !rightLimit.get()) {
+      return false; // returns false when done.
+    } else {
+      return true; // returns true when not done. duh.
+    }
 
   }
 

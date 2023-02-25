@@ -25,11 +25,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double kP = 0.1;
   double kI = 0.01; // PID values
   double kD = 0.01;
-  double leftSideSetpoint = 15;
+  double leftSideSetpoint = 10;
   double midSetpoint = 0;
-  double rightSideSetpoint = -15;
+  double rightSideSetpoint = -10;
   double shortTaxi = 97; // taxi
   double longTaxi = 105; // its inches
+  double testSpeed = 0.2;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -40,7 +41,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     frontRightTalon.setInverted(false);
     backRightTalon.setInverted(false);
 
-    scoreController.setTolerance(5, 10);
+    scoreController.setTolerance(3, 5);
     scoreController.setIntegratorRange(-1, 1);
 
   }
@@ -95,6 +96,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
    */
   public boolean moveLeft() {
 
+    /*
     double horiOffset = limelight.getTx();
 
     if (limelight.tagDetected()) {
@@ -110,10 +112,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
       } else if (horiOffset < leftSideSetpoint) {
 
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
 
         return true;
 
@@ -124,6 +126,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
       System.out.println("Target not found");
 
     }
+
+    return false;
+    */
+    moveMotor(-testSpeed, frontLeftTalon);
+    moveMotor(testSpeed, backLeftTalon);
+    moveMotor(testSpeed, frontRightTalon);
+    moveMotor(-testSpeed, backRightTalon);
 
     return false;
 
@@ -138,8 +147,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     double horiOffset = limelight.getTx();
 
-    if (limelight.tagDetected()) {
+    // if (limelight.tagDetected()) {
 
+      /*
       if (horiOffset > rightSideSetpoint) {
 
         moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
@@ -151,20 +161,26 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
       } else if (horiOffset < rightSideSetpoint) {
 
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
 
         return true;
 
       }
+      */
 
-    } else {
+      moveMotor(testSpeed, frontLeftTalon);
+      moveMotor(-testSpeed, backLeftTalon);
+      moveMotor(-testSpeed, frontRightTalon);
+      moveMotor(testSpeed, backRightTalon);
 
-      System.out.println("Target not found");
+    // } else {
 
-    }
+      // System.out.println("Target not found");
+
+    // }
 
     return false;
 
@@ -191,10 +207,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
       } else if (horiOffset < midSetpoint) {
 
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
+        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
+        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
 
         return true;
 
