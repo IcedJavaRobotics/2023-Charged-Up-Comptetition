@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -14,7 +13,7 @@ import frc.robot.Constants;
 
 public class ClawSubsystem extends SubsystemBase {
   /** Creates a new ClawSubsystem. */
-
+  
   private VictorSPX rightClawMotor = new VictorSPX(Constants.RIGHT_CLAW);
   private VictorSPX leftClawMotor = new VictorSPX(Constants.LEFT_CLAW);
   DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
@@ -23,8 +22,8 @@ public class ClawSubsystem extends SubsystemBase {
   public ClawSubsystem() {
 
     // Need to set this during testing
-    //rightClawMotor.setInverted(false);
-    //leftClawMotor.setInverted(InvertType.None);
+    rightClawMotor.setInverted(false);
+    leftClawMotor.setInverted(false);
 
   }
 
@@ -58,12 +57,7 @@ public class ClawSubsystem extends SubsystemBase {
       rightClawMotor.set(ControlMode.PercentOutput, 0);
 
     }
-    if (!leftLimit.get() && !rightLimit.get()) {
-      return false; // returns false when done.
-    } else {
-      return true; // returns true when not done. duh.
-    }
-
+  
   }
 
   public void clawStop() {

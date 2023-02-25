@@ -52,6 +52,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Button Three", new AutoThree(examplesubsystem));
 
     System.out.println(examplesubsystem.getMode());
+    SmartDashboard.putString("Version", "1.0");
+    SmartDashboard.putString("Author", "Alexa");
+    SmartDashboard.putString("Description", "Charged Up, Claw system");
+    SmartDashboard.putString("Changes", "Added ClawSubsystem, ClawOpenCommand, ClawCloseCommand. Binded Buttons.");
+    SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
   }
 
   /**

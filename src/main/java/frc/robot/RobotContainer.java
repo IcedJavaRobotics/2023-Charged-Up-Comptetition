@@ -7,8 +7,11 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.ClawCloseCommand;
+import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 
@@ -77,6 +80,11 @@ public class RobotContainer {
     new JoystickButton(driverStation, 10)
         .whileTrue(new Goal9Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
+    new JoystickButton(xboxController, Constants.CLAW_CLOSE_BUTTON)
+        .whileTrue(new ClawCloseCommand(clawSubsystem));
+    new JoystickButton(xboxController, Constants.CLAW_OPEN_BUTTON)
+        .whileTrue(new ClawOpenCommand(clawSubsystem));
+
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
             0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
@@ -144,6 +152,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    // new Trigger(m_exampleSubsystem::exampleCondition)
+    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
