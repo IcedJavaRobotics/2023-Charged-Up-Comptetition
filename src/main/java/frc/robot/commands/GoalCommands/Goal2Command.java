@@ -41,24 +41,24 @@ public class Goal2Command extends CommandBase {
 
     m_subsystem.moveCenter();
     
-    // if(m_subsystem.moveCenter() == false) {       //Checks if moveLeft is done
+    if(m_subsystem.moveCenter() == false) {       //Checks if moveLeft is done
 
-    //   e_subsystem.extendoUpper();
-    //   a_subsystem.highArm();
+      e_subsystem.extendoUpperCube();
+      a_subsystem.armUpperCube();
 
-    //   if((a_subsystem.highArm() == false) && (e_subsystem.extendoUpper() == false) ) {    // Checks if extendoUpper and highArm are done
+      if((a_subsystem.armUpperCube() == false) && (e_subsystem.extendoUpperCube() == false) ) {    // Checks if extendoUpper and highArm are done
 
-    //     c_subsystem.clawOpen();
+        c_subsystem.clawOpen();
 
-    //   }
-    // }
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
 
-    //c_subsystem.clawStop();
+    c_subsystem.clawStop();
 
   }
 

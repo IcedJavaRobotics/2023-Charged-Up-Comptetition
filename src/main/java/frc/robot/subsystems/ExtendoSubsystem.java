@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -76,21 +75,74 @@ public class ExtendoSubsystem extends SubsystemBase {
     }
   }
 
-  public Boolean extendoLower() { // extend to the lower goal method
-/*
+  
+
+
+  /********** Set scoring extendo positions **********/
+
+  // Has methods for upper and middle cones and cubes
+  // If lower is needed it needs to be written
+
+  public boolean extendoUpperCube() {
+
     extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.LOW_SETPOINT));
+         extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_UPPER_CUBE_SETPOINT));
 
-    // I don't know if this will go up AND down or just one of the two
+   if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
+     return false;
+   } else {
+     return true;
+   }
 
-    // if (encoder.getDistance() > Constants.LOW_BOUND_SETPOINT) { //if the current
-    // distance is more than the setpoint
+  }
 
-    // extendoMotor.set(ControlMode.PercentOutput,
-    // extendoController.calculate(encoder.getDistance(),
-    // Constants.LOW_BOUND_SETPOINT));
 
-    // }
+  public Boolean extendoMiddleCube() {
+
+    extendoMotor.set(ControlMode.PercentOutput,
+          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MIDDLE_CUBE_SETPOINT));
+
+     if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
+      return false;
+    } else {
+      return true;
+    }
+
+  }
+
+
+  public boolean extendoUpperCone() {
+
+    extendoMotor.set(ControlMode.PercentOutput,
+         extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_UPPER_CONE_SETPOINT));
+
+   if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
+     return false;
+   } else {
+     return true;
+   }
+
+  }
+
+
+  public Boolean extendoMiddleCone() {
+
+    extendoMotor.set(ControlMode.PercentOutput,
+          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MIDDLE_CONE_SETPOINT));
+
+     if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
+      return false;
+    } else {
+      return true;
+    }
+
+  }
+
+
+  public boolean extendoDefault() {
+
+    extendoMotor.set(ControlMode.PercentOutput,
+        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.DEFAULT_SETPOINT));
 
     if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
       return false;
@@ -98,63 +150,9 @@ public class ExtendoSubsystem extends SubsystemBase {
       return true;
     }
 
-    // if (extendoMotor.getSelectedSensorPosition() <= Constants.LOW_BOUND_LOW_POS)
-    // {
-
-    // extendoExtend();
-    // return true;
-    // } else if (extendoMotor.getSelectedSensorPosition() >=
-    // Constants.HIGH_BOUND_LOW_POS) {
-
-    // extendoRetract();
-    // return true;
-    // } else {
-
-    // extendoStop();
-    // return false;
-    // }
-*/
-return false;
   }
 
-  public Boolean extendoMiddle() {
 
-    // extendoMotor.set(ControlMode.PercentOutput,
-    //     extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.MID_SETPOINT));
-
-    // if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-    //   return false;
-    // } else {
-      return true;
-    // }
-
-  }
-
-  public boolean extendoUpper() {
-
-    // extendoMotor.set(ControlMode.PercentOutput,
-    //     extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.HIGH_SETPOINT));
-
-    // if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-    //   return false;
-    // } else {
-      return true;
-    // }
-
-  }
-
-  public boolean extendoDefault() {
-
-    // extendoMotor.set(ControlMode.PercentOutput,
-    //     extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.DEFAULT_SETPOINT));
-
-    // if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-    //   return false;
-    // } else {
-      return true;
-    // }
-
-  }
 
   @Override
   public void periodic() {

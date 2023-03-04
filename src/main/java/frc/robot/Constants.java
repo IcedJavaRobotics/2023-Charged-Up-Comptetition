@@ -55,13 +55,19 @@ public final class Constants {
     // Encoder values for set arm positions
 
   public static final int DEFAULT_SETPOINT = 0;
-  public static final int LOW_SETPOINT = 1000;
-  public static final int MID_SETPOINT = 1500;
-  public static final int HIGH_SETPOINT = 2000;
+  //public static final int LOW_SETPOINT = 1000; Probably don't need/use 
+  public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000; // Needs testing (Pair 1)
+  public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 0; // Needs testing (Pair 2)
+  public static final int EXTENDO_UPPER_CONE_SETPOINT = 21100; // Needs testing (Pair 3)
+  public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 3400; // Needs testing (Pair 4)
 
   // Arm
   public static final int ARM_SPARK = 6;
   public static final double ARM_SPEED = 0.2;
+  public static final int ARM_UPPER_CUBE_SETPOINT = -230; // Needs testing (Pair 1)
+  public static final int ARM_MIDDLE_CUBE_SETPOINT = -210; // Needs testing (Pair 2)
+  public static final int ARM_UPPER_CONE_SETPOINT = -280; // Needs testing (Pair 3)
+  public static final int ARM_MIDDLE_CONE_SETPOINT = -230; // Needs testing (Pair 4)
 
   // Limelight
   /** upward angle of limelight camera [degrees] */

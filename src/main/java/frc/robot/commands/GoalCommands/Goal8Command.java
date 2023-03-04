@@ -39,26 +39,26 @@ public class Goal8Command extends CommandBase {
   @Override
   public void execute() {
 
-    m_subsystem.moveCenter();
+    // m_subsystem.moveCenter();
     
-    if(m_subsystem.moveCenter() == false) {       //Checks if moveLeft is done
+    // if(m_subsystem.moveCenter() == false) {       //Checks if moveLeft is done
 
-      e_subsystem.extendoLower();
-      a_subsystem.bottomArm();
+    //   e_subsystem.extendoLower();
+    //   a_subsystem.bottomArm();
 
-      if((a_subsystem.bottomArm() == false) && (e_subsystem.extendoLower() == false) ) {    // Checks if extendoUpper and highArm are done
+    //   if((a_subsystem.bottomArm() == false) && (e_subsystem.extendoLower() == false) ) {    // Checks if extendoUpper and highArm are done
 
-        c_subsystem.clawOpen();
+    //     c_subsystem.clawOpen();
 
-      }
-    }
+    //   }
+    // }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
 
-    c_subsystem.clawStop();
+    //c_subsystem.clawStop();
 
   }
 

@@ -115,7 +115,7 @@ public class ExampleCommand extends CommandBase {
        */
       if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
 
-        if ((!armSubsystem.highArm()) && (!extendoSubsystem.extendoUpper())) {
+        if ((!armSubsystem.armUpperCube()) && (!extendoSubsystem.extendoUpperCube())) {
           // runs high arm until done, then runs extendoUpper until done
           if (!clawSubsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
             if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
@@ -137,15 +137,16 @@ public class ExampleCommand extends CommandBase {
        */
       if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
 
-        if ((!armSubsystem.highArm()) && (!extendoSubsystem.extendoUpper())) {
+        if ((!armSubsystem.armUpperCube()) && (!extendoSubsystem.extendoUpperCube())) {
           // runs high arm until done, then runs extendoUpper until done
-          if (!clawSubsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
-            if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
-              armSubsystem.lowerArm();
-              driveTrainSubsystem.taxiOutLong(); // makes robot move backwards out of the community
-            }
-          }
 
+          clawSubsystem.clawOpen();
+
+          if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
+            armSubsystem.lowerArm();
+            driveTrainSubsystem.taxiOutLong(); // makes robot move backwards out of the community
+          }
+      
         }
       }
 

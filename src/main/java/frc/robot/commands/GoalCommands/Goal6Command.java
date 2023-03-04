@@ -43,10 +43,10 @@ public class Goal6Command extends CommandBase {
     
     if(m_subsystem.moveLeft() == false) {       //Checks if moveLeft is done
 
-      e_subsystem.extendoMiddle();
-      a_subsystem.middleArm();
+      e_subsystem.extendoMiddleCone();
+      a_subsystem.armMiddleCone();
 
-      if((a_subsystem.middleArm() == false) && (e_subsystem.extendoMiddle() == false) ) {    // Checks if extendoUpper and highArm are done
+      if((a_subsystem.armMiddleCone() == false) && (e_subsystem.extendoMiddleCone() == false) ) {    // Checks if extendoUpper and highArm are done
 
         c_subsystem.clawOpen();
 

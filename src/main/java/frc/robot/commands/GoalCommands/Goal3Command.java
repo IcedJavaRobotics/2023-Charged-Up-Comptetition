@@ -41,24 +41,24 @@ public class Goal3Command extends CommandBase {
 
     m_subsystem.moveRight();
     
-    // if(m_subsystem.moveRight() == false) {       //Checks if moveLeft is done
+    if(m_subsystem.moveRight() == false) {       //Checks if moveLeft is done
 
-    //   e_subsystem.extendoUpper();
-    //   a_subsystem.highArm();
+      e_subsystem.extendoUpperCone();
+      a_subsystem.armUpperCone();
 
-    //   if((a_subsystem.highArm() == false) && (e_subsystem.extendoUpper() == false) ) {    // Checks if extendoUpper and highArm are done
+      if((a_subsystem.armUpperCone() == false) && (e_subsystem.extendoUpperCone() == false) ) {    // Checks if extendoUpperCone and armUpperCone are done
 
-    //     c_subsystem.clawOpen();
+        c_subsystem.clawOpen();
 
-    //   }
-    // }
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     
-    // c_subsystem.clawStop();
+    c_subsystem.clawStop();
 
   }
 

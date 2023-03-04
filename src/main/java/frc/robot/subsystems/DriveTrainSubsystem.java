@@ -66,29 +66,60 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  /** makes the robot move backwards out of the community */
-  public void taxiOutShort() {
 
-    double distance = limelight.getDistance();
+  /**
+   * Moves the robot based on the controller
+   * 
+   * @param X    how far the joystick moved on the x axis(left and right)
+   * @param Y    how far the joystick moved on the y axis(up and down)
+   * @param R    how much the joystick has twisted
+   * @param Z    slider for speed
+   * @param zoom whether the speed button is pressed or not
+   */
 
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontRightTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backRightTalon);
+  public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
+
+    //Disables the zoom capabilities
+    zoom = false;
+
+    // When speed button is pressed it shortens 
+    // ramp up time and puts it at max speed
+    if (zoom == true) { 
+    Z = 1;
+    rampUpTime = 1;
+    } else { // Normal ramp up time, speed dependant on the slider (Z)
+    Z = (-Z + 1) / 2;
+    rampUpTime = 1.5;
+    }
+
+    if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
+
+      driveTime = Timer.getMatchTime();
+
+    }
+
+    if (Timer.getMatchTime() - driveTime <= rampUpTime) {
+
+      speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5);
+
+    } else {
+
+      speedMod = 1;
+
+    }
+
+    moveMotor(Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
+    moveMotor(Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
+    moveMotor(Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
+    moveMotor(Z * speedMod * ensureRange(Y + X - R), backRightTalon);
 
   }
 
-  /** makes robot move forwards out of the community */
-  public void taxiOutLong() {
 
-    double distance = limelight.getDistance();
 
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontRightTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backRightTalon);
+  /************ Methods for centering with the AprilTags ************/
 
-  }
+
 
   /**
    * makes robot strafe until lined up with the left poles @return returns
@@ -96,7 +127,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
    */
   public boolean moveLeft() {
 
-    /*
+    
     double horiOffset = limelight.getTx();
 
     if (limelight.tagDetected()) {
@@ -128,15 +159,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
 
     return false;
-    */
-    moveMotor(-testSpeed, frontLeftTalon);
-    moveMotor(testSpeed, backLeftTalon);
-    moveMotor(testSpeed, frontRightTalon);
-    moveMotor(-testSpeed, backRightTalon);
-
-    return false;
 
   }
+
 
   /**
    * makes the robot strafe until it is in line with the right poles from the
@@ -147,9 +172,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     double horiOffset = limelight.getTx();
 
-    // if (limelight.tagDetected()) {
+    if (limelight.tagDetected()) {
 
-      /*
+      
       if (horiOffset > rightSideSetpoint) {
 
         moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
@@ -169,22 +194,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
         return true;
 
       }
-      */
+      
 
-      moveMotor(testSpeed, frontLeftTalon);
-      moveMotor(-testSpeed, backLeftTalon);
-      moveMotor(-testSpeed, frontRightTalon);
-      moveMotor(testSpeed, backRightTalon);
+    } else {
 
-    // } else {
+      System.out.println("Target not found");
 
-      // System.out.println("Target not found");
-
-    // }
+    }
 
     return false;
 
   }
+
 
   /**
    * makes robot move until it lines up accurately with the aprilTag @return
@@ -226,52 +247,35 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  /**
-   * Moves the robot based on the controller
-   * 
-   * @param X    how far the joystick moved on the x axis(left and right)
-   * @param Y    how far the joystick moved on the y axis(up and down)
-   * @param R    how much the joystick has twisted
-   * @param Z    slider for speed
-   * @param zoom whether the speed button is pressed or not
-   */
 
-  public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
 
-    // if (zoom == true) { // When speed button is pressed it shortens ramp up time
-    // and puts it at max
-    // // speed
-    // Z = 1;
-    // rampUpTime = 1;
-    // } else { // Normal ramp up time, speed dependant on the slider (Z)
-    Z = (-Z + 1) / 2;
-    rampUpTime = 1.5;
-    // }
 
-    if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
+  /********** Autonomous Code **********/
 
-      driveTime = Timer.getMatchTime();
 
-    }
+  /** makes the robot move backwards out of the community */
+  public void taxiOutShort() {
 
-    if (Timer.getMatchTime() - driveTime <= rampUpTime) {
+    double distance = limelight.getDistance();
 
-      speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5);
-
-    } else {
-
-      speedMod = 1;
-
-    }
-
-    moveMotor(Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
-    moveMotor(Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
-    moveMotor(Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
-    moveMotor(Z * speedMod * ensureRange(Y + X - R), backRightTalon);
+    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
+    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backLeftTalon);
+    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontRightTalon);
+    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backRightTalon);
 
   }
 
-  // Autonomous Code
+  /** makes robot move forwards out of the community */
+  public void taxiOutLong() {
+
+    double distance = limelight.getDistance();
+
+    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
+    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backLeftTalon);
+    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontRightTalon);
+    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backRightTalon);
+
+  }
 
   @Override
   public void periodic() {

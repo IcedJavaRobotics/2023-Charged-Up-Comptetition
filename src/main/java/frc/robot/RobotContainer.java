@@ -9,14 +9,12 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ClawCloseCommand;
 import frc.robot.commands.ClawOpenCommand;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ZeroArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
