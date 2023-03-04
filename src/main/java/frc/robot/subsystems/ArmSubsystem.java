@@ -46,15 +46,20 @@ public class ArmSubsystem extends SubsystemBase {
 
   public void armJoystick(double I) {
 
+    SmartDashboard.putNumber("Neo Value", armMotor.getEncoder().getPosition());
     if (I >= 0.5) {
       raiseArm();
-      System.out.println(armMotor.getEncoder().getPosition());
     } else if (I <= -0.5) {
       lowerArm();
-      System.out.println(armMotor.getEncoder().getPosition());
     } else {
       stopArm();
     }
+
+  }
+
+  public void zeroEncoder() {
+
+    armMotor.getEncoder().setPosition(0);
 
   }
 
@@ -128,7 +133,7 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   SmartDashboard.putNumber("Neo Value", armMotor.get());
+   SmartDashboard.putNumber("Neo Value", armMotor.getEncoder().getPosition());
     
   }
 }

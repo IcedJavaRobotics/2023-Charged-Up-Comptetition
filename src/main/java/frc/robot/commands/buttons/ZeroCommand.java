@@ -12,6 +12,7 @@ import frc.robot.subsystems.ArmSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ZeroCommand extends InstantCommand {
   
+  private final ArmSubsystem aSubsystem = new ArmSubsystem();
 
   public ZeroCommand(ArmSubsystem asubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -23,6 +24,7 @@ public class ZeroCommand extends InstantCommand {
   @Override
   public void initialize() {
     //put the code in here! 
+    aSubsystem.zeroEncoder();
     System.out.println("Zeroing.....");
   }
 }

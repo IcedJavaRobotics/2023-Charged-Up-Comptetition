@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ClawCloseCommand;
 import frc.robot.commands.ClawOpenCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ZeroArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -84,6 +85,8 @@ public class RobotContainer {
         .whileTrue(new ClawCloseCommand(clawSubsystem));
     new JoystickButton(xboxController, Constants.CLAW_OPEN_BUTTON)
         .whileTrue(new ClawOpenCommand(clawSubsystem));
+    new JoystickButton(xboxController, 3)
+        .whileTrue(new ZeroArmCommand(armSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
