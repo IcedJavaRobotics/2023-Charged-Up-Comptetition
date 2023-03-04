@@ -9,7 +9,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExampleSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
+  public int autoMode = 1;
+
+  public ExampleSubsystem() {
+  }
 
   /**
    * Example command factory method.
@@ -26,7 +29,8 @@ public class ExampleSubsystem extends SubsystemBase {
   }
 
   /**
-   * An example method querying a boolean state of the subsystem (for example, a digital sensor).
+   * An example method querying a boolean state of the subsystem (for example, a
+   * digital sensor).
    *
    * @return value of some boolean subsystem state, such as a digital sensor.
    */
@@ -43,5 +47,14 @@ public class ExampleSubsystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+  public void setMode(int mode) {
+    autoMode = mode;
+    System.out.println("setMode()");
+  }
+
+  public int getMode() {
+    return autoMode;
   }
 }
