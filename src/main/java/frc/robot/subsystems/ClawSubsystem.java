@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -29,6 +30,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   public void clawClose() {
 
+    System.out.println("Claws Close");
     // Arms fold in
     leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
     rightClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
@@ -38,7 +40,9 @@ public class ClawSubsystem extends SubsystemBase {
   public Boolean clawOpen() {
 
     // Arms fold out until limit switch is hit
-    if (leftLimit.get() == false) {
+    System.out.println("Claws Open");
+    
+    if (leftLimit.get()) {
 
       leftClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
 
@@ -47,8 +51,7 @@ public class ClawSubsystem extends SubsystemBase {
       leftClawMotor.set(ControlMode.PercentOutput, 0);
 
     }
-
-    if (rightLimit.get() == false) {
+    if (rightLimit.get()) {
 
       rightClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
 
@@ -58,11 +61,11 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    if (!leftLimit.get() && !rightLimit.get()) {
-      return false; // returns false when done.
-    } else {
+    //if (leftLimit.get() && rightLimit.get()) {
+    //  return false; // returns false when done.
+    //} else {
       return true; // returns true when not done. duh.
-    }
+    //}
 
   }
 
@@ -77,5 +80,7 @@ public class ClawSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("right limit", rightLimit.get());
+    SmartDashboard.putBoolean("left limit", leftLimit.get());
   }
 }

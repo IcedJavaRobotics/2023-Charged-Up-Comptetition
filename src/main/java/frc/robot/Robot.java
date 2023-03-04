@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-
 import frc.robot.commands.buttons.*;
 
 /**
@@ -51,6 +50,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Button Two", new AutoTwo(examplesubsystem));
     SmartDashboard.putData("Button Three", new AutoThree(examplesubsystem));
 
+    //SmartDashboard.putData("Zero the Arm", new ZeroCommand(armsubsystem));
+
     System.out.println(examplesubsystem.getMode());
     SmartDashboard.putString("Version", "1.0");
     SmartDashboard.putString("Author", "Alexa");
@@ -79,7 +80,9 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
     
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -124,6 +127,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+
   }
 
   @Override

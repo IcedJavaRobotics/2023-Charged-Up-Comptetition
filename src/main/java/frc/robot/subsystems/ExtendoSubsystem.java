@@ -22,7 +22,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   private double kI = 0;
   private double kD = 0;
 
-  double upperLimit = 10000;
+  double upperLimit = 10000000;
 
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR); // motor
   DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH); // limit switch
@@ -38,21 +38,21 @@ public class ExtendoSubsystem extends SubsystemBase {
   public void extendoExtend() {
 
     System.out.println("extending");
-    // if (extendoMotor.getSelectedSensorPosition() <= upperLimit) {
-    extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
-    // } else {
-    // extendoStop();
-    // }
+    if (extendoMotor.getSelectedSensorPosition() <= upperLimit) {
+      extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
+    } else {
+      extendoStop();
+    }
 
   }
 
   public void extendoJoystick(double I) {
 
+    SmartDashboard.putBoolean("extendo limit switch", extendoLimitSwitch.get());
     if (I >= 0.5) {
       extendoExtend();
     } else if (I <= -0.5) {
       extendoRetract();
-      // SmartDashboard.putNumber("extendo encoder", extendoMotor.getSelectedSensorPosition());
     } else {
       extendoStop();
     }
@@ -66,13 +66,13 @@ public class ExtendoSubsystem extends SubsystemBase {
   }
 
   public void extendoRetract() {
-    // System.out.println("Rectracting");
-    // if (extendoLimitSwitch.get() == false) {
+    System.out.println("Rectracting");
+    if (extendoLimitSwitch.get() == false) {
     extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
-    // }else {
-    // extendoStop();
-    // extendoMotor.setSelectedSensorPosition(0);
-    // }
+    }else {
+    extendoStop();
+    extendoMotor.setSelectedSensorPosition(0);
+    }
   }
 
   public Boolean extendoLower() { // extend to the lower goal method
@@ -158,5 +158,6 @@ return false;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("extendo encoder", extendoMotor.getSelectedSensorPosition());
   }
 }
