@@ -4,6 +4,8 @@
 
 package frc.robot.commands.buttons;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -25,5 +27,6 @@ public class AutoThree extends InstantCommand {
   @Override
   public void initialize() {
     exampleSubsystem.setMode(3);
+    
   }
 }

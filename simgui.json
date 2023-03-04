@@ -1,0 +1,27 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Buttons/Button dos": "Command",
+      "/Shuffleboard/Buttons/Button tres": "Command",
+      "/Shuffleboard/Buttons/Button uno": "Command",
+      "/Shuffleboard/Buttons/Zero the arm": "Command",
+      "/Shuffleboard/Commands/Auto Commands/AutoOne": "Command",
+      "/Shuffleboard/Commands/Auto Commands/AutoThree": "Command",
+      "/Shuffleboard/Commands/Auto Commands/AutoTwo": "Command",
+      "/Shuffleboard/Commands/Elevator/AutoOne": "Command",
+      "/Shuffleboard/Commands/Elevator/AutoThree": "Command",
+      "/Shuffleboard/Commands/Elevator/AutoTwo": "Command",
+      "/Shuffleboard/Commands/Zero the arm": "Command",
+      "/SmartDashboard/Auto choices": "String Chooser",
+      "/SmartDashboard/Button One": "Command",
+      "/SmartDashboard/Button Three": "Command",
+      "/SmartDashboard/Button Two": "Command",
+      "/SmartDashboard/Zero the Arm": "Command",
+      "/SmartDashboard/ZeroArm": "Command",
+      "/SmartDashboard/autoOne": "Command",
+      "/SmartDashboard/autoThree": "Command",
+      "/SmartDashboard/autoTwo": "Command"
+    }
+  }
+}

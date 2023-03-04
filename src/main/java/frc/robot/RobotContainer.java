@@ -6,6 +6,9 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.*;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ClawCloseCommand;
 import frc.robot.commands.ClawOpenCommand;
@@ -16,15 +19,24 @@ import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.LayoutType;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.GoalCommands.*;
+import frc.robot.commands.buttons.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -43,7 +55,7 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClawSubsystem clawSubsystem = new ClawSubsystem();
   private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
-  
+
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
@@ -90,17 +102,15 @@ public class RobotContainer {
 
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
-            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
-    );
+            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));
 
     armSubsystem.setDefaultCommand(
-        new RunCommand(() -> armSubsystem.armJoystick( xboxController.getLeftY()), armSubsystem)
-    );
+        new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
 
     extendoSubsystem.setDefaultCommand(
-      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
-    );
-
+        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
+            extendoSubsystem));
+    initShuffleboard();
   }
 
   private double deadZoneMod(double val) { // Creates a range where the robot will not recieve input to prevent
@@ -136,9 +146,6 @@ public class RobotContainer {
     }
   }
 
- 
-
-
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the
@@ -156,7 +163,7 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
-    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
+    // .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
@@ -174,4 +181,43 @@ public class RobotContainer {
     return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem,
         limelightSubsystem);
   }
+
+  public void initShuffleboard() {
+
+    // ShuffleboardTab commandTab = Shuffleboard.getTab("Commands");
+    // ShuffleboardTab dataTab = Shuffleboard.getTab("Data");
+    // commandTab.add("Mode", m_exampleSubsystem.getMode()).withSize(2,
+    // 1).withPosition(0, 0);
+
+    // // GenericEntry distanceEntry =
+    // // commandTab.add("Mode", 1)
+    // // .getEntry();
+
+    // ShuffleboardLayout autonomousCommands = Shuffleboard.getTab("Commands")
+    // .getLayout("Auto Commands", BuiltInLayouts.kList)
+    // .withSize(2, 3)
+    // .withPosition(0, 1)
+    // .withProperties(Map.of("Label position", "HIDDEN")); // hide labels for
+    // commands
+
+    // // Similarly for the claw commands
+
+    // dataTab.add("Pi", 3.14);
+    // // dataTab.addCamera("Limelight", "limelight", "https://10.68.94.91:5801");
+
+    // autonomousCommands.add(new AutoOne(m_exampleSubsystem));
+    // autonomousCommands.add(new AutoTwo(m_exampleSubsystem));
+    // autonomousCommands.add(new AutoThree(m_exampleSubsystem));
+    // // autonomousCommands.add("Mode", m_exampleSubsystem.getMode());
+
+    // commandTab.add("Zero the arm", new ZeroCommand(armSubsystem));
+
+    // SmartDashboard.putData("autoOne", new AutoOne(m_exampleSubsystem));
+    // SmartDashboard.putData("autoTwo", new AutoTwo(m_exampleSubsystem));
+    // SmartDashboard.putData("autoThree", new AutoThree(m_exampleSubsystem));
+
+    // SmartDashboard.putData("ZeroArm", new ZeroCommand(armSubsystem));
+    SmartDashboard.putNumber("Mode", 1);
+  }
+
 }

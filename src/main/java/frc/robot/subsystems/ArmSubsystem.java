@@ -37,11 +37,13 @@ public class ArmSubsystem extends SubsystemBase {
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
+  
+  
   public ArmSubsystem() {
 
     armController.setTolerance(5, 10);
     armController.setIntegratorRange(-1, 1);
-
+    addChild("PID", armController);
   }
 
   public void armJoystick(double I) {

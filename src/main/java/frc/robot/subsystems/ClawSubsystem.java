@@ -21,7 +21,7 @@ public class ClawSubsystem extends SubsystemBase {
   DigitalInput leftLimit = new DigitalInput(Constants.LEFT_CLAW_LIMIT);
 
   public ClawSubsystem() {
-
+    
     // Need to set this during testing
     rightClawMotor.setInverted(false);
     leftClawMotor.setInverted(true);

@@ -4,6 +4,8 @@
 
 package frc.robot.commands.buttons;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -11,7 +13,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoTwo extends InstantCommand {
-
+  public double pushed = 0;
   private final ExampleSubsystem exampleSubsystem;
 
   public AutoTwo(ExampleSubsystem esubsystem) {

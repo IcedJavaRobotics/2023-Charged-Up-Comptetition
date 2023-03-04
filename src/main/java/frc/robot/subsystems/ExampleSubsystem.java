@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -51,7 +53,7 @@ public class ExampleSubsystem extends SubsystemBase {
 
   public void setMode(int mode) {
     autoMode = mode;
-    System.out.println("setMode()");
+    SmartDashboard.putNumber("Mode", mode);
   }
 
   public int getMode() {

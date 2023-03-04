@@ -19,6 +19,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
+  
   double driveTime;
   double speedMod;
   double rampUpTime = 1.5;
@@ -35,6 +36,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
   public DriveTrainSubsystem() {
+
+    // addChild("frontleft", frontLeftTalon);
+    // addChild("frontright", frontRightTalon);
+    addChild("PID", scoreController);
 
     frontLeftTalon.setInverted(true);
     backLeftTalon.setInverted(true);

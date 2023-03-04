@@ -4,12 +4,16 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.commands.buttons.*;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -55,6 +59,8 @@ public class ExampleCommand extends CommandBase {
     armSubsystem.lowerArm();
     extendoSubsystem.extendoRetract();
 
+    System.out.println("Auto selected: " + Robot.getSelectedAuto());
+    // shuffleboardButtons();
     /**
      * If we wanted the drive train to be in brake mode during autonomous
      */
@@ -69,7 +75,7 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    modeFunction(mode); // changes what its excecuting based on which mode its on
+    modeFunction(Robot.getSelectedAuto()); // changes what its excecuting based on which mode its on
 
   }
 
@@ -103,9 +109,9 @@ public class ExampleCommand extends CommandBase {
    * 
    * 
    */
-  public void modeFunction(int Mode) {
+  public void modeFunction(String Mode) {
     // sees which mode you are on(check buttons folder)
-    if (Mode == 1) {
+    if (Mode == Constants.AUTO_DEFAULT) {
       /*
        * first mode-
        * moves left, then runs high arm, then extends arm to upper,
@@ -127,7 +133,7 @@ public class ExampleCommand extends CommandBase {
         }
       }
 
-    } else if (Mode == 2) {
+    } else if (Mode == Constants.AUTO_TWO) {
       /*
        * second mode-
        * moves left, then runs high arm, then extends arm to upper,
@@ -149,7 +155,7 @@ public class ExampleCommand extends CommandBase {
         }
       }
 
-    } else if (Mode == 3) {
+    } else if (Mode == Constants.AUTO_THREE) {
       // third mode-(insert what the mode does here)
       // TODO put third option here.
 
@@ -159,4 +165,12 @@ public class ExampleCommand extends CommandBase {
 
     }
   }
+
+  // public void shuffleboardButtons(){
+  // SmartDashboard.putData("Button One", new AutoOne(exampleSubsystem));
+  // SmartDashboard.putData("Button Two", new AutoTwo(exampleSubsystem));
+  // SmartDashboard.putData("Button Three", new AutoThree(exampleSubsystem));
+
+  // SmartDashboard.putData("Zero the Arm", new ZeroCommand(armSubsystem));
+  // }
 }
