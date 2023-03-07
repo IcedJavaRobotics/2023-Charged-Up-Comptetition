@@ -45,7 +45,7 @@ public class RobotContainer {
     configureBindings();
 
     new JoystickButton(driverStation, 7)
-        .whileTrue(new PneumaticWheelsComamand(pneumaticWheelsSubsystem));
+        .whileTrue(PneumaticWheelsCommand(pneumaticWheelsSubsystem, driveTrainSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
