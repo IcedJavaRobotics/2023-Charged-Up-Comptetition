@@ -6,21 +6,25 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrainSubsystem extends SubsystemBase {
-  /** Creates a new DriveTrainSubsystem. */ 
+  /** Creates a new DriveTrainSubsystem. */
 
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
+  final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
   double driveTime;
   double speedMod;
   double rampUpTime = 1.5;
+  public boolean wheelsRaised;
 
   public DriveTrainSubsystem() {
 
@@ -31,49 +35,66 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void moveMotor( double speed, TalonFX talon ) {
+  public void moveMotor(double speed, TalonFX talon) {
 
     talon.set(ControlMode.PercentOutput, speed);
 
   }
 
-  public double ensureRange( double val ) {
+  public double ensureRange(double val) {
 
     return Math.min(Math.max(val, -1), 1);
 
   }
 
-  public void mecanumDrive( double X, double Y, double R, double Z, boolean zoom ) {
+  public void moveLeftTrain(double speed) {
 
-    if (zoom == true) {     //When speed button is pressed it shortens ramp up time and puts it at max speed
-      Z = 1;
-      rampUpTime = 1;
-    } else {                //Normal ramp up time, speed dependant on the slider (Z)
-      Z = ( -Z + 1 )/2;
-      rampUpTime = 1.5;
-    }
+  }
 
-    if ( Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0 ) {
+  public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
 
-      driveTime = Timer.getMatchTime();
-    
-    }
+    if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticWheelsCommand)
 
-    if ( Timer.getMatchTime() - driveTime <= rampUpTime ) {
+      if (zoom == true) { // When speed button is pressed it shortens ramp up time and puts it at max
+                          // speed
+        Z = 1;
+        rampUpTime = 1;
+      } else { // Normal ramp up time, speed dependant on the slider (Z)
+        Z = (-Z + 1) / 2;
+        rampUpTime = 1.5;
+      }
 
-      speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5) ;
+      if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
+
+        driveTime = Timer.getMatchTime();
+
+      }
+
+      if (Timer.getMatchTime() - driveTime <= rampUpTime) {
+
+        speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5);
+
+      } else {
+
+        speedMod = 1;
+
+      }
+
+      moveMotor(Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
+      moveMotor(Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
+      moveMotor(Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
+      moveMotor(Z * speedMod * ensureRange(Y + X - R), backRightTalon);
 
     } else {
 
-      speedMod = 1;
+      // Tank drive for when wheels are deployed (only forward)
+      moveMotor(ensureRange(Y), backLeftTalon);
+      moveMotor(ensureRange(Y), frontLeftTalon);
+      moveMotor(ensureRange(Y), frontRightTalon);
+      moveMotor(ensureRange(Y), backRightTalon);
+      dropWheelsSpark.set(ensureRange(Y));
 
     }
-
-    moveMotor( Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
-    moveMotor( Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
-    moveMotor( Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
-    moveMotor( Z * speedMod * ensureRange(Y + X - R), backRightTalon);
-
   }
 
   @Override
