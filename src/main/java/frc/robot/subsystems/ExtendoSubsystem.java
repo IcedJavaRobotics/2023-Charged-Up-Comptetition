@@ -75,7 +75,16 @@ public class ExtendoSubsystem extends SubsystemBase {
     }
   }
 
-  
+  public boolean extendoReturn() {
+    if (extendoLimitSwitch.get() == false) {
+    extendoMotor.set(ControlMode.PercentOutput, -0.7);
+    return true;
+    }else {
+    extendoStop();
+    extendoMotor.setSelectedSensorPosition(0);
+    return false;
+    }
+  }
 
 
   /********** Set scoring extendo positions **********/

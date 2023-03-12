@@ -63,7 +63,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 0.2;
+  public static final double ARM_SPEED = 0.5;
   public static final int ARM_UPPER_CUBE_SETPOINT = -230; // Needs testing (Pair 1)
   public static final int ARM_MIDDLE_CUBE_SETPOINT = -210; // Needs testing (Pair 2)
   public static final int ARM_UPPER_CONE_SETPOINT = -280; // Needs testing (Pair 3)
