@@ -8,42 +8,33 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.PneumaticWheelsSubsystem;
 
-public class PneumaticWheelsCommand extends CommandBase {
-  /** Creates a new PneumaticWheelsCommand. */
-  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
-  private final DriveTrainSubsystem driveTrainSubsystem;
+public class RaiseWheelsCommand extends CommandBase {
+  /** Creates a new RaiseWheelsCommand. */
+  private DriveTrainSubsystem driveTrainSubsystem;
+  private PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
 
-  public PneumaticWheelsCommand(PneumaticWheelsSubsystem pSubsystem, DriveTrainSubsystem dSubsystem) {
+  public RaiseWheelsCommand(DriveTrainSubsystem dSubsystem, PneumaticWheelsSubsystem pSubsystem) {
     pneumaticWheelsSubsystem = pSubsystem;
     driveTrainSubsystem = dSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(pneumaticWheelsSubsystem);
-    addRequirements(driveTrainSubsystem);
+    addRequirements(pSubsystem);
+    addRequirements(dSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    pneumaticWheelsSubsystem.forwardSolenoid();
-    driveTrainSubsystem.wheelsRaised = false;
-
-    System.out.println("wheels");
+    pneumaticWheelsSubsystem.reverseSolenoid();
+    driveTrainSubsystem.wheelsRaised = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-
-    pneumaticWheelsSubsystem.toggleSolenoid();
-    driveTrainSubsystem.wheelsRaised = true;
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
