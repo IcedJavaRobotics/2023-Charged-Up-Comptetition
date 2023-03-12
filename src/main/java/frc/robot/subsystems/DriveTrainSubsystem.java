@@ -66,7 +66,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-
   /**
    * Moves the robot based on the controller
    * 
@@ -79,47 +78,39 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
 
-    //Disables the zoom capabilities
-    zoom = false;
-
-    // When speed button is pressed it shortens 
+    // When speed button is pressed it shortens
     // ramp up time and puts it at max speed
-    if (zoom == true) { 
-    Z = 1;
-    rampUpTime = 1;
+    if (zoom == true) {
+      Z = 1;
     } else { // Normal ramp up time, speed dependant on the slider (Z)
-    Z = (-Z + 1) / 2;
-    rampUpTime = 1.5;
+      Z = (-Z + 1) / 2;
     }
 
-    if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
+    // if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
 
-      driveTime = Timer.getMatchTime();
+    // driveTime = Timer.getMatchTime();
 
-    }
+    // }
 
-    if (Timer.getMatchTime() - driveTime <= rampUpTime) {
+    // if (Timer.getMatchTime() - driveTime <= rampUpTime) {
 
-      speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5);
+    // speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) +
+    // 0.5);
 
-    } else {
+    // } else {
 
-      speedMod = 1;
+    // speedMod = 1;
 
-    }
+    // }
 
-    moveMotor(Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
-    moveMotor(Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
-    moveMotor(Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
-    moveMotor(Z * speedMod * ensureRange(Y + X - R), backRightTalon);
+    moveMotor(Z * ensureRange(Y + X + R), frontLeftTalon);
+    moveMotor(Z * ensureRange(Y - X + R), backLeftTalon);
+    moveMotor(Z * ensureRange(Y - X - R), frontRightTalon);
+    moveMotor(Z * ensureRange(Y + X - R), backRightTalon);
 
   }
 
-
-
   /************ Methods for centering with the AprilTags ************/
-
-
 
   /**
    * makes robot strafe until lined up with the left poles @return returns
@@ -127,7 +118,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
    */
   public boolean moveLeft() {
 
-    
     double horiOffset = limelight.getTx();
 
     if (limelight.tagDetected()) {
@@ -162,7 +152,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-
   /**
    * makes the robot strafe until it is in line with the right poles from the
    * april tags @return returns
@@ -174,7 +163,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     if (limelight.tagDetected()) {
 
-      
       if (horiOffset > rightSideSetpoint) {
 
         moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
@@ -194,7 +182,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
         return true;
 
       }
-      
 
     } else {
 
@@ -205,7 +192,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
     return false;
 
   }
-
 
   /**
    * makes robot move until it lines up accurately with the aprilTag @return
@@ -247,11 +233,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-
-
-
   /********** Autonomous Code **********/
-
 
   /** makes the robot move backwards out of the community */
   public void taxiOutShort() {
