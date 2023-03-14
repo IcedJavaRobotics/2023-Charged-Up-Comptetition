@@ -5,8 +5,10 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
+import frc.robot.commands.DropWheelsCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.PneumaticWheelsCommand;
+import frc.robot.commands.RaiseWheelsCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PneumaticWheelsSubsystem;
@@ -113,6 +115,11 @@ public class RobotContainer {
     new JoystickButton(driverStation, 7)
         .whileTrue(new PneumaticWheelsCommand(pneumaticWheelsSubsystem, driveTrainSubsystem));
 
+    new JoystickButton(flightStick, 1)
+        .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+    new JoystickButton(flightStick, 2)
+        .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+      
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
             0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));

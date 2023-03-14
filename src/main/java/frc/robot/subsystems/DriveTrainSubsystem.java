@@ -91,15 +91,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
       moveMotor(Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
       moveMotor(Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
       moveMotor(Z * speedMod * ensureRange(Y + X - R), backRightTalon);
-
-    } else {
+    
+    } else if(wheelsRaised == false) {
 
       // Tank drive for when wheels are deployed (only forward)
-      moveMotor(ensureRange(Y), backLeftTalon);
-      moveMotor(ensureRange(Y), frontLeftTalon);
-      moveMotor(ensureRange(Y), frontRightTalon);
-      moveMotor(ensureRange(Y), backRightTalon);
-      dropWheelsSpark.set(ensureRange(Y));
+      moveMotor(ensureRange(-Y), backLeftTalon);
+      moveMotor(ensureRange(-Y), frontLeftTalon);
+      moveMotor(ensureRange(-Y), frontRightTalon);
+      moveMotor(ensureRange(-Y), backRightTalon);
+      dropWheelsSpark.set(ensureRange(-Y));
 
     }
 
