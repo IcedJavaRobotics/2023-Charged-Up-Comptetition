@@ -23,6 +23,7 @@ public final class Constants {
   public static final int FRONT_RIGHT_TALON = 1;
   public static final int BACK_LEFT_TALON = 3;
   public static final int BACK_RIGHT_TALON = 2;
+  public static final int DROP_WHEEL_SPARK = 8;
 
   // Controllers
   public static final int JOYSTICK = 0;

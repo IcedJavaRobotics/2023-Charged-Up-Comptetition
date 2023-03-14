@@ -5,7 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.subsystems.*;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.PneumaticWheelsCommand;
+import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.PneumaticWheelsSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ClawCloseCommand;
 import frc.robot.commands.ClawOpenCommand;
@@ -42,7 +46,8 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClawSubsystem clawSubsystem = new ClawSubsystem();
   private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
-  
+  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
+
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
@@ -104,6 +109,13 @@ public class RobotContainer {
     extendoSubsystem.setDefaultCommand(
       new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
     );
+
+    new JoystickButton(driverStation, 7)
+        .whileTrue(new PneumaticWheelsCommand(pneumaticWheelsSubsystem, driveTrainSubsystem));
+
+    driveTrainSubsystem.setDefaultCommand(
+        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
+            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));
 
   }
 

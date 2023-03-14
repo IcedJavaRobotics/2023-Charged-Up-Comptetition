@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
@@ -13,12 +15,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrainSubsystem extends SubsystemBase {
+  /** Creates a new DriveTrainSubsystem. */
 
   final LimelightSubsystem limelight = new LimelightSubsystem();
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
+  final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
   double driveTime;
   double speedMod;
   double rampUpTime = 1.5;
@@ -33,6 +37,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double testSpeed = 0.2;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
+  public boolean wheelsRaised = true;
 
   public DriveTrainSubsystem() {
 
@@ -76,39 +81,29 @@ public class DriveTrainSubsystem extends SubsystemBase {
    * @param zoom whether the speed button is pressed or not
    */
 
-  public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
+   public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
 
-    // When speed button is pressed it shortens
-    // ramp up time and puts it at max speed
-    if (zoom == true) {
-      Z = 1;
-    } else { // Normal ramp up time, speed dependant on the slider (Z)
+    if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticWheelsCommand)
+
       Z = (-Z + 1) / 2;
+
+      moveMotor(Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
+      moveMotor(Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
+      moveMotor(Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
+      moveMotor(Z * speedMod * ensureRange(Y + X - R), backRightTalon);
+
+    } else {
+
+      // Tank drive for when wheels are deployed (only forward)
+      moveMotor(ensureRange(Y), backLeftTalon);
+      moveMotor(ensureRange(Y), frontLeftTalon);
+      moveMotor(ensureRange(Y), frontRightTalon);
+      moveMotor(ensureRange(Y), backRightTalon);
+      dropWheelsSpark.set(ensureRange(Y));
+
     }
 
-    // if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
-
-    // driveTime = Timer.getMatchTime();
-
-    // }
-
-    // if (Timer.getMatchTime() - driveTime <= rampUpTime) {
-
-    // speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) +
-    // 0.5);
-
-    // } else {
-
-    // speedMod = 1;
-
-    // }
-
-    moveMotor(Z * ensureRange(Y + X + R), frontLeftTalon);
-    moveMotor(Z * ensureRange(Y - X + R), backLeftTalon);
-    moveMotor(Z * ensureRange(Y - X - R), frontRightTalon);
-    moveMotor(Z * ensureRange(Y + X - R), backRightTalon);
-
-  }
+    }
 
   /************ Methods for centering with the AprilTags ************/
 
