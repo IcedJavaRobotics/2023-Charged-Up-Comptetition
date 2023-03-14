@@ -32,7 +32,7 @@ public class ResetCommand extends CommandBase {
   public void execute() {
     if (extendoSubsystem.extendoReturn()) {
       clawSubsystem.clawOpen();
-    }
+    } 
   }
 
   // Called once the command ends or is interrupted.
