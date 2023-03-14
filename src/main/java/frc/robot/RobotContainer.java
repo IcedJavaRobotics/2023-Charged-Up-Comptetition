@@ -98,8 +98,8 @@ public class RobotContainer {
         .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
-        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
-            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
+        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
+            0.87 * getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
     );
 
     armSubsystem.setDefaultCommand(

@@ -47,12 +47,12 @@ public final class Constants {
   public static final int ARM_LIMIT_SWITCH = 3;
 
   // Buttons
-  public static final int CLAW_CLOSE_BUTTON = 5;
-  public static final int CLAW_OPEN_BUTTON = 6;
+  public static final int CLAW_CLOSE_BUTTON = 6;
+  public static final int CLAW_OPEN_BUTTON = 5;
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
-  public static final double EXTENDO_SPEED = 0.45;
+  public static final double EXTENDO_SPEED = 0.6;
     // Encoder values for set arm positions
 
   public static final int DEFAULT_SETPOINT = 0;
@@ -64,7 +64,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 0.5;
+  public static final double ARM_SPEED = 1;
   public static final int ARM_UPPER_CUBE_SETPOINT = -230; // Needs testing (Pair 1)
   public static final int ARM_MIDDLE_CUBE_SETPOINT = -210; // Needs testing (Pair 2)
   public static final int ARM_UPPER_CONE_SETPOINT = -280; // Needs testing (Pair 3)

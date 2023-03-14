@@ -38,9 +38,9 @@ public class ArmSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Neo Value", armMotor.getEncoder().getPosition());
     if (I >= 0.5) {
-      raiseArm();
-    } else if (I <= -0.5) {
       lowerArm();
+    } else if (I <= -0.5) {
+      raiseArm();
     } else {
       stopArm();
     }
