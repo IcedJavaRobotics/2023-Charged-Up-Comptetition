@@ -10,6 +10,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.PneumaticWheelsSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -20,7 +21,7 @@ public class ExampleCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private final ExtendoSubsystem extendoSubsystem;
   private final ExampleSubsystem exampleSubsystem;
-  private final LimelightSubsystem limelightSubsystem;
+  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
   private int mode = 1;
 
   /**
@@ -29,14 +30,14 @@ public class ExampleCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem,
-      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, LimelightSubsystem lsubsystem) {
+      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, PneumaticWheelsSubsystem pSubsystem) {
 
     driveTrainSubsystem = msubsystem;
     clawSubsystem = csubsystem;
     armSubsystem = asubsystem;
     extendoSubsystem = esubsystem;
     exampleSubsystem = subsystem;
-    limelightSubsystem = lsubsystem;
+    pneumaticWheelsSubsystem = pSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(msubsystem);
@@ -44,7 +45,7 @@ public class ExampleCommand extends CommandBase {
     addRequirements(asubsystem);
     addRequirements(esubsystem);
     addRequirements(subsystem);
-    addRequirements(lsubsystem);
+    addRequirements(pSubsystem);
 
   }
 
@@ -52,17 +53,6 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void initialize() {
     mode = exampleSubsystem.getMode();
-    armSubsystem.lowerArm();
-    extendoSubsystem.extendoRetract();
-
-    /**
-     * If we wanted the drive train to be in brake mode during autonomous
-     */
-    // driveTrainSubsystem.frontLeftTalon.setNeutralMode(NeutralMode.Brake);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
-    // driveTrainSubsystem.frontRightTalon.setNeutralMode(NeutralMode.Brake);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -81,14 +71,6 @@ public class ExampleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    /**
-     * If we wanted the drive train to be in brake mode during autonomous
-     */
-    // driveTrainSubsystem.frontLeftTalon.setNeutralMode(NeutralMode.Coast);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
-    // driveTrainSubsystem.frontRightTalon.setNeutralMode(NeutralMode.Coast);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
     return false;
   }
 

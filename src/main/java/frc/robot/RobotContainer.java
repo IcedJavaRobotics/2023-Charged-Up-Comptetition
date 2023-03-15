@@ -47,7 +47,6 @@ public class RobotContainer {
   private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClawSubsystem clawSubsystem = new ClawSubsystem();
-  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
   private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
 
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
@@ -93,8 +92,8 @@ public class RobotContainer {
     new JoystickButton(xboxController, Constants.CLAW_OPEN_BUTTON)
         .whileTrue(new ClawOpenCommand(clawSubsystem));
         
-    // new JoystickButton(xboxController, 3)
-    //     .whileTrue(new ZeroArmCommand(armSubsystem));
+    new JoystickButton(xboxController, 1)
+        .whileTrue(new ZeroArmCommand(armSubsystem));
 
     new JoystickButton(xboxController, 3)
         .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
@@ -107,6 +106,7 @@ public class RobotContainer {
     armSubsystem.setDefaultCommand(
         new RunCommand(() -> armSubsystem.armJoystick( xboxController.getLeftY()), armSubsystem)
     );
+
 
     extendoSubsystem.setDefaultCommand(
       new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
@@ -121,8 +121,8 @@ public class RobotContainer {
         .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
       
     driveTrainSubsystem.setDefaultCommand(
-        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(-getJoystickX(), getJoystickY(),
-            0.87 * -getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));
+        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
+            0.87 * getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));
 
   }
 
@@ -194,7 +194,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem,
-        limelightSubsystem);
+    return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem, pneumaticWheelsSubsystem);
   }
 }
