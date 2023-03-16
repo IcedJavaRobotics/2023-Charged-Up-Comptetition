@@ -5,9 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.commands.DropWheelsCommand;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.RaiseWheelsCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PneumaticWheelsSubsystem;
@@ -28,9 +26,14 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.GoalCommands.*;
 import frc.robot.commands.Lights.LightsConeCommand;
 import frc.robot.commands.Lights.LightsCubeCommand;
+import frc.robot.commands.PnuematicWheelsCommands.DropWheelsCommand;
+import frc.robot.commands.PnuematicWheelsCommands.RaiseWheelsCommand;
+import frc.robot.commands.Scoring.MiddleConeCommand;
+import frc.robot.commands.Scoring.MiddleCubeCommand;
+import frc.robot.commands.Scoring.UpperConeCommand;
+import frc.robot.commands.Scoring.UpperCubeCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -61,35 +64,21 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
     new JoystickButton(driverStation, 1)
-        .whileTrue(new Goal1Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+        .whileTrue(new UpperConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
     new JoystickButton(driverStation, 9)
-        .whileTrue(new Goal2Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 2)
-        .whileTrue(new Goal3Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 6)
-        .whileTrue(new Goal4Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 8)
-        .whileTrue(new Goal5Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 3)
-        .whileTrue(new Goal6Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 5)
-        .whileTrue(new Goal7Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 4)
-        .whileTrue(new Goal8Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 10)
-        .whileTrue(new Goal9Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+        .whileTrue(new UpperCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
     new JoystickButton(driverStation, 2)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));
+
+    new JoystickButton(driverStation, 6)
+        .whileTrue(new MiddleConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
+
+    new JoystickButton(driverStation, 8)
+        .whileTrue(new MiddleCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
     new JoystickButton(driverStation, 3)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
@@ -106,6 +95,12 @@ public class RobotContainer {
     new JoystickButton(xboxController, 3)
         .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
 
+    new JoystickButton(flightStick, 1)
+        .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+
+    new JoystickButton(flightStick, 2)
+        .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
             0.87 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
@@ -116,12 +111,6 @@ public class RobotContainer {
     extendoSubsystem.setDefaultCommand(
         new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
             extendoSubsystem));
-
-    new JoystickButton(flightStick, 1)
-        .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
-
-    new JoystickButton(flightStick, 2)
-        .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
 
   }
 

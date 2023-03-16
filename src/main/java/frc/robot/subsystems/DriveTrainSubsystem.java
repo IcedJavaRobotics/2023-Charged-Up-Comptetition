@@ -23,18 +23,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
   final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
+
   double kP = 0.1;
   double kI = 0.01; // PID values
   double kD = 0.01;
-  double leftSideSetpoint = 10;
-  double midSetpoint = 0;
-  double rightSideSetpoint = -10;
   double shortTaxi = 97; // taxi
   double longTaxi = 105; // its inches
-  double testSpeed = 0.2;
+  public boolean wheelsRaised = true;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
-  public boolean wheelsRaised = true;
 
   public DriveTrainSubsystem() {
 
@@ -99,129 +96,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
       dropWheelsSpark.set(ensureRange(Y));
 
     }
-
-  }
-
-  /************ Methods for centering with the AprilTags ************/
-
-  /**
-   * makes robot strafe until lined up with the left poles @return returns
-   * false when done
-   */
-  public boolean moveLeft() {
-
-    double horiOffset = limelight.getTx();
-
-    if (limelight.tagDetected()) {
-
-      if (horiOffset > leftSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
-
-        return true;
-
-      } else if (horiOffset < leftSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
-
-        return true;
-
-      }
-
-    } else {
-
-      System.out.println("Target not found");
-
-    }
-
-    return false;
-
-  }
-
-  /**
-   * makes the robot strafe until it is in line with the right poles from the
-   * april tags @return returns
-   * false when done
-   */
-  public boolean moveRight() {
-
-    double horiOffset = limelight.getTx();
-
-    if (limelight.tagDetected()) {
-
-      if (horiOffset > rightSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
-
-        return true;
-
-      } else if (horiOffset < rightSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
-
-        return true;
-
-      }
-
-    } else {
-
-      System.out.println("Target not found");
-
-    }
-
-    return false;
-
-  }
-
-  /**
-   * makes robot move until it lines up accurately with the aprilTag @return
-   * returns false when done
-   */
-  public boolean moveCenter() {
-
-    double horiOffset = limelight.getTx();
-
-    if (limelight.tagDetected()) {
-
-      if (horiOffset > midSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
-
-        return true;
-
-      } else if (horiOffset < midSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
-
-        return true;
-
-      }
-
-    } else {
-
-      System.out.println("Target not found");
-
-    }
-
-    return false;
 
   }
 

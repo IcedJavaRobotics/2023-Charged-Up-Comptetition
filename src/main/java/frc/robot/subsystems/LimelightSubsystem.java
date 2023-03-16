@@ -71,33 +71,6 @@ public class LimelightSubsystem extends SubsystemBase {
 
   }
 
-  // colors
-
-  // public void turnRed(){
-  // blinkin.set(0.61);
-  // }
-  // public void turnDarkBlue(){
-  // blinkin.set(0.85);
-  // }
-  // public void turnBlue(){
-  // blinkin.set(0.87);
-  // }
-  // public void turnLightBlue(){
-  // blinkin.set(0.83);
-  // }
-  // public void turnLightLightBlue(){
-  // blinkin.set(0.81);
-  // }
-  // public void turnGreen(){
-  // blinkin.set(0.73);
-  // }
-  // public void flashRed(){
-  // blinkin.set(-0.11);
-  // }
-  // public void turnDarkGreen(){
-  // blinkin.set(0.75);
-  // }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
