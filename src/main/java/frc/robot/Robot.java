@@ -23,7 +23,6 @@ import frc.robot.commands.buttons.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  
   private final ExampleSubsystem examplesubsystem = new ExampleSubsystem();
   private RobotContainer m_robotContainer;
 
@@ -38,25 +37,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    SmartDashboard.putString("Version", "1.1");
-    SmartDashboard.putString("Author", "Luke");
-    SmartDashboard.putString("Description", "Charged Up, Mecanum drive train");
-    SmartDashboard.putString("Changes",
-        "imported other code like buttons, goalCommands, and the arm parts. added code for autonomous");
-    SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
-
-    SmartDashboard.putData("Button One", new AutoOne(examplesubsystem));
-    SmartDashboard.putData("Button Two", new AutoTwo(examplesubsystem));
-    SmartDashboard.putData("Button Three", new AutoThree(examplesubsystem));
-
-    //SmartDashboard.putData("Zero the Arm", new ZeroCommand(armsubsystem));
-
-    System.out.println(examplesubsystem.getMode());
-    SmartDashboard.putString("Version", "1.0");
-    SmartDashboard.putString("Author", "Alexa");
-    SmartDashboard.putString("Description", "Charged Up, Claw system");
-    SmartDashboard.putString("Changes", "Added ClawSubsystem, ClawOpenCommand, ClawCloseCommand. Binded Buttons.");
-    SmartDashboard.putString("DriveTrainSubsystem status", "Untested");
   }
 
   /**
@@ -79,8 +59,6 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-
-    
 
   }
 

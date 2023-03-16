@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -22,6 +23,7 @@ public class ExampleCommand extends CommandBase {
   private final ExtendoSubsystem extendoSubsystem;
   private final ExampleSubsystem exampleSubsystem;
   private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
+  private final BlinkinSubsystem blinkinSubsystem;
   private int mode = 1;
 
   /**
@@ -30,7 +32,8 @@ public class ExampleCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem,
-      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, PneumaticWheelsSubsystem pSubsystem) {
+      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, PneumaticWheelsSubsystem pSubsystem,
+      BlinkinSubsystem bSubsystem) {
 
     driveTrainSubsystem = msubsystem;
     clawSubsystem = csubsystem;
@@ -38,6 +41,7 @@ public class ExampleCommand extends CommandBase {
     extendoSubsystem = esubsystem;
     exampleSubsystem = subsystem;
     pneumaticWheelsSubsystem = pSubsystem;
+    blinkinSubsystem = bSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(msubsystem);
@@ -46,6 +50,7 @@ public class ExampleCommand extends CommandBase {
     addRequirements(esubsystem);
     addRequirements(subsystem);
     addRequirements(pSubsystem);
+    addRequirements(bSubsystem);
 
   }
 
@@ -88,53 +93,10 @@ public class ExampleCommand extends CommandBase {
   public void modeFunction(int Mode) {
     // sees which mode you are on(check buttons folder)
     if (Mode == 1) {
-      /*
-       * first mode-
-       * moves left, then runs high arm, then extends arm to upper,
-       * then opens claw, then retracts arm,
-       * then lowers arm and makes robot move taxiOutShort backwards out of the
-       * community
-       */
-      if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
-
-        if ((!armSubsystem.armUpperCube()) && (!extendoSubsystem.extendoUpperCube())) {
-          // runs high arm until done, then runs extendoUpper until done
-          if (!clawSubsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
-            if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
-              armSubsystem.lowerArm();
-              driveTrainSubsystem.taxiOutShort(); // makes robot move backwards out of the community
-            }
-          }
-
-        }
-      }
 
     } else if (Mode == 2) {
-      /*
-       * second mode-
-       * moves left, then runs high arm, then extends arm to upper,
-       * then opens claw, then retracts arm,
-       * then lowers arm and makes robot move taxiOutLong backward out of the
-       * community
-       */
-      if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
-
-        if ((!armSubsystem.armUpperCube()) && (!extendoSubsystem.extendoUpperCube())) {
-          // runs high arm until done, then runs extendoUpper until done
-
-          clawSubsystem.clawOpen();
-
-          if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
-            armSubsystem.lowerArm();
-            driveTrainSubsystem.taxiOutLong(); // makes robot move backwards out of the community
-          }
-      
-        }
-      }
 
     } else if (Mode == 3) {
-      // third mode-(insert what the mode does here)
-      // TODO put third option here.
 
     } else {
 

@@ -23,9 +23,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
   final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
-  double driveTime;
-  double speedMod;
-  double rampUpTime = 1.5;
   double kP = 0.1;
   double kI = 0.01; // PID values
   double kD = 0.01;
@@ -81,7 +78,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
    * @param zoom whether the speed button is pressed or not
    */
 
-   public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
+  public void mecanumDrive(double X, double Y, double R, double Z) {
 
     if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticWheelsCommand)
 
@@ -91,8 +88,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
       moveMotor(Z * ensureRange(Y - X + R), backLeftTalon);
       moveMotor(Z * ensureRange(Y - X - R), frontRightTalon);
       moveMotor(Z * ensureRange(Y + X - R), backRightTalon);
-    
-    } else if(wheelsRaised == false) {
+
+    } else if (wheelsRaised == false) {
 
       // Tank drive for when wheels are deployed (only forward)
       moveMotor(ensureRange(Y), backLeftTalon);
@@ -103,7 +100,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     }
 
-    }
+  }
 
   /************ Methods for centering with the AprilTags ************/
 
