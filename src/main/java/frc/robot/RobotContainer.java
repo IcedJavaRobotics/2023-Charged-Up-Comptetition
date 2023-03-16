@@ -112,8 +112,6 @@ public class RobotContainer {
       new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
     );
 
-    new JoystickButton(driverStation, 7)
-        .whileTrue(new PneumaticWheelsCommand(pneumaticWheelsSubsystem, driveTrainSubsystem));
 
     new JoystickButton(flightStick, 1)
         .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));

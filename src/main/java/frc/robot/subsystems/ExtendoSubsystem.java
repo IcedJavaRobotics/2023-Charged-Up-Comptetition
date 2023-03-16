@@ -21,7 +21,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   private double kI = 0;
   private double kD = 0;
 
-  double upperLimit = 25000;
+  double upperLimit = 23000;
 
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR); // motor
   DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH); // limit switch
@@ -67,7 +67,7 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   public void extendoRetract() {
     System.out.println("Rectracting");
-    if (extendoLimitSwitch.get() == false) {
+    if (extendoLimitSwitch.get() == true) {
     extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
     }else {
     extendoStop();
@@ -76,7 +76,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   }
 
   public boolean extendoReturn() {
-    if (extendoLimitSwitch.get() == false) {
+    if (extendoLimitSwitch.get() == true) {
     extendoMotor.set(ControlMode.PercentOutput, -0.7);
     return false;
     }else {
