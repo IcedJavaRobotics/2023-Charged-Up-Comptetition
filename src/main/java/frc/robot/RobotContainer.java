@@ -7,21 +7,20 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DropWheelsCommand;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.PneumaticWheelsCommand;
 import frc.robot.commands.RaiseWheelsCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PneumaticWheelsSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.ClawCloseCommand;
-import frc.robot.commands.ClawOpenCommand;
-import frc.robot.commands.ResetCommand;
-import frc.robot.commands.ZeroArmCommand;
+import frc.robot.commands.ArmCommands.ClawCloseCommand;
+import frc.robot.commands.ArmCommands.ClawOpenCommand;
+import frc.robot.commands.ArmCommands.ResetCommand;
+import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
-
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,6 +29,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.GoalCommands.*;
+import frc.robot.commands.Lights.LightsConeCommand;
+import frc.robot.commands.Lights.LightsCubeCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -48,6 +49,7 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClawSubsystem clawSubsystem = new ClawSubsystem();
   private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
+  private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
 
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
@@ -86,12 +88,18 @@ public class RobotContainer {
     new JoystickButton(driverStation, 10)
         .whileTrue(new Goal9Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
 
+    new JoystickButton(driverStation, 2)
+        .whileTrue(new LightsConeCommand(blinkinSubsystem));
+
+    new JoystickButton(driverStation, 3)
+        .whileTrue(new LightsCubeCommand(blinkinSubsystem));
+
     new JoystickButton(xboxController, Constants.CLAW_CLOSE_BUTTON)
         .whileTrue(new ClawCloseCommand(clawSubsystem));
 
     new JoystickButton(xboxController, Constants.CLAW_OPEN_BUTTON)
         .whileTrue(new ClawOpenCommand(clawSubsystem));
-        
+
     new JoystickButton(xboxController, 1)
         .whileTrue(new ZeroArmCommand(armSubsystem));
 
@@ -100,27 +108,20 @@ public class RobotContainer {
 
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
-            0.87 * getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
-    );
+            0.87 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
 
     armSubsystem.setDefaultCommand(
-        new RunCommand(() -> armSubsystem.armJoystick( xboxController.getLeftY()), armSubsystem)
-    );
-
+        new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
 
     extendoSubsystem.setDefaultCommand(
-      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
-    );
-
+        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
+            extendoSubsystem));
 
     new JoystickButton(flightStick, 1)
         .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+
     new JoystickButton(flightStick, 2)
         .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
-      
-    driveTrainSubsystem.setDefaultCommand(
-        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
-            0.87 * getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem));
 
   }
 
@@ -157,9 +158,6 @@ public class RobotContainer {
     }
   }
 
- 
-
-
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the
@@ -177,7 +175,7 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
-    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
+    // .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
@@ -192,6 +190,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem, pneumaticWheelsSubsystem);
+    return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem,
+        pneumaticWheelsSubsystem, blinkinSubsystem);
   }
 }

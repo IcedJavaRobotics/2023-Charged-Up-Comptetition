@@ -10,8 +10,11 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
-  public static CommandBase exampleAuto(ExampleSubsystem subsystem,  DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem, ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, PneumaticWheelsSubsystem pSubsystem) {
-    return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem, msubsystem, csubsystem, asubsystem, esubsystem, pSubsystem));
+  public static CommandBase exampleAuto(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem,
+      ClawSubsystem csubsystem, ArmSubsystem asubsystem, ExtendoSubsystem esubsystem,
+      PneumaticWheelsSubsystem pSubsystem, BlinkinSubsystem bSubsystem) {
+    return Commands.sequence(subsystem.exampleMethodCommand(),
+        new ExampleCommand(subsystem, msubsystem, csubsystem, asubsystem, esubsystem, pSubsystem, bSubsystem));
   }
 
   private Autos() {

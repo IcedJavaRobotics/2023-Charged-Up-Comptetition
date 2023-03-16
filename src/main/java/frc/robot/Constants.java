@@ -31,16 +31,13 @@ public final class Constants {
   public static final int CONTROLLER = 2;
   // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
-  /*public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }*/
 
   // Claw
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;
   public static final double CLAW_SPEED = .5;
 
-  //Digital inputs
+  // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
   public static final int LEFT_CLAW_LIMIT = 1;
   public static final int EXTENDO_LIMIT_SWITCH = 2;
@@ -53,22 +50,22 @@ public final class Constants {
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
   public static final double EXTENDO_SPEED = 0.6;
-    // Encoder values for set arm positions
+  // Encoder values for set arm positions
 
   public static final int DEFAULT_SETPOINT = 0;
-  //public static final int LOW_SETPOINT = 1000; Probably don't need/use 
-  public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000; // Needs testing (Pair 1)
-  public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 0; // Needs testing (Pair 2)
-  public static final int EXTENDO_UPPER_CONE_SETPOINT = 21100; // Needs testing (Pair 3)
-  public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 3400; // Needs testing (Pair 4)
+
+  public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000;
+  public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 2900;
+  public static final int EXTENDO_UPPER_CONE_SETPOINT = 16000;
+  public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 1800;
 
   // Arm
   public static final int ARM_SPARK = 6;
   public static final double ARM_SPEED = 1;
-  public static final int ARM_UPPER_CUBE_SETPOINT = -230; // Needs testing (Pair 1)
-  public static final int ARM_MIDDLE_CUBE_SETPOINT = -210; // Needs testing (Pair 2)
-  public static final int ARM_UPPER_CONE_SETPOINT = -280; // Needs testing (Pair 3)
-  public static final int ARM_MIDDLE_CONE_SETPOINT = -230; // Needs testing (Pair 4)
+  public static final int ARM_UPPER_CUBE_SETPOINT = 181;
+  public static final int ARM_MIDDLE_CUBE_SETPOINT = 130;
+  public static final int ARM_UPPER_CONE_SETPOINT = 205;
+  public static final int ARM_MIDDLE_CONE_SETPOINT = 172;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */
