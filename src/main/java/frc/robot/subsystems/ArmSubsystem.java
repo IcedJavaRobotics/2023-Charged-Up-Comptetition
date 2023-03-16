@@ -47,12 +47,6 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
-  public void moveMotor(double speed, CANSparkMax sparkMax) {
-
-    sparkMax.set(speed);
-
-  }
-
   public void raiseArm() {
 
     if (Math.abs(armMotor.getEncoder().getPosition()) < upperLimit) {
@@ -60,17 +54,12 @@ public class ArmSubsystem extends SubsystemBase {
     } else {
       stopArm();
     }
-    
+
   }
 
   public void lowerArm() {
 
-    // if (armLimitSwtich.get() == false) {
     armMotor.set(-Constants.ARM_SPEED);
-    // } else {
-    // stopArm();
-    // armMotor.getEncoder().setPosition(0);
-    // }
 
   }
 
@@ -80,18 +69,24 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
+  public void moveMotor(double speed, CANSparkMax sparkMax) {
+
+    sparkMax.set(speed);
+
+  }
+
   public void zeroEncoder() {
 
     armMotor.getEncoder().setPosition(0);
 
   }
 
-
   /********** Set arm scoring positions **********/
 
   public boolean armUpperCube() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT), armMotor);
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
+        armMotor);
 
     if (armController.atSetpoint()) {
       return false;
@@ -102,7 +97,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   public boolean armMiddleCube() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CUBE_SETPOINT), armMotor);
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CUBE_SETPOINT),
+        armMotor);
 
     if (armController.atSetpoint()) {
       return false;
@@ -114,7 +110,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   public boolean armUpperCone() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CONE_SETPOINT), armMotor);
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CONE_SETPOINT),
+        armMotor);
 
     if (armController.atSetpoint()) {
       return false;
@@ -125,7 +122,8 @@ public class ArmSubsystem extends SubsystemBase {
 
   public boolean armMiddleCone() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CONE_SETPOINT), armMotor);
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CONE_SETPOINT),
+        armMotor);
 
     if (armController.atSetpoint()) {
       return false;
@@ -135,11 +133,10 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   SmartDashboard.putNumber("Neo Value", armMotor.getEncoder().getPosition());
-    
+    SmartDashboard.putNumber("Neo Value", armMotor.getEncoder().getPosition());
+
   }
 }

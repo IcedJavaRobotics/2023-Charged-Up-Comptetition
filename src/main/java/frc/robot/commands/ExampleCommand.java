@@ -58,6 +58,7 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void initialize() {
     mode = exampleSubsystem.getMode();
+    blinkinSubsystem.autoBlinkin();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -93,6 +94,8 @@ public class ExampleCommand extends CommandBase {
   public void modeFunction(int Mode) {
     // sees which mode you are on(check buttons folder)
     if (Mode == 1) {
+
+      driveTrainSubsystem.taxiOutLong();
 
     } else if (Mode == 2) {
 

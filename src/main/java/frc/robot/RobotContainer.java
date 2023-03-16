@@ -7,16 +7,15 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DropWheelsCommand;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.PneumaticWheelsCommand;
 import frc.robot.commands.RaiseWheelsCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PneumaticWheelsSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.ClawCloseCommand;
-import frc.robot.commands.ClawOpenCommand;
-import frc.robot.commands.ResetCommand;
-import frc.robot.commands.ZeroArmCommand;
+import frc.robot.commands.ArmCommands.ClawCloseCommand;
+import frc.robot.commands.ArmCommands.ClawOpenCommand;
+import frc.robot.commands.ArmCommands.ResetCommand;
+import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -117,9 +116,6 @@ public class RobotContainer {
     extendoSubsystem.setDefaultCommand(
         new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
             extendoSubsystem));
-
-    new JoystickButton(driverStation, 7)
-        .whileTrue(new PneumaticWheelsCommand(pneumaticWheelsSubsystem, driveTrainSubsystem));
 
     new JoystickButton(flightStick, 1)
         .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
