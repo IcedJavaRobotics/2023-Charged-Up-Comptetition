@@ -28,6 +28,17 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
+  public boolean clawBudge() {
+    if (leftLimit.get() == false || rightLimit.get() == false) {
+      leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
+      rightClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
+      return false;
+    } else {
+      clawStop();
+      return true;
+    }
+  }
+
   public void clawClose() {
 
     System.out.println("Claws Close");
@@ -41,7 +52,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     // Arms fold out until limit switch is hit
     System.out.println("Claws Open");
-    
+
     if (leftLimit.get()) {
 
       leftClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
@@ -61,11 +72,11 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    //if (leftLimit.get() && rightLimit.get()) {
-    //  return false; // returns false when done.
-    //} else {
-      return true; // returns true when not done. duh.
-    //}
+    // if (leftLimit.get() && rightLimit.get()) {
+    // return false; // returns false when done.
+    // } else {
+    return true; // returns true when not done. duh.
+    // }
 
   }
 

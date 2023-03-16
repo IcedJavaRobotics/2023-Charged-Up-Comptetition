@@ -14,6 +14,7 @@ import frc.robot.subsystems.PneumaticWheelsSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ArmCommands.ClawCloseCommand;
 import frc.robot.commands.ArmCommands.ClawOpenCommand;
+import frc.robot.commands.ArmCommands.ExtendCommand;
 import frc.robot.commands.ArmCommands.ResetCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -113,9 +114,12 @@ public class RobotContainer {
     armSubsystem.setDefaultCommand(
         new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
 
+    // extendoSubsystem.setDefaultCommand(
+    // new RunCommand(() ->
+    // extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
+    // extendoSubsystem));
     extendoSubsystem.setDefaultCommand(
-        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
-            extendoSubsystem));
+        new ExtendCommand(extendoSubsystem, clawSubsystem, -xboxController.getRightTriggerAxis()));
 
     new JoystickButton(flightStick, 1)
         .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
@@ -153,6 +157,14 @@ public class RobotContainer {
   public double getJoystickTwist() {
     if (flightStick != null) {
       return deadZoneMod(flightStick.getTwist());
+    } else {
+      return 0;
+    }
+  }
+
+  public double getXboxJoystickY() {
+    if (xboxController != null) {
+      return xboxController.getRightY();
     } else {
       return 0;
     }
