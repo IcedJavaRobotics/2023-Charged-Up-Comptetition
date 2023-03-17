@@ -44,8 +44,8 @@ public final class Constants {
   public static final int ARM_LIMIT_SWITCH = 3;
 
   // Buttons
-  public static final int CLAW_CLOSE_BUTTON = 5;
-  public static final int CLAW_OPEN_BUTTON = 6;
+  public static final int CLAW_CLOSE_BUTTON = 7;
+  public static final int CLAW_OPEN_BUTTON = 8;
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
