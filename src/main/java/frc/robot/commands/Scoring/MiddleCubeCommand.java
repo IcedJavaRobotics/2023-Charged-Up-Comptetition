@@ -36,8 +36,9 @@ public class MiddleCubeCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if (armSubsystem.armMiddleCube()) {
+    if (armSubsystem.armMiddleCube() == false) {
       if (extendoSubsystem.extendoMiddleCube()) {
+        System.out.println("moving");
         clawSubsystem.clawOpen();
       }
     }

@@ -66,7 +66,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   }
 
   public void extendoRetract() {
-    if (extendoLimitSwitch.get() == false) {
+    if (extendoLimitSwitch.get()) {
       extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
     } else {
       extendoStop();
@@ -75,7 +75,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   }
 
   public boolean extendoReturn() {
-    if (extendoLimitSwitch.get() == false) {
+    if (extendoLimitSwitch.get() == true) {
       extendoMotor.set(ControlMode.PercentOutput, -0.7);
       return false;
     } else {
