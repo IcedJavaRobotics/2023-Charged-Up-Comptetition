@@ -59,13 +59,16 @@ public class ExampleCommand extends CommandBase {
   public void initialize() {
     mode = exampleSubsystem.getMode();
     blinkinSubsystem.autoBlinkin();
+    msubsystem.zeroEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    modeFunction(mode); // changes what its excecuting based on which mode its on
+    msubsystem.autoTaxi();
+
+    // modeFunction(mode); // changes what its excecuting based on which mode its on
 
   }
 
@@ -90,21 +93,22 @@ public class ExampleCommand extends CommandBase {
    * @param Mode which mode you want,
    * 
    * 
-   */
-  public void modeFunction(int Mode) {
-    // sees which mode you are on(check buttons folder)
-    if (Mode == 1) {
+   *
+    public void modeFunction(int Mode) {
+      // sees which mode you are on(check buttons folder)
+      if (Mode == 1) {
 
-      driveTrainSubsystem.taxiOutLong();
+        driveTrainSubsystem.taxiOutLong();
 
-    } else if (Mode == 2) {
+      } else if (Mode == 2) {
 
-    } else if (Mode == 3) {
+      } else if (Mode == 3) {
 
-    } else {
+      } else {
 
-      System.out.println("error 404: mode not found");
+        System.out.println("error 404: mode not found");
 
+      }
     }
-  }
+    */
 }

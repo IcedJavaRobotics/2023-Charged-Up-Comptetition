@@ -45,6 +45,46 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
+  // Autonomous Section
+  public void zeroEncoder() {
+
+    frontLeftTalon.setSelectedSensorPosition(0);
+    
+  }
+
+  public boolean autoTaxi() {
+    if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_DISTANCE) ) {
+      
+      autoMoveMotor();
+
+    } else {
+
+      stopMotor();
+
+    }
+  }
+
+  public void autoMoveMotor() {
+
+    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+
+  }
+
+  public void  stopMotor() {
+    
+    frontLeftTalon.set(ControlMode.PercentOutput, 0);
+    backLeftTalon.set(ControlMode.PercentOutput, 0);
+    frontRightTalon.set(ControlMode.PercentOutput, 0);
+    backRightTalon.set(ControlMode.PercentOutput, 0);
+
+  }
+
+  
+  // Teleop Section
+
   /**
    * Makes the motor move forward
    * 
