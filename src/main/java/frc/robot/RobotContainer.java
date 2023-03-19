@@ -82,11 +82,15 @@ public class RobotContainer {
     // new JoystickButton(driverStation, 9)
     //     .whileTrue(new UpperCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
-    new JoystickButton(xboxController, Constants.CLAW_CLOSE_BUTTON)
-        .whileTrue(new ClawCloseCommand(clawSubsystem));
+    new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
+        .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.FAST_CLAW));
+    new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
+        .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
 
-    new JoystickButton(xboxController, Constants.CLAW_OPEN_BUTTON)
-        .whileTrue(new ClawOpenCommand(clawSubsystem));
+    new JoystickButton(xboxController, Constants.LEFT_BUMPER)
+	.whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
+    new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
+	.whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
 
     new JoystickButton(xboxController, 1)
         .whileTrue(new ZeroArmCommand(armSubsystem));

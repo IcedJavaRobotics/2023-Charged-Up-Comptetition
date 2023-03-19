@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+/ Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -19,7 +19,7 @@ public class ClawSubsystem extends SubsystemBase {
   private VictorSPX leftClawMotor = new VictorSPX(Constants.LEFT_CLAW);
   DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
   DigitalInput leftLimit = new DigitalInput(Constants.LEFT_CLAW_LIMIT);
-
+ 
   public ClawSubsystem() {
 
     // Need to set this during testing
@@ -28,20 +28,20 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
-  public void clawClose() {
+  public void clawClose(int clawSpeed) {
 
     // Arms fold in
-    leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
-    rightClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
+    leftClawMotor.set(ControlMode.PercentOutput, -clawSpeed);
+    rightClawMotor.set(ControlMode.PercentOutput, -clawSpeed);
 
   }
 
-  public Boolean clawOpen() {
+  public Boolean clawOpen(int clawSpeed) {
     
     // Arms fold out until limit switch is hit
     if (leftLimit.get()) {
 
-      leftClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
+      leftClawMotor.set(ControlMode.PercentOutput, clawSpeed);
 
     } else {
 
@@ -50,7 +50,7 @@ public class ClawSubsystem extends SubsystemBase {
     }
     if (rightLimit.get()) {
 
-      rightClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
+      rightClawMotor.set(ControlMode.PercentOutput, clawSpeed);
 
     } else {
 

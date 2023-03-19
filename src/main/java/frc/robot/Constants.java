@@ -27,7 +27,7 @@ public final class Constants {
   public static final int ROTATIONAL_CONSTANT = 2048;
   public static final int AUTO_DISTANCE = 34;      // in inches-changed from 24 to 34
   public static final double AUTO_SPEED = 0.2;
-
+  
   // Controllers
   public static final int JOYSTICK = 0;
   public static final int DRIVER_STATION = 1;
@@ -40,8 +40,8 @@ public final class Constants {
   public static final int RIGHT_CLAW = 8;
   public static final double CLAW_SPEED = 0.7;
   //TODO claw pressure and claw speed changing based on position.
-  public static final double FAST_CLAW_SPEED = 1;
-  public static final double SLOW_CLAW_SPEED = 0.5;
+  public static final double FAST_CLAW = 1;
+  public static final double SLOW_CLAW = 0.3;
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -50,8 +50,11 @@ public final class Constants {
   public static final int ARM_LIMIT_SWITCH = 3;
 
   // Buttons
-  public static final int CLAW_CLOSE_BUTTON = 7;
-  public static final int CLAW_OPEN_BUTTON = 8;
+  public static final int LEFT_BUMPER = 5;
+  public static final int RIGHT_BUMPER = 6;
+  public static final int LEFT_TRIGGER = 7;
+  public static final int RIGHT_TRIGGER = 8;
+
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;

@@ -12,7 +12,7 @@ public class ClawCloseCommand extends CommandBase {
 
   private final ClawSubsystem clawSubsystem;
 
-  public ClawCloseCommand(ClawSubsystem subsystem) {
+  public ClawCloseCommand(ClawSubsystem subsystem, int speed) {
 
     clawSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,7 +29,7 @@ public class ClawCloseCommand extends CommandBase {
   @Override
   public void execute() {
 
-    clawSubsystem.clawClose();
+    clawSubsystem.clawClose(speed);
 
   }
 

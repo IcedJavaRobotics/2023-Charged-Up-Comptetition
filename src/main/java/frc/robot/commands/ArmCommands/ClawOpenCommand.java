@@ -12,7 +12,7 @@ public class ClawOpenCommand extends CommandBase {
 
   private final ClawSubsystem clawSubsystem;
 
-  public ClawOpenCommand(ClawSubsystem subsystem) {
+  public ClawOpenCommand(ClawSubsystem subsystem, int speed) {
 
     clawSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,7 +29,7 @@ public class ClawOpenCommand extends CommandBase {
   @Override
   public void execute() {
 
-    clawSubsystem.clawOpen();
+    clawSubsystem.clawOpen(speed);
 
   }
 
