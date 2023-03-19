@@ -52,7 +52,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     
   }
 
-  public boolean autoTaxi() {
+  public void autoTaxi() {
     if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_DISTANCE) ) {
       
       autoMoveMotor();
@@ -60,6 +60,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     } else {
 
       stopMotor();
+
 
     }
   }

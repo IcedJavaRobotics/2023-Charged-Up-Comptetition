@@ -25,8 +25,8 @@ public final class Constants {
   public static final int BACK_RIGHT_TALON = 2;
   public static final int DROP_WHEEL_SPARK = 9;
   public static final int ROTATIONAL_CONSTANT = 2048;
-  public static final int AUTO_DISTANCE = 10;      // in inches
-  public static final int AUTO_SPEED = 0.2;
+  public static final int AUTO_DISTANCE = 34;      // in inches-changed from 24 to 34
+  public static final double AUTO_SPEED = 0.2;
 
   // Controllers
   public static final int JOYSTICK = 0;
@@ -38,7 +38,10 @@ public final class Constants {
   // Claw
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;
-  public static final double CLAW_SPEED = 1;
+  public static final double CLAW_SPEED = 0.7;
+  //TODO claw pressure and claw speed changing based on position.
+  public static final double FAST_CLAW_SPEED = 1;
+  public static final double SLOW_CLAW_SPEED = 0.5;
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -52,8 +55,7 @@ public final class Constants {
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
-  public static final double EXTENDO_SPEED = 0.6;
-  // Encoder values for set arm positions
+  public static final double EXTENDO_SPEED = 0.3;   // changed from 0.6 to 0.3  // Encoder values for set arm positions
 
   public static final int DEFAULT_SETPOINT = 0;
 
@@ -64,11 +66,12 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 1;
+  public static final double ARM_SPEED = 0.5;   //1 to 0.5
   public static final int ARM_UPPER_CUBE_SETPOINT = 181;
   public static final int ARM_MIDDLE_CUBE_SETPOINT = 130;
   public static final int ARM_UPPER_CONE_SETPOINT = 205;
   public static final int ARM_MIDDLE_CONE_SETPOINT = 172;
+  public static final int ARM_AUTO_PICKUP = 50;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */

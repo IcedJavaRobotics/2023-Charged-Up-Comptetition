@@ -17,7 +17,7 @@ public class BlinkinSubsystem extends SubsystemBase {
   }
 
   public void colorCone() {
-    blinkin.set(0.69);
+    blinkin.set(0.65);
   }
 
   public void colorCube() {

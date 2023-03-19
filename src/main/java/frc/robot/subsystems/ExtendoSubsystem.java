@@ -21,7 +21,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   private double kI = 0;
   private double kD = 0;
 
-  double upperLimit = 25000;
+  double upperLimit = 24500;
 
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR); // motor
   DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH); // limit switch
@@ -80,7 +80,7 @@ public class ExtendoSubsystem extends SubsystemBase {
       return false;
     } else {
       extendoStop();
-      extendoMotor.setSelectedSensorPosition(0);
+      extendoMotor.setSelectedSensorPosition(0);  //qqqqqqqqqqqqqqqqqqqqqqqqqq22TODO add this line to other extendoStop();
       return true;
     }
   }

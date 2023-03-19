@@ -37,7 +37,7 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public Boolean clawOpen() {
-
+    
     // Arms fold out until limit switch is hit
     if (leftLimit.get()) {
 

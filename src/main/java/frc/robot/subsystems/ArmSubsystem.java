@@ -82,7 +82,6 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /********** Set arm scoring positions **********/
-
   public boolean armUpperCube() {
 
     moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),

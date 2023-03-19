@@ -59,14 +59,14 @@ public class ExampleCommand extends CommandBase {
   public void initialize() {
     mode = exampleSubsystem.getMode();
     blinkinSubsystem.autoBlinkin();
-    msubsystem.zeroEncoder();
+    driveTrainSubsystem.zeroEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    msubsystem.autoTaxi();
+    driveTrainSubsystem.autoTaxi();
 
     // modeFunction(mode); // changes what its excecuting based on which mode its on
 
