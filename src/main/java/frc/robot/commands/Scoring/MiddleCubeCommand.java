@@ -39,7 +39,7 @@ public class MiddleCubeCommand extends CommandBase {
     if (armSubsystem.armMiddleCube() == false) {
       if (extendoSubsystem.extendoMiddleCube()) {
         System.out.println("moving");
-        clawSubsystem.clawOpen();
+        // clawSubsystem.clawOpen();
       }
     }
 

@@ -9,11 +9,11 @@ import frc.robot.subsystems.ClawSubsystem;
 
 public class ClawOpenCommand extends CommandBase {
   /** Creates a new OpenClawCommand. */
-
+  private double speed;
   private final ClawSubsystem clawSubsystem;
 
-  public ClawOpenCommand(ClawSubsystem subsystem, int speed) {
-
+  public ClawOpenCommand(ClawSubsystem subsystem, double speed) {
+    this.speed = speed;
     clawSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(clawSubsystem);

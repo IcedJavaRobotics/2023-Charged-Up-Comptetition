@@ -38,7 +38,7 @@ public class MiddleConeCommand extends CommandBase {
 
     if (armSubsystem.armMiddleCone()) {
       if (extendoSubsystem.extendoMiddleCone()) {
-        clawSubsystem.clawOpen();
+        // clawSubsystem.clawOpen();
       }
     }
 

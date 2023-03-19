@@ -11,9 +11,9 @@ public class ClawCloseCommand extends CommandBase {
   /** Creates a new ClawCloseCommand. */
 
   private final ClawSubsystem clawSubsystem;
-
-  public ClawCloseCommand(ClawSubsystem subsystem, int speed) {
-
+  private double speed;
+  public ClawCloseCommand(ClawSubsystem subsystem, double speed) {
+    this.speed = speed;
     clawSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(clawSubsystem);

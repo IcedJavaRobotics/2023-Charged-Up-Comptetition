@@ -1,4 +1,4 @@
-/ Copyright (c) FIRST and other WPILib contributors.
+// Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -28,7 +28,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
-  public void clawClose(int clawSpeed) {
+  public void clawClose(double clawSpeed) {
 
     // Arms fold in
     leftClawMotor.set(ControlMode.PercentOutput, -clawSpeed);
@@ -36,7 +36,7 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
-  public Boolean clawOpen(int clawSpeed) {
+  public Boolean clawOpen(double clawSpeed) {
     
     // Arms fold out until limit switch is hit
     if (leftLimit.get()) {

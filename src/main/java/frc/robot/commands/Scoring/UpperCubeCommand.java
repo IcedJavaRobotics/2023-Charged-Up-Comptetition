@@ -38,7 +38,7 @@ public class UpperCubeCommand extends CommandBase {
 
     if (armSubsystem.armUpperCube()) {
       if (extendoSubsystem.extendoUpperCube()) {
-        clawSubsystem.clawOpen();
+        // clawSubsystem.clawOpen();
       }
     }
 

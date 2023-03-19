@@ -5,6 +5,7 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
@@ -13,7 +14,7 @@ public class ResetCommand extends CommandBase {
   /** Creates a new ResetCommand. */
   private final ExtendoSubsystem extendoSubsystem;
   private final ClawSubsystem clawSubsystem;
-
+  
   public ResetCommand(ExtendoSubsystem eSubsystem, ClawSubsystem cSubsystem) {
     extendoSubsystem = eSubsystem;
     clawSubsystem = cSubsystem;
@@ -31,7 +32,7 @@ public class ResetCommand extends CommandBase {
   @Override
   public void execute() {
     if (extendoSubsystem.extendoReturn()) {
-      clawSubsystem.clawOpen();
+      clawSubsystem.clawOpen(Constants.CLAW_SPEED);
     }
   }
 

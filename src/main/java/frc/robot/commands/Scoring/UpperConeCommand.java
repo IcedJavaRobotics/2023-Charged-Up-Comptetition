@@ -38,7 +38,7 @@ public class UpperConeCommand extends CommandBase {
 
     if (armSubsystem.armUpperCone()) {
       if (extendoSubsystem.extendoUpperCone()) {
-        clawSubsystem.clawOpen();
+        // lawSubsystem.clawOpen();
       }
     }
 
