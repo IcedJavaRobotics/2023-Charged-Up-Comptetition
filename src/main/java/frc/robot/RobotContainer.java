@@ -14,6 +14,7 @@ import frc.robot.commands.Scoring.MiddleConeCommand;
 import frc.robot.commands.Scoring.MiddleCubeCommand;
 import frc.robot.commands.Scoring.UpperConeCommand;
 import frc.robot.commands.Scoring.UpperCubeCommand;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ArmCommands.ClawCloseCommand;
 import frc.robot.commands.ArmCommands.ClawOpenCommand;
@@ -44,12 +45,14 @@ import frc.robot.commands.Lights.LightsCubeCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
+  DigitalInput leftLimit = new DigitalInput(Constants.LEFT_CLAW_LIMIT);
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
+  private final ExtendoSubsystem extendoSubsystem;
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  private final ClawSubsystem clawSubsystem = new ClawSubsystem();
+  private final ClawSubsystem clawSubsystem;
   private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
   private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
 
@@ -63,6 +66,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    clawSubsystem = new ClawSubsystem(rightLimit, leftLimit);
+    extendoSubsystem = new ExtendoSubsystem(rightLimit, leftLimit);
 
     new JoystickButton(driverStation, 2)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));

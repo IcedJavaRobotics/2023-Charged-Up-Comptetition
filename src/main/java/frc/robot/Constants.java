@@ -41,7 +41,7 @@ public final class Constants {
   public static final double CLAW_SPEED = 0.7;
   //TODO claw pressure and claw speed changing based on position.
   public static final double FAST_CLAW = 1;
-  public static final double SLOW_CLAW = 0.3;
+  public static final double SLOW_CLAW = 0.2;   //0.3 to 0.2
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -59,7 +59,7 @@ public final class Constants {
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
   public static final double EXTENDO_SPEED = 0.3;   // changed from 0.6 to 0.3  // Encoder values for set arm positions
-
+  public static final double EXTENDO_RETRACT_SPEED = 0.5;
   public static final int DEFAULT_SETPOINT = 0;
 
   public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000;

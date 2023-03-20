@@ -26,9 +26,13 @@ public class ExtendoSubsystem extends SubsystemBase {
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR); // motor
   DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH); // limit switch
   PIDController extendoController = new PIDController(kP, kI, kD); // PID controller
+  DigitalInput rightLimit;
+  DigitalInput leftLimit;
 
-  public ExtendoSubsystem() {
+  public ExtendoSubsystem(DigitalInput rightSwitch, DigitalInput leftSwitch) {
 
+    rightLimit = rightSwitch;
+    leftLimit = leftSwitch;
     extendoMotor.setNeutralMode(NeutralMode.Brake);
     extendoController.setTolerance(5, 10);
     extendoController.setIntegratorRange(-1, 1);
@@ -57,17 +61,22 @@ public class ExtendoSubsystem extends SubsystemBase {
   public void extendoExtend() {
 
     System.out.println("extending");
-    if (extendoMotor.getSelectedSensorPosition() <= upperLimit) {
-      extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
+    if (rightLimit.get() && leftLimit.get()){
+      if (extendoMotor.getSelectedSensorPosition() <= upperLimit) {
+        extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
+      } else {
+        extendoStop();
+      }
     } else {
       extendoStop();
     }
+    
 
   }
 
   public void extendoRetract() {
     if (extendoLimitSwitch.get()) {
-      extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_SPEED);
+      extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_RETRACT_SPEED);
     } else {
       extendoStop();
       extendoMotor.setSelectedSensorPosition(0);

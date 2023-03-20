@@ -17,11 +17,13 @@ public class ClawSubsystem extends SubsystemBase {
 
   private VictorSPX rightClawMotor = new VictorSPX(Constants.RIGHT_CLAW);
   private VictorSPX leftClawMotor = new VictorSPX(Constants.LEFT_CLAW);
-  DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
-  DigitalInput leftLimit = new DigitalInput(Constants.LEFT_CLAW_LIMIT);
+  DigitalInput rightLimit;
+  DigitalInput leftLimit;
  
-  public ClawSubsystem() {
+  public ClawSubsystem(DigitalInput rightSwitch, DigitalInput leftSwitch) {
 
+    rightLimit = rightSwitch;
+    leftLimit = leftSwitch;
     // Need to set this during testing
     rightClawMotor.setInverted(false);
     leftClawMotor.setInverted(true);
