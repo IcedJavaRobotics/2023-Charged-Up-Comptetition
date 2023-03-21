@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -49,18 +48,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public void zeroEncoder() {
 
     frontLeftTalon.setSelectedSensorPosition(0);
-    
+
   }
 
   public void autoTaxi() {
-    if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_DISTANCE) ) {
-      
+    if (Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * Constants.AUTO_DISTANCE)) {
+
       autoMoveMotor();
 
     } else {
 
       stopMotor();
-
 
     }
   }
@@ -74,8 +73,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void  stopMotor() {
-    
+  public void stopMotor() {
+
     frontLeftTalon.set(ControlMode.PercentOutput, 0);
     backLeftTalon.set(ControlMode.PercentOutput, 0);
     frontRightTalon.set(ControlMode.PercentOutput, 0);
@@ -83,7 +82,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  
   // Teleop Section
 
   /**

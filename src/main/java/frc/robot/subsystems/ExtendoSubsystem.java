@@ -118,12 +118,10 @@ public class ExtendoSubsystem extends SubsystemBase {
   public boolean extendoUpperCone() {
     return extendoSet(Constants.EXTENDO_UPPER_CONE_SETPOINT);
   }
-  public boolean extendoMiddleCone) {
+  public boolean extendoMiddleCone() {
     return extendoSet(Constants.EXTENDO_MIDDLE_CONE_SETPOINT);
   }
-  public boolean extendoMiddleCone() {
-   return extendoSet(Constants.EXTENDO_MIDDLE_CONE_SETPOINT);
-  }
+  
   public boolean extendoDefault() {
     return extendoSet(Constants.DEFAULT_SETPOINT);
   }

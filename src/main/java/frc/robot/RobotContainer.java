@@ -74,18 +74,22 @@ public class RobotContainer {
 
     new JoystickButton(driverStation, 3)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
-        
+
     // new JoystickButton(driverStation, 6)
-    //     .whileTrue(new MiddleConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
+    // .whileTrue(new MiddleConeCommand(extendoSubsystem, armSubsystem,
+    // clawSubsystem));
 
     // new JoystickButton(driverStation, 8)
-    //     .whileTrue(new MiddleCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
+    // .whileTrue(new MiddleCubeCommand(extendoSubsystem, armSubsystem,
+    // clawSubsystem));
 
     // new JoystickButton(driverStation, 1)
-    //     .whileTrue(new UpperConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
+    // .whileTrue(new UpperConeCommand(extendoSubsystem, armSubsystem,
+    // clawSubsystem));
 
     // new JoystickButton(driverStation, 9)
-    //     .whileTrue(new UpperCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
+    // .whileTrue(new UpperCubeCommand(extendoSubsystem, armSubsystem,
+    // clawSubsystem));
 
     new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
         .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.FAST_CLAW));
@@ -93,9 +97,9 @@ public class RobotContainer {
         .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
 
     new JoystickButton(xboxController, Constants.LEFT_BUMPER)
-	.whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
+        .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
     new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
-	.whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
+        .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
 
     new JoystickButton(xboxController, 1)
         .whileTrue(new ZeroArmCommand(armSubsystem));
@@ -111,7 +115,8 @@ public class RobotContainer {
         new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
 
     extendoSubsystem.setDefaultCommand(
-        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
+        new RunCommand(
+            () -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis(), Constants.EXTENDO_SPEED),
             extendoSubsystem));
 
     new JoystickButton(flightStick, 1)
