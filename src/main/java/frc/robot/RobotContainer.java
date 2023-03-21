@@ -18,7 +18,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ArmCommands.ClawCloseCommand;
 import frc.robot.commands.ArmCommands.ClawOpenCommand;
+import frc.robot.commands.ArmCommands.HighGridCommand;
+import frc.robot.commands.ArmCommands.MidGridCommand;
+import frc.robot.commands.ArmCommands.PickupArmCommand;
 import frc.robot.commands.ArmCommands.ResetCommand;
+import frc.robot.commands.ArmCommands.TuckArmCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
@@ -74,6 +78,19 @@ public class RobotContainer {
 
     new JoystickButton(driverStation, 3)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
+
+    new JoystickButton(driverStation, 1)
+        .whileTrue(new TuckArmCommand(armSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 2)
+        .whileTrue(new PickupArmCommand(armSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 6)
+        .whileTrue(new MidGridCommand(armSubsystem, extendoSubsystem));
+
+    new JoystickButton(driverStation, 8)
+        .whileTrue(new HighGridCommand(armSubsystem, extendoSubsystem));
+        
         
     // new JoystickButton(driverStation, 6)
     //     .whileTrue(new MiddleConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
