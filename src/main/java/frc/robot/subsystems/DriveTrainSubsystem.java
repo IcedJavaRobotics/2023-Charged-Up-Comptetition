@@ -248,26 +248,26 @@ public class DriveTrainSubsystem extends SubsystemBase {
     rampUpTime = 1.5;
     // }
 
-    if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
+    // if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
 
-      driveTime = Timer.getMatchTime();
+    //   driveTime = Timer.getMatchTime();
 
-    }
+    // }
 
-    if (Timer.getMatchTime() - driveTime <= rampUpTime) {
+    // if (Timer.getMatchTime() - driveTime <= rampUpTime) {
 
-      speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5);
+    //   speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5);
 
-    } else {
+    // } else {
 
-      speedMod = 1;
+    //   speedMod = 1;
 
-    }
+    // }
 
-    moveMotor(Z * speedMod * ensureRange(Y + X + R), frontLeftTalon);
-    moveMotor(Z * speedMod * ensureRange(Y - X + R), backLeftTalon);
-    moveMotor(Z * speedMod * ensureRange(Y - X - R), frontRightTalon);
-    moveMotor(Z * speedMod * ensureRange(Y + X - R), backRightTalon);
+    moveMotor(Z /* speedMod*/ * ensureRange(Y + X + R), frontLeftTalon);
+    moveMotor(Z /* speedMod*/ * ensureRange(Y - X + R), backLeftTalon);
+    moveMotor(Z /* speedMod*/ * ensureRange(Y - X - R), frontRightTalon);
+    moveMotor(Z /* speedMod*/ * ensureRange(Y + X - R), backRightTalon);
 
   }
 

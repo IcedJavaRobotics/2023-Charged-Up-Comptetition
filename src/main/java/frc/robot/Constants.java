@@ -37,7 +37,7 @@ public final class Constants {
   // Claw
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;
-  public static final double CLAW_SPEED = .4;
+  public static final double CLAW_SPEED = .5;
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -61,7 +61,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 0.2;
+  public static final double ARM_SPEED = -0.4;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */
