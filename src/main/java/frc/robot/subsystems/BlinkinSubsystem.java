@@ -17,21 +17,22 @@ public class BlinkinSubsystem extends SubsystemBase {
   }
 
   public void colorCone() {
-    blinkin.set(0.65);
+    blinkin.set(Constants.ORANGE);
   }
 
   public void colorCube() {
-    blinkin.set(0.91);
+    blinkin.set(Constants.PURPLE);
   }
 
   public void autoBlinkin() {
     DriverStation.Alliance color;
     color = DriverStation.getAlliance();
     if (color == DriverStation.Alliance.Blue) {
-      blinkin.set(0.83);
-    }
-    if (color == DriverStation.Alliance.Red) {
-      blinkin.set(0.61);
+      blinkin.set(Constants.BLUE);
+    } else if (color == DriverStation.Alliance.Red) {
+      blinkin.set(Constants.RED);
+    } else {
+      System.out.println("driver alliance color not found? oh noes! :moyai:");
     }
   }
 

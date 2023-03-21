@@ -34,6 +34,7 @@ public final class Constants {
   public static final int CONTROLLER = 2;
   // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
+  public static final double EXTENDO_DEADZONE = 0.3;
 
   // Claw
   public static final int LEFT_CLAW = 7;
@@ -60,7 +61,7 @@ public final class Constants {
   public static final double EXTENDO_SPEED = 0.3; // changed from 0.6 to 0.3 // Encoder values for set arm positions
   public static final double EXTENDO_RETRACT_SPEED = 0.7;
   public static final int DEFAULT_SETPOINT = 0;
-
+  public static final double EXTENDO_JOYSTICK_MULTIPLIER = 0.5;
   public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000;
   public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 2900;
   public static final int EXTENDO_UPPER_CONE_SETPOINT = 16000;
@@ -84,4 +85,11 @@ public final class Constants {
   // Other
   public static final boolean TRUE = false;
   public static final boolean FALSE = true;
+
+  // Colors
+  public static final double ORANGE = 0.65;
+  public static final double PURPLE = 0.91;
+  public static final double BLUE = 0.83;
+  public static final double RED = 0.61;
+
 }

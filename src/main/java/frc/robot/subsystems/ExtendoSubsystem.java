@@ -39,12 +39,12 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
-  public void extendoJoystick(double I, double speed) {
-
+  public void extendoJoystick(double I) {
+    double speed = I * Constants.EXTENDO_JOYSTICK_MULTIPLIER;
     SmartDashboard.putBoolean("extendo limit switch", extendoLimitSwitch.get());
-    if (I >= 0.5) {
+    if (I >= Constants.EXTENDO_DEADZONE) {
       extendoExtend(speed);
-    } else if (I <= -0.5) {
+    } else if (I <= -Constants.EXTENDO_DEADZONE) {
       extendoRetract(speed);
     } else {
       extendoStop();
@@ -112,16 +112,19 @@ public class ExtendoSubsystem extends SubsystemBase {
   public boolean extendoUpperCube() {
     return extendoSet(Constants.EXTENDO_UPPER_CUBE_SETPOINT);
   }
+
   public boolean extendoMiddleCube() {
     return extendoSet(Constants.EXTENDO_MIDDLE_CUBE_SETPOINT);
   }
+
   public boolean extendoUpperCone() {
     return extendoSet(Constants.EXTENDO_UPPER_CONE_SETPOINT);
   }
+
   public boolean extendoMiddleCone() {
     return extendoSet(Constants.EXTENDO_MIDDLE_CONE_SETPOINT);
   }
-  
+
   public boolean extendoDefault() {
     return extendoSet(Constants.DEFAULT_SETPOINT);
   }

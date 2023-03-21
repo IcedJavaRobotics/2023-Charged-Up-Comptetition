@@ -4,27 +4,12 @@
 
 package frc.robot;
 
-import frc.robot.commands.Autos;
-import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.PneumaticWheelsSubsystem;
-import frc.robot.commands.PnuematicWheelsCommands.DropWheelsCommand;
-import frc.robot.commands.PnuematicWheelsCommands.RaiseWheelsCommand;
-import frc.robot.commands.Scoring.MiddleConeCommand;
-import frc.robot.commands.Scoring.MiddleCubeCommand;
-import frc.robot.commands.Scoring.UpperConeCommand;
-import frc.robot.commands.Scoring.UpperCubeCommand;
+import frc.robot.commands.*;
+import frc.robot.commands.PnuematicWheelsCommands.*;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.ArmCommands.ClawCloseCommand;
-import frc.robot.commands.ArmCommands.ClawOpenCommand;
-import frc.robot.commands.ArmCommands.ResetCommand;
-import frc.robot.commands.ArmCommands.ZeroArmCommand;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.BlinkinSubsystem;
-import frc.robot.subsystems.ClawSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.ExtendoSubsystem;
+import frc.robot.commands.ArmCommands.*;
+import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -32,8 +17,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Lights.LightsConeCommand;
-import frc.robot.commands.Lights.LightsCubeCommand;
+import frc.robot.commands.Lights.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -116,7 +100,7 @@ public class RobotContainer {
 
     extendoSubsystem.setDefaultCommand(
         new RunCommand(
-            () -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis(), Constants.EXTENDO_SPEED),
+            () -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
             extendoSubsystem));
 
     new JoystickButton(flightStick, 1)
@@ -183,6 +167,7 @@ public class RobotContainer {
     // pressed,
     // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
   }
 
   /**

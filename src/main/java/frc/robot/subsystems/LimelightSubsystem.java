@@ -42,9 +42,9 @@ public class LimelightSubsystem extends SubsystemBase {
   public Boolean tagDetected() {
 
     if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1) {
-      return true;
+      return Constants.FALSE;
     }
-    return false;
+    return Constants.TRUE;
   }
 
   /**
