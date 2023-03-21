@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
@@ -13,24 +15,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrainSubsystem extends SubsystemBase {
+  /** Creates a new DriveTrainSubsystem. */
 
   final LimelightSubsystem limelight = new LimelightSubsystem();
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
-  double driveTime;
-  double speedMod;
-  double rampUpTime = 1.5;
+  final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
+
   double kP = 0.1;
   double kI = 0.01; // PID values
   double kD = 0.01;
-  double leftSideSetpoint = 10;
-  double midSetpoint = 0;
-  double rightSideSetpoint = -10;
   double shortTaxi = 97; // taxi
   double longTaxi = 105; // its inches
-  double testSpeed = 0.2;
+  public boolean wheelsRaised = true;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -45,6 +44,47 @@ public class DriveTrainSubsystem extends SubsystemBase {
     scoreController.setIntegratorRange(-1, 1);
 
   }
+
+  // Autonomous Section
+  public void zeroEncoder() {
+
+    frontLeftTalon.setSelectedSensorPosition(0);
+    
+  }
+
+  public void autoTaxi() {
+    if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_DISTANCE) ) {
+      
+      autoMoveMotor();
+
+    } else {
+
+      stopMotor();
+
+
+    }
+  }
+
+  public void autoMoveMotor() {
+
+    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+
+  }
+
+  public void  stopMotor() {
+    
+    frontLeftTalon.set(ControlMode.PercentOutput, 0);
+    backLeftTalon.set(ControlMode.PercentOutput, 0);
+    frontRightTalon.set(ControlMode.PercentOutput, 0);
+    backRightTalon.set(ControlMode.PercentOutput, 0);
+
+  }
+
+  
+  // Teleop Section
 
   /**
    * Makes the motor move forward
@@ -65,6 +105,42 @@ public class DriveTrainSubsystem extends SubsystemBase {
     return Math.min(Math.max(val, -1), 1);
 
   }
+
+  /**
+   * Moves the robot based on the controller
+   * 
+   * @param X    how far the joystick moved on the x axis(left and right)
+   * @param Y    how far the joystick moved on the y axis(up and down)
+   * @param R    how much the joystick has twisted
+   * @param Z    slider for speed
+   * @param zoom whether the speed button is pressed or not
+   */
+
+  public void mecanumDrive(double X, double Y, double R, double Z) {
+
+    if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticWheelsCommand)
+
+      Z = (-Z + 1) / 2;
+
+      moveMotor(Z * ensureRange(Y + X + R), frontLeftTalon);
+      moveMotor(Z * ensureRange(Y - X + R), backLeftTalon);
+      moveMotor(Z * ensureRange(Y - X - R), frontRightTalon);
+      moveMotor(Z * ensureRange(Y + X - R), backRightTalon);
+
+    } else if (wheelsRaised == false) {
+
+      // Tank drive for when wheels are deployed (only forward)
+      moveMotor(ensureRange(Y), backLeftTalon);
+      moveMotor(ensureRange(Y), frontLeftTalon);
+      moveMotor(ensureRange(Y), frontRightTalon);
+      moveMotor(ensureRange(Y), backRightTalon);
+      dropWheelsSpark.set(ensureRange(Y));
+
+    }
+
+  }
+
+  /********** Autonomous Code **********/
 
   /** makes the robot move backwards out of the community */
   public void taxiOutShort() {
@@ -89,189 +165,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
     moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backRightTalon);
 
   }
-
-  /**
-   * makes robot strafe until lined up with the left poles @return returns
-   * false when done
-   */
-  public boolean moveLeft() {
-
-    /*
-    double horiOffset = limelight.getTx();
-
-    if (limelight.tagDetected()) {
-
-      if (horiOffset > leftSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
-
-        return true;
-
-      } else if (horiOffset < leftSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, leftSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, leftSideSetpoint)), backRightTalon);
-
-        return true;
-
-      }
-
-    } else {
-
-      System.out.println("Target not found");
-
-    }
-
-    return false;
-    */
-    moveMotor(-testSpeed, frontLeftTalon);
-    moveMotor(testSpeed, backLeftTalon);
-    moveMotor(testSpeed, frontRightTalon);
-    moveMotor(-testSpeed, backRightTalon);
-
-    return false;
-
-  }
-
-  /**
-   * makes the robot strafe until it is in line with the right poles from the
-   * april tags @return returns
-   * false when done
-   */
-  public boolean moveRight() {
-
-    double horiOffset = limelight.getTx();
-
-    // if (limelight.tagDetected()) {
-
-      /*
-      if (horiOffset > rightSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
-
-        return true;
-
-      } else if (horiOffset < rightSideSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, rightSideSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, rightSideSetpoint)), backRightTalon);
-
-        return true;
-
-      }
-      */
-
-      moveMotor(testSpeed, frontLeftTalon);
-      moveMotor(-testSpeed, backLeftTalon);
-      moveMotor(-testSpeed, frontRightTalon);
-      moveMotor(testSpeed, backRightTalon);
-
-    // } else {
-
-      // System.out.println("Target not found");
-
-    // }
-
-    return false;
-
-  }
-
-  /**
-   * makes robot move until it lines up accurately with the aprilTag @return
-   * returns false when done
-   */
-  public boolean moveCenter() {
-
-    double horiOffset = limelight.getTx();
-
-    if (limelight.tagDetected()) {
-
-      if (horiOffset > midSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
-
-        return true;
-
-      } else if (horiOffset < midSetpoint) {
-
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), frontLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), backLeftTalon);
-        moveMotor(.25 * ensureRange(scoreController.calculate(horiOffset, midSetpoint)), frontRightTalon);
-        moveMotor(.25 * ensureRange(-scoreController.calculate(horiOffset, midSetpoint)), backRightTalon);
-
-        return true;
-
-      }
-
-    } else {
-
-      System.out.println("Target not found");
-
-    }
-
-    return false;
-
-  }
-
-  /**
-   * Moves the robot based on the controller
-   * 
-   * @param X    how far the joystick moved on the x axis(left and right)
-   * @param Y    how far the joystick moved on the y axis(up and down)
-   * @param R    how much the joystick has twisted
-   * @param Z    slider for speed
-   * @param zoom whether the speed button is pressed or not
-   */
-
-  public void mecanumDrive(double X, double Y, double R, double Z, boolean zoom) {
-
-    // if (zoom == true) { // When speed button is pressed it shortens ramp up time
-    // and puts it at max
-    // // speed
-    // Z = 1;
-    // rampUpTime = 1;
-    // } else { // Normal ramp up time, speed dependant on the slider (Z)
-    Z = (-Z + 1) / 2;
-    rampUpTime = 1.5;
-    // }
-
-    // if (Math.abs(X) + Math.abs(Y) + Math.abs(R) == 0) {
-
-    //   driveTime = Timer.getMatchTime();
-
-    // }
-
-    // if (Timer.getMatchTime() - driveTime <= rampUpTime) {
-
-    //   speedMod = -1 * ((0.5 * (driveTime - Timer.getMatchTime()) / rampUpTime) + 0.5);
-
-    // } else {
-
-    //   speedMod = 1;
-
-    // }
-
-    moveMotor(Z /* speedMod*/ * ensureRange(Y + X + R), frontLeftTalon);
-    moveMotor(Z /* speedMod*/ * ensureRange(Y - X + R), backLeftTalon);
-    moveMotor(Z /* speedMod*/ * ensureRange(Y - X - R), frontRightTalon);
-    moveMotor(Z /* speedMod*/ * ensureRange(Y + X - R), backRightTalon);
-
-  }
-
-  // Autonomous Code
 
   @Override
   public void periodic() {

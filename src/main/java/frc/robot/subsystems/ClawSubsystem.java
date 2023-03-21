@@ -17,34 +17,33 @@ public class ClawSubsystem extends SubsystemBase {
 
   private VictorSPX rightClawMotor = new VictorSPX(Constants.RIGHT_CLAW);
   private VictorSPX leftClawMotor = new VictorSPX(Constants.LEFT_CLAW);
-  DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
-  DigitalInput leftLimit = new DigitalInput(Constants.LEFT_CLAW_LIMIT);
+  DigitalInput rightLimit;
+  DigitalInput leftLimit;
+ 
+  public ClawSubsystem(DigitalInput rightSwitch, DigitalInput leftSwitch) {
 
-  public ClawSubsystem() {
-
+    rightLimit = rightSwitch;
+    leftLimit = leftSwitch;
     // Need to set this during testing
     rightClawMotor.setInverted(false);
     leftClawMotor.setInverted(true);
 
   }
 
-  public void clawClose() {
+  public void clawClose(double clawSpeed) {
 
-    System.out.println("Claws Close");
     // Arms fold in
-    leftClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
-    rightClawMotor.set(ControlMode.PercentOutput, -Constants.CLAW_SPEED);
+    leftClawMotor.set(ControlMode.PercentOutput, -clawSpeed);
+    rightClawMotor.set(ControlMode.PercentOutput, -clawSpeed);
 
   }
 
-  public Boolean clawOpen() {
-
-    // Arms fold out until limit switch is hit
-    System.out.println("Claws Open");
+  public Boolean clawOpen(double clawSpeed) {
     
+    // Arms fold out until limit switch is hit
     if (leftLimit.get()) {
 
-      leftClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
+      leftClawMotor.set(ControlMode.PercentOutput, clawSpeed);
 
     } else {
 
@@ -53,7 +52,7 @@ public class ClawSubsystem extends SubsystemBase {
     }
     if (rightLimit.get()) {
 
-      rightClawMotor.set(ControlMode.PercentOutput, Constants.CLAW_SPEED);
+      rightClawMotor.set(ControlMode.PercentOutput, clawSpeed);
 
     } else {
 
@@ -61,11 +60,11 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    //if (leftLimit.get() && rightLimit.get()) {
-    //  return false; // returns false when done.
-    //} else {
-      return true; // returns true when not done. duh.
-    //}
+    // if (leftLimit.get() && rightLimit.get()) {
+    // return false; // returns false when done.
+    // } else {
+    return true; // returns true when not done. duh.
+    // }
 
   }
 

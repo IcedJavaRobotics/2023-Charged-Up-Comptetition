@@ -5,11 +5,13 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.PneumaticWheelsSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -20,7 +22,8 @@ public class ExampleCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private final ExtendoSubsystem extendoSubsystem;
   private final ExampleSubsystem exampleSubsystem;
-  private final LimelightSubsystem limelightSubsystem;
+  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
+  private final BlinkinSubsystem blinkinSubsystem;
   private int mode = 1;
 
   /**
@@ -29,14 +32,16 @@ public class ExampleCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem,
-      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, LimelightSubsystem lsubsystem) {
+      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, PneumaticWheelsSubsystem pSubsystem,
+      BlinkinSubsystem bSubsystem) {
 
     driveTrainSubsystem = msubsystem;
     clawSubsystem = csubsystem;
     armSubsystem = asubsystem;
     extendoSubsystem = esubsystem;
     exampleSubsystem = subsystem;
-    limelightSubsystem = lsubsystem;
+    pneumaticWheelsSubsystem = pSubsystem;
+    blinkinSubsystem = bSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(msubsystem);
@@ -44,7 +49,8 @@ public class ExampleCommand extends CommandBase {
     addRequirements(asubsystem);
     addRequirements(esubsystem);
     addRequirements(subsystem);
-    addRequirements(lsubsystem);
+    addRequirements(pSubsystem);
+    addRequirements(bSubsystem);
 
   }
 
@@ -52,24 +58,17 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void initialize() {
     mode = exampleSubsystem.getMode();
-    armSubsystem.lowerArm();
-    extendoSubsystem.extendoRetract();
-
-    /**
-     * If we wanted the drive train to be in brake mode during autonomous
-     */
-    // driveTrainSubsystem.frontLeftTalon.setNeutralMode(NeutralMode.Brake);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
-    // driveTrainSubsystem.frontRightTalon.setNeutralMode(NeutralMode.Brake);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Brake);
-
+    blinkinSubsystem.autoBlinkin();
+    driveTrainSubsystem.zeroEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    modeFunction(mode); // changes what its excecuting based on which mode its on
+    driveTrainSubsystem.autoTaxi();
+
+    // modeFunction(mode); // changes what its excecuting based on which mode its on
 
   }
 
@@ -81,14 +80,6 @@ public class ExampleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    /**
-     * If we wanted the drive train to be in brake mode during autonomous
-     */
-    // driveTrainSubsystem.frontLeftTalon.setNeutralMode(NeutralMode.Coast);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
-    // driveTrainSubsystem.frontRightTalon.setNeutralMode(NeutralMode.Coast);
-    // driveTrainSubsystem.backLeftTalon.setNeutralMode(NeutralMode.Coast);
     return false;
   }
 
@@ -102,61 +93,22 @@ public class ExampleCommand extends CommandBase {
    * @param Mode which mode you want,
    * 
    * 
-   */
-  public void modeFunction(int Mode) {
-    // sees which mode you are on(check buttons folder)
-    if (Mode == 1) {
-      /*
-       * first mode-
-       * moves left, then runs high arm, then extends arm to upper,
-       * then opens claw, then retracts arm,
-       * then lowers arm and makes robot move taxiOutShort backwards out of the
-       * community
-       */
-      if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
+   *
+    public void modeFunction(int Mode) {
+      // sees which mode you are on(check buttons folder)
+      if (Mode == 1) {
 
-        if ((!armSubsystem.highArm()) && (!extendoSubsystem.extendoUpper())) {
-          // runs high arm until done, then runs extendoUpper until done
-          if (!clawSubsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
-            if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
-              armSubsystem.lowerArm();
-              driveTrainSubsystem.taxiOutShort(); // makes robot move backwards out of the community
-            }
-          }
+        driveTrainSubsystem.taxiOutLong();
 
-        }
+      } else if (Mode == 2) {
+
+      } else if (Mode == 3) {
+
+      } else {
+
+        System.out.println("error 404: mode not found");
+
       }
-
-    } else if (Mode == 2) {
-      /*
-       * second mode-
-       * moves left, then runs high arm, then extends arm to upper,
-       * then opens claw, then retracts arm,
-       * then lowers arm and makes robot move taxiOutLong backward out of the
-       * community
-       */
-      if (!driveTrainSubsystem.moveLeft()) { // Checks if moveLeft is done
-
-        if ((!armSubsystem.highArm()) && (!extendoSubsystem.extendoUpper())) {
-          // runs high arm until done, then runs extendoUpper until done
-          if (!clawSubsystem.clawOpen()) {// runs clawOpen until done, then does taxiOutShort
-            if (!extendoSubsystem.extendoDefault()) { // retracts arm to default position
-              armSubsystem.lowerArm();
-              driveTrainSubsystem.taxiOutLong(); // makes robot move backwards out of the community
-            }
-          }
-
-        }
-      }
-
-    } else if (Mode == 3) {
-      // third mode-(insert what the mode does here)
-      // TODO put third option here.
-
-    } else {
-
-      System.out.println("error 404: mode not found");
-
     }
-  }
+    */
 }

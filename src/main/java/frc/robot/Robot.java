@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.commands.buttons.*;
 
@@ -27,7 +26,6 @@ import frc.robot.subsystems.LimelightSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  
   private final ExampleSubsystem examplesubsystem = new ExampleSubsystem();
   private RobotContainer m_robotContainer;
 
@@ -42,14 +40,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    SmartDashboard.putString("Version", "1.1");
-    SmartDashboard.putString("Author", "Fen");
-    SmartDashboard.putString("Description", "put all the tested code into main");
-    SmartDashboard.putString("Changes", "a significant amount, check github");
-    SmartDashboard.putData("Button One", new AutoOne(examplesubsystem));
-    SmartDashboard.putData("Button Two", new AutoTwo(examplesubsystem));
-    SmartDashboard.putData("Button Three", new AutoThree(examplesubsystem));
-    System.out.println(examplesubsystem.getMode());
   }
 
   /**

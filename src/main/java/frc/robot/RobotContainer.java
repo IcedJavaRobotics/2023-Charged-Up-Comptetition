@@ -5,18 +5,26 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.PneumaticWheelsSubsystem;
+import frc.robot.commands.PnuematicWheelsCommands.DropWheelsCommand;
+import frc.robot.commands.PnuematicWheelsCommands.RaiseWheelsCommand;
+import frc.robot.commands.Scoring.MiddleConeCommand;
+import frc.robot.commands.Scoring.MiddleCubeCommand;
+import frc.robot.commands.Scoring.UpperConeCommand;
+import frc.robot.commands.Scoring.UpperCubeCommand;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.ClawCloseCommand;
-import frc.robot.commands.ClawOpenCommand;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.ZeroArmCommand;
+import frc.robot.commands.ArmCommands.ClawCloseCommand;
+import frc.robot.commands.ArmCommands.ClawOpenCommand;
+import frc.robot.commands.ArmCommands.ResetCommand;
+import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
-
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,7 +32,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.GoalCommands.*;
+import frc.robot.commands.Lights.LightsConeCommand;
+import frc.robot.commands.Lights.LightsCubeCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -36,14 +45,17 @@ import frc.robot.commands.GoalCommands.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
+  DigitalInput leftLimit = new DigitalInput(Constants.LEFT_CLAW_LIMIT);
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExtendoSubsystem extendoSubsystem = new ExtendoSubsystem();
+  private final ExtendoSubsystem extendoSubsystem;
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
-  private final ClawSubsystem clawSubsystem = new ClawSubsystem();
-  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
-  
+  private final ClawSubsystem clawSubsystem;
+  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
+  private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
+
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
@@ -54,52 +66,59 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    new JoystickButton(driverStation, 1)
-        .whileTrue(new Goal1Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 9)
-        .whileTrue(new Goal2Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+    clawSubsystem = new ClawSubsystem(rightLimit, leftLimit);
+    extendoSubsystem = new ExtendoSubsystem(rightLimit, leftLimit);
 
     new JoystickButton(driverStation, 2)
-        .whileTrue(new Goal3Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 6)
-        .whileTrue(new Goal4Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
-
-    new JoystickButton(driverStation, 8)
-        .whileTrue(new Goal5Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+        .whileTrue(new LightsConeCommand(blinkinSubsystem));
 
     new JoystickButton(driverStation, 3)
-        .whileTrue(new Goal6Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+        .whileTrue(new LightsCubeCommand(blinkinSubsystem));
+        
+    // new JoystickButton(driverStation, 6)
+    //     .whileTrue(new MiddleConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
-    new JoystickButton(driverStation, 5)
-        .whileTrue(new Goal7Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+    // new JoystickButton(driverStation, 8)
+    //     .whileTrue(new MiddleCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
-    new JoystickButton(driverStation, 4)
-        .whileTrue(new Goal8Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+    // new JoystickButton(driverStation, 1)
+    //     .whileTrue(new UpperConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
-    new JoystickButton(driverStation, 10)
-        .whileTrue(new Goal9Command(driveTrainSubsystem, armSubsystem, clawSubsystem, extendoSubsystem));
+    // new JoystickButton(driverStation, 9)
+    //     .whileTrue(new UpperCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
-    new JoystickButton(xboxController, Constants.CLAW_CLOSE_BUTTON)
-        .whileTrue(new ClawCloseCommand(clawSubsystem));
-    new JoystickButton(xboxController, Constants.CLAW_OPEN_BUTTON)
-        .whileTrue(new ClawOpenCommand(clawSubsystem));
-    new JoystickButton(xboxController, 3)
+    new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
+        .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.FAST_CLAW));
+    new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
+        .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
+
+    new JoystickButton(xboxController, Constants.LEFT_BUMPER)
+	.whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
+    new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
+	.whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
+
+    new JoystickButton(xboxController, 1)
         .whileTrue(new ZeroArmCommand(armSubsystem));
+
+    new JoystickButton(xboxController, 3)
+        .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
-            0.87 * getJoystickTwist(), flightStick.getThrottle(), flightStick.getRawButton(1)), driveTrainSubsystem)
-    );
+            0.87 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
 
     armSubsystem.setDefaultCommand(
-        new RunCommand(() -> armSubsystem.armJoystick( xboxController.getLeftY()), armSubsystem)
-    );
+        new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
 
     extendoSubsystem.setDefaultCommand(
-      new RunCommand(() -> extendoSubsystem.extendoJoystick( -xboxController.getRightTriggerAxis()), extendoSubsystem)
-    );
+        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
+            extendoSubsystem));
+
+    new JoystickButton(flightStick, 1)
+        .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+
+    new JoystickButton(flightStick, 2)
+        .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
 
   }
 
@@ -136,9 +155,6 @@ public class RobotContainer {
     }
   }
 
- 
-
-
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the
@@ -156,7 +172,7 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
-    //     .onTrue(new ExampleCommand(m_exampleSubsystem));
+    // .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
@@ -172,6 +188,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem,
-        limelightSubsystem);
+        pneumaticWheelsSubsystem, blinkinSubsystem);
   }
 }
