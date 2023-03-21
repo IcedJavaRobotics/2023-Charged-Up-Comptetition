@@ -98,6 +98,27 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   // Has methods for upper and middle cones and cubes
 
+  public void extendoTucked() {
+    extendoMotor.set(ControlMode.PercentOutput,
+        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_TUCKED));
+  }
+
+  public void extendoPickup() {
+    extendoMotor.set(ControlMode.PercentOutput,
+        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_PICKUP));
+  }
+
+  public void extendoMidGrid() {
+    extendoMotor.set(ControlMode.PercentOutput,
+        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MID_GRID));
+  }
+
+  public void extendoHighGrid() {
+    extendoMotor.set(ControlMode.PercentOutput,
+        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_HIGH_GRID));
+  }
+  
+
   public boolean extendoUpperCube() {
 
     extendoMotor.set(ControlMode.PercentOutput,

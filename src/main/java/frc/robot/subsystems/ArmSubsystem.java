@@ -82,6 +82,24 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /********** Set arm scoring positions **********/
+
+  public void armTucked() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_TUCKED), armMotor);
+  }
+
+  public void armPickup() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_PICKUP), armMotor);
+  }
+
+  public void armMidGrid() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MID_GRID), armMotor);
+  }
+
+  public void armHighGrid() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_HIGH_GRID), armMotor);
+  }
+  
+
   public boolean armUpperCube() {
 
     moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
