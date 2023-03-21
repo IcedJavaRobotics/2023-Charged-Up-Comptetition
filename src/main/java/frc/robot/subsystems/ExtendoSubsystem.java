@@ -112,50 +112,20 @@ public class ExtendoSubsystem extends SubsystemBase {
   public boolean extendoUpperCube() {
     return extendoSet(Constants.EXTENDO_UPPER_CUBE_SETPOINT);
   }
-
-  public Boolean extendoMiddleCube() {
+  public boolean extendoMiddleCube() {
     return extendoSet(Constants.EXTENDO_MIDDLE_CUBE_SETPOINT);
   }
-
-  }
-
   public boolean extendoUpperCone() {
-
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_UPPER_CONE_SETPOINT));
-
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
-      return true;
-    }
-
+    return extendoSet(Constants.EXTENDO_UPPER_CONE_SETPOINT);
   }
-
-  public Boolean extendoMiddleCone() {
-
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MIDDLE_CONE_SETPOINT));
-
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
-      return true;
-    }
-
+  public boolean extendoMiddleCone) {
+    return extendoSet(Constants.EXTENDO_MIDDLE_CONE_SETPOINT);
   }
-
+  public boolean extendoMiddleCone() {
+   return extendoSet(Constants.EXTENDO_MIDDLE_CONE_SETPOINT);
+  }
   public boolean extendoDefault() {
-
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.DEFAULT_SETPOINT));
-
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
-      return true;
-    }
-
+    return extendoSet(Constants.DEFAULT_SETPOINT);
   }
 
   @Override

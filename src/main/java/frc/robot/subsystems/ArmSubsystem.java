@@ -82,54 +82,27 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /********** Set arm scoring positions **********/
+  public boolean armSet(int setPoint) {
+  moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), setPoint),
+        armMotor);
+
+    if (armController.atSetpoint()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   public boolean armUpperCube() {
-
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
-        armMotor);
-
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
+    return armSet(Constants.ARM_UPPER_CUBE_SETPOINT);
   }
-
   public boolean armMiddleCube() {
-
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CUBE_SETPOINT),
-        armMotor);
-
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
-
+    return armSet(Constants.ARM_MIDDLE_CUBE_SETPOINT);
   }
-
   public boolean armUpperCone() {
-
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CONE_SETPOINT),
-        armMotor);
-
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
+   return armSet(Constants.ARM_UPPER_CONE_SETPOINT);
   }
-
   public boolean armMiddleCone() {
-
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CONE_SETPOINT),
-        armMotor);
-
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
-
+    return armSet(Constants.ARM_MIDDLE_CONE_SETPOINT);
   }
 
   @Override
