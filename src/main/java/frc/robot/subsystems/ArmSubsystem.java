@@ -38,28 +38,28 @@ public class ArmSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Neo Value", armMotor.getEncoder().getPosition());
     if (I >= 0.5) {
-      lowerArm();
+      lowerArm(Constants.ARM_SPEED);
     } else if (I <= -0.5) {
-      raiseArm();
+      raiseArm(Constants.ARM_SPEED);
     } else {
       stopArm();
     }
 
   }
 
-  public void raiseArm() {
+  public void raiseArm(double speed) {
 
     if (Math.abs(armMotor.getEncoder().getPosition()) < upperLimit) {
-      armMotor.set(Constants.ARM_SPEED);
+      armMotor.set(speed);
     } else {
       stopArm();
     }
 
   }
 
-  public void lowerArm() {
+  public void lowerArm(double speed) {
 
-    armMotor.set(-Constants.ARM_SPEED);
+    armMotor.set(-speed);
 
   }
 

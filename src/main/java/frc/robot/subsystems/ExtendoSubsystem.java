@@ -39,13 +39,13 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
-  public void extendoJoystick(double I) {
+  public void extendoJoystick(double I, double speed) {
 
     SmartDashboard.putBoolean("extendo limit switch", extendoLimitSwitch.get());
     if (I >= 0.5) {
-      extendoExtend();
+      extendoExtend(speed);
     } else if (I <= -0.5) {
-      extendoRetract();
+      extendoRetract(speed);
     } else {
       extendoStop();
     }
@@ -58,25 +58,24 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
-  public void extendoExtend() {
+  public void extendoExtend(double speed) {
 
     System.out.println("extending");
-    if (rightLimit.get() && leftLimit.get()){
+    if (rightLimit.get() && leftLimit.get()) {
       if (extendoMotor.getSelectedSensorPosition() <= upperLimit) {
-        extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
+        extendoMotor.set(ControlMode.PercentOutput, speed);
       } else {
         extendoStop();
       }
     } else {
       extendoStop();
     }
-    
 
   }
 
-  public void extendoRetract() {
+  public void extendoRetract(double speed) {
     if (extendoLimitSwitch.get()) {
-      extendoMotor.set(ControlMode.PercentOutput, -Constants.EXTENDO_RETRACT_SPEED);
+      extendoMotor.set(ControlMode.PercentOutput, -speed);
     } else {
       extendoStop();
       extendoMotor.setSelectedSensorPosition(0);
@@ -89,7 +88,7 @@ public class ExtendoSubsystem extends SubsystemBase {
       return false;
     } else {
       extendoStop();
-      extendoMotor.setSelectedSensorPosition(0);  //qqqqqqqqqqqqqqqqqqqqqqqqqq22TODO add this line to other extendoStop();
+      extendoMotor.setSelectedSensorPosition(0); // TODO add this line to other extendoStop();
       return true;
     }
   }
@@ -97,11 +96,10 @@ public class ExtendoSubsystem extends SubsystemBase {
   /********** Set scoring extendo positions **********/
 
   // Has methods for upper and middle cones and cubes
-
-  public boolean extendoUpperCube() {
+  public boolean extendoSet(int setPoint) {
 
     extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_UPPER_CUBE_SETPOINT));
+        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), setPoint));
 
     if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
       return false;
@@ -111,16 +109,13 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   }
 
+  public boolean extendoUpperCube() {
+    return extendoSet(Constants.EXTENDO_UPPER_CUBE_SETPOINT);
+  }
+
   public Boolean extendoMiddleCube() {
-
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MIDDLE_CUBE_SETPOINT));
-
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
-      return true;
-    }
+    return extendoSet(Constants.EXTENDO_MIDDLE_CUBE_SETPOINT);
+  }
 
   }
 
