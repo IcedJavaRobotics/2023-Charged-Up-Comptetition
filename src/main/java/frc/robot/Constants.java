@@ -25,9 +25,9 @@ public final class Constants {
   public static final int BACK_RIGHT_TALON = 2;
   public static final int DROP_WHEEL_SPARK = 9;
   public static final int ROTATIONAL_CONSTANT = 2048;
-  public static final int AUTO_DISTANCE = 40;      // in inches-changed from 34 to 40
+  public static final int AUTO_DISTANCE = 40; // in inches-changed from 34 to 40
   public static final double AUTO_SPEED = 0.2;
-  
+
   // Controllers
   public static final int JOYSTICK = 0;
   public static final int DRIVER_STATION = 1;
@@ -39,9 +39,9 @@ public final class Constants {
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;
   public static final double CLAW_SPEED = 0.7;
-  //TODO claw pressure and claw speed changing based on position.
+  // TODO claw pressure and claw speed changing based on position.
   public static final double FAST_CLAW = 1;
-  public static final double SLOW_CLAW = 0.2;   //0.3 to 0.2
+  public static final double SLOW_CLAW = 0.2; // 0.3 to 0.2
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -55,11 +55,10 @@ public final class Constants {
   public static final int LEFT_TRIGGER = 7;
   public static final int RIGHT_TRIGGER = 8;
 
-
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
-  public static final double EXTENDO_SPEED = 0.3;   // changed from 0.6 to 0.3  // Encoder values for set arm positions
-  public static final double EXTENDO_RETRACT_SPEED = 0.5;
+  public static final double EXTENDO_SPEED = 0.3; // changed from 0.6 to 0.3 // Encoder values for set arm positions
+  public static final double EXTENDO_RETRACT_SPEED = 0.7;
   public static final int DEFAULT_SETPOINT = 0;
 
   public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000;
@@ -69,7 +68,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 0.5;   //1 to 0.5
+  public static final double ARM_SPEED = 0.5; // 1 to 0.5
   public static final int ARM_UPPER_CUBE_SETPOINT = 181;
   public static final int ARM_MIDDLE_CUBE_SETPOINT = 130;
   public static final int ARM_UPPER_CONE_SETPOINT = 205;
@@ -77,16 +76,12 @@ public final class Constants {
   public static final int ARM_AUTO_PICKUP = 50;
 
   // Limelight
-  /** upward angle of limelight camera [degrees] */
   public static final double LIMELIGHT_ANGLE = 3.0;
-  /** distance from limelight lens from floor [inches] */
   public static final double LIMELIGHT_HEIGHT = 18.5;
-  /** distance from apriltag to floor(bottom of tag) [inches] */
   public static final double APRILTAG_HEIGHT = 14.25;
-  /**
-   * distance from apriltag to floor but its the double substation(bottom of tag)
-   * [inches]
-   */
   public static final double APRILTAG_DOUBLE_SUBSTATION_HEIGHT = 23.375;
 
+  // Other
+  public static final boolean TRUE = false;
+  public static final boolean FALSE = true;
 }

@@ -83,7 +83,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   /********** Set arm scoring positions **********/
   public boolean armSet(int setPoint) {
-  moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), setPoint),
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), setPoint),
         armMotor);
 
     if (armController.atSetpoint()) {
@@ -92,15 +92,19 @@ public class ArmSubsystem extends SubsystemBase {
       return true;
     }
   }
+
   public boolean armUpperCube() {
     return armSet(Constants.ARM_UPPER_CUBE_SETPOINT);
   }
+
   public boolean armMiddleCube() {
     return armSet(Constants.ARM_MIDDLE_CUBE_SETPOINT);
   }
+
   public boolean armUpperCone() {
-   return armSet(Constants.ARM_UPPER_CONE_SETPOINT);
+    return armSet(Constants.ARM_UPPER_CONE_SETPOINT);
   }
+
   public boolean armMiddleCone() {
     return armSet(Constants.ARM_MIDDLE_CONE_SETPOINT);
   }
