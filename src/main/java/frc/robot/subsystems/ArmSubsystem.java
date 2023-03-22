@@ -57,15 +57,27 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
+  /**
+   * If limit switch is pressed it stops the arms and zeros encoder
+   * If limit swtich is not pressed it moves the arm down
+   */
   public void lowerArm() {
 
-    armMotor.set(-Constants.ARM_SPEED);
+    if(armLimitSwtich.get() == true){
+
+      stopArm();
+      zeroEncoder();
+
+    } else if(armLimitSwtich.get() == false){
+
+      armMotor.set(-Constants.ARM_SPEED);
+    }
 
   }
 
   public void stopArm() {
 
-    armMotor.set(0);
+    armMotor.stopMotor();
 
   }
 
