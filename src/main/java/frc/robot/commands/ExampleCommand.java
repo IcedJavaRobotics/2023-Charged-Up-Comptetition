@@ -66,7 +66,9 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    driveTrainSubsystem.autoTaxi();
+    if (driveTrainSubsystem.autoScore()) {
+      driveTrainSubsystem.autoTaxi();
+    }
 
     // modeFunction(mode); // changes what its excecuting based on which mode its on
 

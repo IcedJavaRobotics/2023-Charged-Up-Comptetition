@@ -30,6 +30,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double shortTaxi = 97; // taxi
   double longTaxi = 105; // its inches
   public boolean wheelsRaised = true;
+  boolean stepTwo = false;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -65,6 +66,31 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
   }
 
+  public boolean autoScore() {
+    if ( stepTwo == false && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * 10) ) {
+      
+      autoMoveBackward();
+      return false;
+
+    } else {
+
+      stopMotor();
+      stepTwo = true;
+      frontLeftTalon.setSelectedSensorPosition(0);
+      return true;
+
+    }
+  }
+
+  public void autoMoveBackward() {
+
+    frontLeftTalon.set(ControlMode.PercentOutput, -0.5);
+    backLeftTalon.set(ControlMode.PercentOutput, -0.5);
+    frontRightTalon.set(ControlMode.PercentOutput, -0.5);
+    backRightTalon.set(ControlMode.PercentOutput, -0.5);
+
+  }
+  
   public void autoMoveMotor() {
 
     frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
