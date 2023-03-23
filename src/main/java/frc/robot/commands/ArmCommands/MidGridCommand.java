@@ -28,8 +28,11 @@ public class MidGridCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (armSubsystem.armController.atSetpoint() == true) {
     armSubsystem.armMidGrid();
+    } else {
     extendoSubsystem.extendoMidGrid();
+    }
   }
 
   // Called once the command ends or is interrupted.

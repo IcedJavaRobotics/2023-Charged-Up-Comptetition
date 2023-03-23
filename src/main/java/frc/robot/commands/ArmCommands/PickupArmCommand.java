@@ -28,8 +28,11 @@ public class PickupArmCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (armSubsystem.armController.atSetpoint() == true) {
     armSubsystem.armPickup();
+    } else {
     extendoSubsystem.extendoPickup();
+    }
   }
 
   // Called once the command ends or is interrupted.

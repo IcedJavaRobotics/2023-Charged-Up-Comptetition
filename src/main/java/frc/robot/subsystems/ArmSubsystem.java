@@ -21,7 +21,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   double kP = 0.01;
   double kI = 0;
-  double kD = 0;
+  double kD = 0.002;
   double upperLimit = 275;
 
   public final PIDController armController = new PIDController(kP, kI, kD);

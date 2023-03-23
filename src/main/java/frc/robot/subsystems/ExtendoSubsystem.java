@@ -19,7 +19,7 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   private double kP = 0.0002; // PID values
   private double kI = 0;
-  private double kD = 0;
+  private double kD = 0.00005;
 
   double upperLimit = 24500;
 

@@ -29,10 +29,8 @@ public class HighGridCommand extends CommandBase {
   @Override
   public void execute() {
     if (armSubsystem.armController.atSetpoint() == true) {
-
       extendoSubsystem.extendoHighGrid();
     } else {
-
       armSubsystem.armHighGrid();
     }
   }
