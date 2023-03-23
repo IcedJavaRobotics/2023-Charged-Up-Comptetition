@@ -19,7 +19,7 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax armMotor = new CANSparkMax(Constants.ARM_SPARK, MotorType.kBrushless);
   DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
-  double kP = 0;
+  double kP = 0.01;
   double kI = 0;
   double kD = 0;
   double upperLimit = 275;
@@ -29,7 +29,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
 
     armMotor.setInverted(true);
-    armController.setTolerance(5, 10);
+    armController.setTolerance(40, 20);
     armController.setIntegratorRange(-1, 1);
 
   }

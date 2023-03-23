@@ -66,10 +66,10 @@ public final class Constants {
   public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 2900;
   public static final int EXTENDO_UPPER_CONE_SETPOINT = 16000;
   public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 1800;
-  public static final int EXTENDO_TUCKED = 10;
-  public static final int EXTENDO_PICKUP = 50;
-  public static final int EXTENDO_MID_GRID = 100;
-  public static final int EXTENDO_HIGH_GRID = 150;
+  public static final int EXTENDO_TUCKED = 50;
+  public static final int EXTENDO_PICKUP = 1000; //not actually pickup1, it's pickup high
+  public static final int EXTENDO_MID_GRID = 2000;
+  public static final int EXTENDO_HIGH_GRID = 22000;
 
   // Arm
   public static final int ARM_SPARK = 6;
@@ -78,10 +78,10 @@ public final class Constants {
   public static final int ARM_MIDDLE_CUBE_SETPOINT = 130;
   public static final int ARM_UPPER_CONE_SETPOINT = 205;
   public static final int ARM_MIDDLE_CONE_SETPOINT = 172;
-  public static final int ARM_TUCKED = 10;
-  public static final int ARM_PICKUP = 50;
-  public static final int ARM_MID_GRID = 100;
-  public static final int ARM_HIGH_GRID = 150;
+  public static final int ARM_TUCKED = 50;
+  public static final int ARM_PICKUP = 225;   //not actually pickup, it's pickup high
+  public static final int ARM_MID_GRID = 225;
+  public static final int ARM_HIGH_GRID = 250;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */

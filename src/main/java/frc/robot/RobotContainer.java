@@ -82,7 +82,7 @@ public class RobotContainer {
     new JoystickButton(driverStation, 1)
         .whileTrue(new TuckArmCommand(armSubsystem, extendoSubsystem));
 
-    new JoystickButton(driverStation, 2)
+    new JoystickButton(driverStation, 9)
         .whileTrue(new PickupArmCommand(armSubsystem, extendoSubsystem));
 
     new JoystickButton(driverStation, 6)

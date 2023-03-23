@@ -17,7 +17,7 @@ import frc.robot.Constants;
 public class ExtendoSubsystem extends SubsystemBase {
   /** Creates a new ExtendoSubsystem. */
 
-  private double kP = 0; // PID values
+  private double kP = 0.0002; // PID values
   private double kI = 0;
   private double kD = 0;
 
@@ -34,7 +34,7 @@ public class ExtendoSubsystem extends SubsystemBase {
     rightLimit = rightSwitch;
     leftLimit = leftSwitch;
     extendoMotor.setNeutralMode(NeutralMode.Brake);
-    extendoController.setTolerance(5, 10);
+    extendoController.setTolerance(20, 1000);
     extendoController.setIntegratorRange(-1, 1);
 
   }
@@ -99,23 +99,23 @@ public class ExtendoSubsystem extends SubsystemBase {
   // Has methods for upper and middle cones and cubes
 
   public void extendoTucked() {
-    extendoMotor.set(ControlMode.PercentOutput,
+      extendoMotor.set(ControlMode.PercentOutput,
         extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_TUCKED));
   }
 
   public void extendoPickup() {
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_PICKUP));
+      extendoMotor.set(ControlMode.PercentOutput,
+          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_PICKUP));
   }
 
   public void extendoMidGrid() {
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MID_GRID));
+      extendoMotor.set(ControlMode.PercentOutput,
+          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MID_GRID));
   }
 
   public void extendoHighGrid() {
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_HIGH_GRID));
+      extendoMotor.set(ControlMode.PercentOutput,
+          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_HIGH_GRID));
   }
   
 
