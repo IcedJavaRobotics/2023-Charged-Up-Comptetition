@@ -19,17 +19,17 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax armMotor = new CANSparkMax(Constants.ARM_SPARK, MotorType.kBrushless);
   DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
-  double kP = 0;
-  double kI = 0;
-  double kD = 0;
-  double upperLimit = 275;
+  double kP = 0.01;
+  double kI = 0.001;
+  double kD = 0.002;
+  double upperLimit = 265;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
   public ArmSubsystem() {
 
     armMotor.setInverted(true);
-    armController.setTolerance(5, 10);
+    armController.setTolerance(5, 5);
     armController.setIntegratorRange(-1, 1);
 
   }
@@ -57,15 +57,24 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
+  /**
+   * If limit switch is pressed it stops the arms and zeros encoder
+   * If limit swtich is not pressed it moves the arm down
+   */
   public void lowerArm() {
 
-    armMotor.set(-Constants.ARM_SPEED);
+    if(armLimitSwtich.get() == true) {
+      stopArm();
+      armMotor.getEncoder().setPosition(0);
+    } else {
+      armMotor.set(-Constants.ARM_SPEED);
+    }
 
   }
 
   public void stopArm() {
 
-    armMotor.set(0);
+    armMotor.stopMotor();
 
   }
 
@@ -82,6 +91,44 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /********** Set arm scoring positions **********/
+
+  public void armTucked() {
+    if(armLimitSwtich.get() == true) {
+      stopArm();
+      zeroEncoder();
+    } else {
+      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_TUCKED), armMotor);
+    }
+  }
+
+  public void armPickup() {
+    if(armLimitSwtich.get() == true) {
+      stopArm();
+      zeroEncoder();
+    } else {
+      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_PICKUP), armMotor);
+    }
+  }
+
+  public void armMidGrid() {
+    if(armLimitSwtich.get() == true) {
+      stopArm();
+      zeroEncoder();
+    } else {
+      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MID_GRID), armMotor);
+    }
+  }
+
+  public void armHighGrid() {
+    if(armLimitSwtich.get() == true) {
+      stopArm();
+      zeroEncoder();
+    } else {
+      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_HIGH_GRID), armMotor);
+    }
+  }
+  
+
   public boolean armUpperCube() {
 
     moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
