@@ -18,7 +18,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   /** Creates a new ExtendoSubsystem. */
 
   private double kP = 0.0002; // PID values
-  private double kI = 0;
+  private double kI = 0.00001;
   private double kD = 0.00005;
 
   double upperLimit = 24500;

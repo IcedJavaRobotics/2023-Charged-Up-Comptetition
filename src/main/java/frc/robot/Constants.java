@@ -80,7 +80,7 @@ public final class Constants {
   public static final int ARM_MIDDLE_CONE_SETPOINT = 172;
   public static final int ARM_TUCKED = 50;
   public static final int ARM_PICKUP = 225;   //not actually pickup, it's pickup high
-  public static final int ARM_MID_GRID = 225;
+  public static final int ARM_MID_GRID = 220;
   public static final int ARM_HIGH_GRID = 250;
 
   // Limelight

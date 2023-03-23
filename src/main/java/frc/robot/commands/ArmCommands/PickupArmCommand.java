@@ -29,9 +29,9 @@ public class PickupArmCommand extends CommandBase {
   @Override
   public void execute() {
     if (armSubsystem.armController.atSetpoint() == true) {
-    armSubsystem.armPickup();
+      extendoSubsystem.extendoPickup();
     } else {
-    extendoSubsystem.extendoPickup();
+      armSubsystem.armPickup();
     }
   }
 

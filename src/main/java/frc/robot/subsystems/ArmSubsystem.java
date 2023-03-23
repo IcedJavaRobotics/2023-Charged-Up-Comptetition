@@ -20,16 +20,16 @@ public class ArmSubsystem extends SubsystemBase {
   DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
   double kP = 0.01;
-  double kI = 0;
-  double kD = -0.002;
-  double upperLimit = 275;
+  double kI = 0.001;
+  double kD = 0.002;
+  double upperLimit = 265;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
   public ArmSubsystem() {
 
     armMotor.setInverted(true);
-    armController.setTolerance(10, 20);
+    armController.setTolerance(5, 5);
     armController.setIntegratorRange(-1, 1);
 
   }
@@ -61,7 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     if(armLimitSwtich.get() == true) {
       stopArm();
-      zeroEncoder();
+      armMotor.getEncoder().setPosition(0);
     } else {
       armMotor.set(-Constants.ARM_SPEED);
     }
