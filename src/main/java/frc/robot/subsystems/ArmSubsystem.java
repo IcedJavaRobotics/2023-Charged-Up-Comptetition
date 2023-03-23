@@ -19,9 +19,9 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax armMotor = new CANSparkMax(Constants.ARM_SPARK, MotorType.kBrushless);
   DigitalInput armLimitSwtich = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 
-  double kP = 0;
+  double kP = 0.01;
   double kI = 0;
-  double kD = 0;
+  double kD = 0.002;
   double upperLimit = 275;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
@@ -29,7 +29,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
 
     armMotor.setInverted(true);
-    armController.setTolerance(5, 10);
+    armController.setTolerance(40, 20);
     armController.setIntegratorRange(-1, 1);
 
   }
@@ -82,6 +82,24 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /********** Set arm scoring positions **********/
+
+  public void armTucked() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_TUCKED), armMotor);
+  }
+
+  public void armPickup() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_PICKUP), armMotor);
+  }
+
+  public void armMidGrid() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MID_GRID), armMotor);
+  }
+
+  public void armHighGrid() {
+    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_HIGH_GRID), armMotor);
+  }
+  
+
   public boolean armUpperCube() {
 
     moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
