@@ -28,6 +28,13 @@ public class HighGridCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    // if (armSubsystem.armController.atSetpoint() == true) {
+    //   System.out.println("at set point");
+    // } else {
+    //   System.out.println("not");
+    // }
+
     if (armSubsystem.armController.atSetpoint() == true) {
       extendoSubsystem.extendoHighGrid();
     } else {

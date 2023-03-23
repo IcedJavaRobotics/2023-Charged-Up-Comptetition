@@ -41,7 +41,7 @@ public final class Constants {
   public static final double CLAW_SPEED = 0.7;
   //TODO claw pressure and claw speed changing based on position.
   public static final double FAST_CLAW = 1;
-  public static final double SLOW_CLAW = 0.2;   //0.3 to 0.2
+  public static final double SLOW_CLAW = 0.3;   //0.3 to 0.2
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -67,8 +67,8 @@ public final class Constants {
   public static final int EXTENDO_UPPER_CONE_SETPOINT = 16000;
   public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 1800;
   public static final int EXTENDO_TUCKED = 50;
-  public static final int EXTENDO_PICKUP = 1000; //not actually pickup1, it's pickup high
-  public static final int EXTENDO_MID_GRID = 2000;
+  public static final int EXTENDO_PICKUP = 100; //not actually pickup1, it's pickup high
+  public static final int EXTENDO_MID_GRID = 100;
   public static final int EXTENDO_HIGH_GRID = 22000;
 
   // Arm

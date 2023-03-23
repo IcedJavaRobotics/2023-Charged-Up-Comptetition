@@ -34,7 +34,7 @@ public class ExtendoSubsystem extends SubsystemBase {
     rightLimit = rightSwitch;
     leftLimit = leftSwitch;
     extendoMotor.setNeutralMode(NeutralMode.Brake);
-    extendoController.setTolerance(20, 1000);
+    extendoController.setTolerance(400, 1000);
     extendoController.setIntegratorRange(-1, 1);
 
   }
