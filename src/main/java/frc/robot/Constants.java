@@ -58,7 +58,7 @@ public final class Constants {
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
-  public static final double EXTENDO_SPEED = 0.3;   // changed from 0.6 to 0.3  // Encoder values for set arm positions
+  public static final double EXTENDO_SPEED = 0.5;   // changed from 0.6 to 0.3 then to 0.5  // Encoder values for set arm positions
   public static final double EXTENDO_RETRACT_SPEED = 0.7;
   public static final int DEFAULT_SETPOINT = 0;
 
