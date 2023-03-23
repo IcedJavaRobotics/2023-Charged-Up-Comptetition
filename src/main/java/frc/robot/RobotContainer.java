@@ -73,10 +73,10 @@ public class RobotContainer {
     clawSubsystem = new ClawSubsystem(rightLimit, leftLimit);
     extendoSubsystem = new ExtendoSubsystem(rightLimit, leftLimit);
 
-    new JoystickButton(driverStation, 2)
+    new JoystickButton(flightStick, 12)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));
 
-    new JoystickButton(driverStation, 3)
+    new JoystickButton(flightStick, 11)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
 
     new JoystickButton(driverStation, 1)
