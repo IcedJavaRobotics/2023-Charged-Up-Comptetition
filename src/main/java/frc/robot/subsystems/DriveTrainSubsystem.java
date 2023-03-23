@@ -30,7 +30,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double shortTaxi = 97; // taxi
   double longTaxi = 105; // its inches
   public boolean wheelsRaised = true;
-  boolean stepTwo = false;
+  boolean stepOne = true;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -50,66 +50,73 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public void zeroEncoder() {
 
     frontLeftTalon.setSelectedSensorPosition(0);
-    
+
   }
 
+  /**
+   * method for autonomous movement out of the community
+   */
   public void autoTaxi() {
-    if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_DISTANCE) ) {
-      
-      autoMoveMotor();
+    if (Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * Constants.AUTO_TAXI_DISTANCE)) {
+
+      autoTaxiMove();
 
     } else {
 
       stopMotor();
 
-
     }
   }
 
-  public boolean autoScore() {
-    if ( stepTwo == false && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * 10) ) {
-      
-      autoMoveBackward();
+  /**
+   * method for autonomous movement to score low hub
+   */
+  public Boolean autoScoring() {
+    if (stepOne && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * Constants.AUTO_SCORING_DISTANCE)) {
+
+      autoScoringMove();
       return false;
 
     } else {
 
       stopMotor();
-      stepTwo = true;
       frontLeftTalon.setSelectedSensorPosition(0);
+      stepOne = false;
       return true;
 
     }
   }
 
-  public void autoMoveBackward() {
+  public void autoTaxiMove() {
 
-    frontLeftTalon.set(ControlMode.PercentOutput, -0.5);
-    backLeftTalon.set(ControlMode.PercentOutput, -0.5);
-    frontRightTalon.set(ControlMode.PercentOutput, -0.5);
-    backRightTalon.set(ControlMode.PercentOutput, -0.5);
-
-  }
-  
-  public void autoMoveMotor() {
-
-    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
-    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
-    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
-    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
 
   }
 
-  public void  stopMotor() {
-    
+  public void autoScoringMove() {
+
+    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
+    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
+    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
+    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
+
+  }
+
+  public void stopMotor() {
+
     frontLeftTalon.set(ControlMode.PercentOutput, 0);
     backLeftTalon.set(ControlMode.PercentOutput, 0);
     frontRightTalon.set(ControlMode.PercentOutput, 0);
     backRightTalon.set(ControlMode.PercentOutput, 0);
+    dropWheelsSpark.set(0);
 
   }
 
-  
   // Teleop Section
 
   /**

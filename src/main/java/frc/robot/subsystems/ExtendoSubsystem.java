@@ -61,7 +61,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   public void extendoExtend() {
 
     System.out.println("extending");
-    if (rightLimit.get() && leftLimit.get()){
+    if (rightLimit.get() && leftLimit.get()) {
       if (extendoMotor.getSelectedSensorPosition() <= upperLimit) {
         extendoMotor.set(ControlMode.PercentOutput, Constants.EXTENDO_SPEED);
       } else {
@@ -70,7 +70,6 @@ public class ExtendoSubsystem extends SubsystemBase {
     } else {
       extendoStop();
     }
-    
 
   }
 
@@ -89,7 +88,8 @@ public class ExtendoSubsystem extends SubsystemBase {
       return false;
     } else {
       extendoStop();
-      extendoMotor.setSelectedSensorPosition(0);  //qqqqqqqqqqqqqqqqqqqqqqqqqq22TODO add this line to other extendoStop();
+      extendoMotor.setSelectedSensorPosition(0); // qqqqqqqqqqqqqqqqqqqqqqqqqq22TODO add this line to other
+                                                 // extendoStop();
       return true;
     }
   }
