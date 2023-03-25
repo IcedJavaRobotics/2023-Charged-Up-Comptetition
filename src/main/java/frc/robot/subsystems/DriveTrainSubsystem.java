@@ -53,7 +53,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void autoTaxi() {
-    if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_DISTANCE) ) {
+    if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_TAXI_DISTANCE) ) {
       
       autoMoveMotor();
 
@@ -67,10 +67,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void autoMoveMotor() {
 
-    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
-    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
-    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
-    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SPEED);
+    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
 
   }
 

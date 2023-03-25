@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -94,21 +95,21 @@ public class ExampleCommand extends CommandBase {
    * 
    * 
    *
-    public void modeFunction(int Mode) {
-      // sees which mode you are on(check buttons folder)
-      if (Mode == 1) {
-
-        driveTrainSubsystem.taxiOutLong();
-
-      } else if (Mode == 2) {
-
-      } else if (Mode == 3) {
-
-      } else {
-
-        System.out.println("error 404: mode not found");
-
-      }
-    }
-    */
+   *             public void modeFunction(int Mode) {
+   *             // sees which mode you are on(check buttons folder)
+   *             if (Mode == 1) {
+   * 
+   *             driveTrainSubsystem.taxiOutLong();
+   * 
+   *             } else if (Mode == 2) {
+   * 
+   *             } else if (Mode == 3) {
+   * 
+   *             } else {
+   * 
+   *             System.out.println("error 404: mode not found");
+   * 
+   *             }
+   *             }
+   */
 }

@@ -25,9 +25,11 @@ public final class Constants {
   public static final int BACK_RIGHT_TALON = 2;
   public static final int DROP_WHEEL_SPARK = 9;
   public static final int ROTATIONAL_CONSTANT = 2048;
-  public static final int AUTO_DISTANCE = 40;      // in inches-changed from 34 to 40
-  public static final double AUTO_SPEED = 0.2;
-  
+  public static final int AUTO_TAXI_DISTANCE = 70; // in inches
+  public static final double AUTO_TAXI_SPEED = 0.2;
+  public static final double AUTO_SCORING_SPEED = -0.5;
+  public static final int AUTO_SCORING_DISTANCE = 6;
+
   // Controllers
   public static final int JOYSTICK = 0;
   public static final int DRIVER_STATION = 1;
@@ -38,10 +40,9 @@ public final class Constants {
   // Claw
   public static final int LEFT_CLAW = 7;
   public static final int RIGHT_CLAW = 8;
-  public static final double CLAW_SPEED = 0.7;
-  //TODO claw pressure and claw speed changing based on position.
+  public static final double CLAW_SPEED = 1;
   public static final double FAST_CLAW = 1;
-  public static final double SLOW_CLAW = 0.3;   //0.3 to 0.2
+  public static final double SLOW_CLAW = 0.3; 
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -50,38 +51,42 @@ public final class Constants {
   public static final int ARM_LIMIT_SWITCH = 3;
 
   // Buttons
-  public static final int LEFT_BUMPER = 5;
-  public static final int RIGHT_BUMPER = 6;
+  //public static final int CLAW_CLOSE_BUTTON = 7;
+  //public static final int CLAW_OPEN_BUTTON = 8;
   public static final int LEFT_TRIGGER = 7;
   public static final int RIGHT_TRIGGER = 8;
-
+  public static final int LEFT_BUMPER = 5;
+  public static final int RIGHT_BUMPER = 6;
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
-  public static final double EXTENDO_SPEED = 0.5;   // changed from 0.6 to 0.3 then to 0.5  // Encoder values for set arm positions
+  public static final double EXTENDO_SPEED = 0.6;   // changed from 0.6 to 0.3  // Encoder values for set arm positions
   public static final double EXTENDO_RETRACT_SPEED = 0.7;
   public static final int DEFAULT_SETPOINT = 0;
 
-  public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000;
-  public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 2900;
-  public static final int EXTENDO_UPPER_CONE_SETPOINT = 16000;
-  public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 1800;
   public static final int EXTENDO_TUCKED = 50;
   public static final int EXTENDO_PICKUP = 100; //not actually pickup1, it's pickup high
   public static final int EXTENDO_MID_GRID = 100;
-  public static final int EXTENDO_HIGH_GRID = 22000;
+  public static final int EXTENDO_HIGH_GRID = 21500;
+
+  // public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000;
+  // public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 2900;
+  // public static final int EXTENDO_UPPER_CONE_SETPOINT = 16000;
+  // public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 1800;
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 0.5;   //1 to 0.5
-  public static final int ARM_UPPER_CUBE_SETPOINT = 181;
-  public static final int ARM_MIDDLE_CUBE_SETPOINT = 130;
-  public static final int ARM_UPPER_CONE_SETPOINT = 205;
-  public static final int ARM_MIDDLE_CONE_SETPOINT = 172;
-  public static final int ARM_TUCKED = 50;
-  public static final int ARM_PICKUP = 225;   //not actually pickup, it's pickup high
-  public static final int ARM_MID_GRID = 220;
-  public static final int ARM_HIGH_GRID = 250;
+  public static final double ARM_SPEED = 1;
+
+  public static final int ARM_TUCKED = 180;
+  public static final int ARM_PICKUP = 530;   //not actually pickup, it's pickup high
+  public static final int ARM_MID_GRID = 555;
+  public static final int ARM_HIGH_GRID = 650; 
+
+  // public static final int ARM_UPPER_CUBE_SETPOINT = 181;
+  // public static final int ARM_MIDDLE_CUBE_SETPOINT = 130;
+  // public static final int ARM_UPPER_CONE_SETPOINT = 205;
+  // public static final int ARM_MIDDLE_CONE_SETPOINT = 172;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */

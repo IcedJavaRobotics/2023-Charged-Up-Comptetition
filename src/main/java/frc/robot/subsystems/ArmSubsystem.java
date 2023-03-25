@@ -21,15 +21,15 @@ public class ArmSubsystem extends SubsystemBase {
 
   double kP = 0.01;
   double kI = 0.001;
-  double kD = 0.002;
-  double upperLimit = 265;
+  double kD = 0.005; // Deafault 0.002
+  double upperLimit = 680;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
   public ArmSubsystem() {
 
     armMotor.setInverted(true);
-    armController.setTolerance(5, 5);
+    armController.setTolerance(40, 5);
     armController.setIntegratorRange(-1, 1);
 
   }
@@ -129,55 +129,55 @@ public class ArmSubsystem extends SubsystemBase {
   }
   
 
-  public boolean armUpperCube() {
+  // public boolean armUpperCube() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
-        armMotor);
+  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
+  //       armMotor);
 
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  //   if (armController.atSetpoint()) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
-  public boolean armMiddleCube() {
+  // public boolean armMiddleCube() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CUBE_SETPOINT),
-        armMotor);
+  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CUBE_SETPOINT),
+  //       armMotor);
 
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
+  //   if (armController.atSetpoint()) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
 
-  }
+  // }
 
-  public boolean armUpperCone() {
+  // public boolean armUpperCone() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CONE_SETPOINT),
-        armMotor);
+  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CONE_SETPOINT),
+  //       armMotor);
 
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  //   if (armController.atSetpoint()) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
-  public boolean armMiddleCone() {
+  // public boolean armMiddleCone() {
 
-    moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CONE_SETPOINT),
-        armMotor);
+  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CONE_SETPOINT),
+  //       armMotor);
 
-    if (armController.atSetpoint()) {
-      return false;
-    } else {
-      return true;
-    }
+  //   if (armController.atSetpoint()) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
 
-  }
+  // }
 
   @Override
   public void periodic() {

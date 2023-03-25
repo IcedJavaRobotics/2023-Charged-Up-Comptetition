@@ -4,12 +4,16 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ExampleSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public int autoMode = 1;
+
+  Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
 
   public ExampleSubsystem() {
   }
@@ -55,6 +59,7 @@ public class ExampleSubsystem extends SubsystemBase {
   }
 
   public int getMode() {
+
     return autoMode;
   }
 }
