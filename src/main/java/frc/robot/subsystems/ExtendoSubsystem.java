@@ -21,7 +21,7 @@ public class ExtendoSubsystem extends SubsystemBase {
   private double kI = 0.00001;
   private double kD = 0.00005;
 
-  double upperLimit = 22750;
+  double upperLimit = 24500;
 
   private TalonSRX extendoMotor = new TalonSRX(Constants.EXTENDO_MOTOR); // motor
   DigitalInput extendoLimitSwitch = new DigitalInput(Constants.EXTENDO_LIMIT_SWITCH); // limit switch
@@ -34,7 +34,7 @@ public class ExtendoSubsystem extends SubsystemBase {
     rightLimit = rightSwitch;
     leftLimit = leftSwitch;
     extendoMotor.setNeutralMode(NeutralMode.Brake);
-    extendoController.setTolerance(400, 1000); // 1000 is default
+    extendoController.setTolerance(400, 1000);
     extendoController.setIntegratorRange(-1, 1);
 
   }

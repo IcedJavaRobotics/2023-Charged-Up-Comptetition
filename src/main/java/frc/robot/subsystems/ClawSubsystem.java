@@ -25,7 +25,7 @@ public class ClawSubsystem extends SubsystemBase {
     rightLimit = rightSwitch;
     leftLimit = leftSwitch;
     // Need to set this during testing
-    rightClawMotor.setInverted(true);
+    rightClawMotor.setInverted(false);
     leftClawMotor.setInverted(true);
 
   }

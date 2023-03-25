@@ -35,10 +35,10 @@ public class HighGridCommand extends CommandBase {
     //   System.out.println("not");
     // }
 
-    if(armSubsystem.armController.atSetpoint() == false) {
-      armSubsystem.armHighGrid();
-    } else {
+    if (armSubsystem.armController.atSetpoint() == true) {
       extendoSubsystem.extendoHighGrid();
+    } else {
+      armSubsystem.armHighGrid();
     }
   }
 

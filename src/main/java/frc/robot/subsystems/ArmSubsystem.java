@@ -21,15 +21,15 @@ public class ArmSubsystem extends SubsystemBase {
 
   double kP = 0.01;
   double kI = 0.001;
-  double kD = 0.005; // default 0.002
-  double upperLimit = 680;
+  double kD = 0.002;
+  double upperLimit = 265;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
   public ArmSubsystem() {
 
     armMotor.setInverted(true);
-    armController.setTolerance(40, 5);
+    armController.setTolerance(5, 5);
     armController.setIntegratorRange(-1, 1);
 
   }
