@@ -10,7 +10,11 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -18,11 +22,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
   /** Creates a new DriveTrainSubsystem. */
 
   final LimelightSubsystem limelight = new LimelightSubsystem();
+  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
   final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
+  final ADIS16470_IMU gyro = new ADIS16470_IMU();
 
   double kP = 0.1;
   double kI = 0.01; // PID values
@@ -31,6 +37,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double longTaxi = 105; // its inches
   public boolean wheelsRaised = true;
   boolean stepOne = true;
+  boolean stepTwo = true;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -47,24 +54,40 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   // Autonomous Section
+
+  public void zeroGyro() {
+    gyro.calibrate();
+  }
+
   public void zeroEncoder() {
 
     frontLeftTalon.setSelectedSensorPosition(0);
 
   }
 
+  public void autoCharging() {
+
+    if (gyro.getYComplementaryAngle() == Constants.CHARGING_ANGLE) {
+      autoCharging();
+    } else {
+      stopMotor();
+    }
+  }
+
   /**
    * method for autonomous movement out of the community
    */
-  public void autoTaxi() {
-    if (Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
-        * Constants.AUTO_TAXI_DISTANCE)) {
+  public Boolean autoTaxi() {
+    if (stepTwo && gyro.getYComplementaryAngle() < Constants.CHARGING_ANGLE) {
 
       autoTaxiMove();
+      return false;
 
     } else {
 
       stopMotor();
+      stepTwo = false;
+      return true;
 
     }
   }
@@ -89,12 +112,23 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
   }
 
+  public void autoChargingMove() {
+
+    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
+    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
+    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
+    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
+    dropWheelsSpark.set(Constants.AUTO_CHARGING_SPEED);
+
+  }
+
   public void autoTaxiMove() {
 
     frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
     backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
     frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
     backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+    dropWheelsSpark.set(Constants.AUTO_TAXI_SPEED);
 
   }
 
@@ -104,6 +138,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
     frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
     backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
+    dropWheelsSpark.set(Constants.AUTO_SCORING_SPEED);
 
   }
 
@@ -162,6 +197,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     } else if (wheelsRaised == false) {
 
+      SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
+      SmartDashboard.putNumber("gyro YFilteredAccelAngle", gyro.getYFilteredAccelAngle());
+      SmartDashboard.putNumber("gyro YAccel", gyro.getAccelY());
       // Tank drive for when wheels are deployed (only forward)
       moveMotor(ensureRange(Y), backLeftTalon);
       moveMotor(ensureRange(Y), frontLeftTalon);

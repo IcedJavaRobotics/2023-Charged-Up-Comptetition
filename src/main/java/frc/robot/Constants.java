@@ -25,10 +25,14 @@ public final class Constants {
   public static final int BACK_RIGHT_TALON = 2;
   public static final int DROP_WHEEL_SPARK = 9;
   public static final int ROTATIONAL_CONSTANT = 2048;
+
+  // Auto Drive train
   public static final int AUTO_TAXI_DISTANCE = 70; // in inches
-  public static final double AUTO_TAXI_SPEED = 0.2;
+  public static final double AUTO_TAXI_SPEED = 0.5;
   public static final double AUTO_SCORING_SPEED = -0.5;
   public static final int AUTO_SCORING_DISTANCE = 6;
+  public static final double CHARGING_ANGLE = 13;
+  public static final double AUTO_CHARGING_SPEED = 0.2;
 
   // Controllers
   public static final int JOYSTICK = 0;
@@ -54,7 +58,7 @@ public final class Constants {
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
-  public static final double EXTENDO_SPEED = 0.3;   // changed from 0.6 to 0.3  // Encoder values for set arm positions
+  public static final double EXTENDO_SPEED = 0.3; // changed from 0.6 to 0.3 // Encoder values for set arm positions
   public static final double EXTENDO_RETRACT_SPEED = 0.7;
   public static final int DEFAULT_SETPOINT = 0;
 

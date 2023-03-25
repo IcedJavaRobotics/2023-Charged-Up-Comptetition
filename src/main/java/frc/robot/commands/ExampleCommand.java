@@ -61,6 +61,8 @@ public class ExampleCommand extends CommandBase {
     mode = exampleSubsystem.getMode();
     blinkinSubsystem.autoBlinkin();
     driveTrainSubsystem.zeroEncoder();
+    driveTrainSubsystem.zeroGyro();
+    pneumaticWheelsSubsystem.forwardSolenoid();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -68,7 +70,10 @@ public class ExampleCommand extends CommandBase {
   public void execute() {
 
     if (driveTrainSubsystem.autoScoring()) {
-      driveTrainSubsystem.autoTaxi();
+      if (driveTrainSubsystem.autoTaxi()) {
+        driveTrainSubsystem.autoCharging();
+      }
+
     }
 
     // modeFunction(mode); // changes what its excecuting based on which mode its on
@@ -78,6 +83,7 @@ public class ExampleCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    pneumaticWheelsSubsystem.reverseSolenoid();
   }
 
   // Returns true when the command should end.
