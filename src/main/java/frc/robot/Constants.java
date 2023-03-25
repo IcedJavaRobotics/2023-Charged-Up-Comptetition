@@ -27,11 +27,11 @@ public final class Constants {
   public static final int ROTATIONAL_CONSTANT = 2048;
 
   // Auto Drive train
-  public static final int AUTO_TAXI_DISTANCE = 70; // in inches
+  public static final int AUTO_TAXI_DISTANCE = 170; // in inches
   public static final double AUTO_TAXI_SPEED = 0.5;
   public static final double AUTO_SCORING_SPEED = -0.5;
   public static final int AUTO_SCORING_DISTANCE = 6;
-  public static final double CHARGING_ANGLE = 13;
+  public static final double CHARGING_ANGLE = 101;
   public static final double AUTO_CHARGING_SPEED = 0.2;
 
   // Controllers

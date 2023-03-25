@@ -69,12 +69,12 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if (driveTrainSubsystem.autoScoring()) {
+    // if (driveTrainSubsystem.autoScoring()) {
       if (driveTrainSubsystem.autoTaxi()) {
         driveTrainSubsystem.autoCharging();
       }
 
-    }
+    //}
 
     // modeFunction(mode); // changes what its excecuting based on which mode its on
 

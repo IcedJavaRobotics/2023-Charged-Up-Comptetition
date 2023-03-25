@@ -20,6 +20,8 @@ import frc.robot.commands.ArmCommands.ClawCloseCommand;
 import frc.robot.commands.ArmCommands.ClawOpenCommand;
 import frc.robot.commands.ArmCommands.ResetCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
+import frc.robot.commands.ArmCommands.ZeroGyroCommand;
+import frc.robot.commands.ArmCommands.checkGyroCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -69,22 +71,28 @@ public class RobotContainer {
     clawSubsystem = new ClawSubsystem(rightLimit, leftLimit);
     extendoSubsystem = new ExtendoSubsystem(rightLimit, leftLimit);
 
+    new JoystickButton(driverStation, 1)
+    .whileTrue(new checkGyroCommand(driveTrainSubsystem));
+
+    new JoystickButton(driverStation, 9)
+    .whileTrue(new ZeroGyroCommand(driveTrainSubsystem)); 
+
     new JoystickButton(driverStation, 2)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));
 
     new JoystickButton(driverStation, 3)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
 
-    new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
-        .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.FAST_CLAW));
-    new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
-        .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
+    // new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
+    //     .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.FAST_CLAW));
+    // new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
+    //     .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
 
-    new JoystickButton(xboxController, Constants.LEFT_BUMPER)
-	      .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
+    // new JoystickButton(xboxController, Constants.LEFT_BUMPER)
+	  //     .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
 
-    new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
-	      .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
+    // new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
+	  //     .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
 
     new JoystickButton(xboxController, 1)
         .whileTrue(new ZeroArmCommand(armSubsystem));

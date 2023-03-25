@@ -22,7 +22,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
   /** Creates a new DriveTrainSubsystem. */
 
   final LimelightSubsystem limelight = new LimelightSubsystem();
-  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
@@ -55,6 +54,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   // Autonomous Section
 
+  public void checkGyro(){
+    System.out.println(gyro.getYComplementaryAngle()); 
+  }
+
   public void zeroGyro() {
     gyro.calibrate();
   }
@@ -67,7 +70,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void autoCharging() {
 
-    if (gyro.getYComplementaryAngle() == Constants.CHARGING_ANGLE) {
+    if (gyro.getYComplementaryAngle() >= Constants.CHARGING_ANGLE) {
       autoCharging();
     } else {
       stopMotor();
@@ -78,7 +81,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
    * method for autonomous movement out of the community
    */
   public Boolean autoTaxi() {
-    if (stepTwo && gyro.getYComplementaryAngle() < Constants.CHARGING_ANGLE) {
+    if (stepTwo &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+    * Constants.AUTO_TAXI_DISTANCE)) {
 
       autoTaxiMove();
       return false;
@@ -186,6 +190,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive(double X, double Y, double R, double Z) {
 
+    SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
     if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticWheelsCommand)
 
       Z = (-Z + 1) / 2;
@@ -198,8 +203,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
     } else if (wheelsRaised == false) {
 
       SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
-      SmartDashboard.putNumber("gyro YFilteredAccelAngle", gyro.getYFilteredAccelAngle());
-      SmartDashboard.putNumber("gyro YAccel", gyro.getAccelY());
       // Tank drive for when wheels are deployed (only forward)
       moveMotor(ensureRange(Y), backLeftTalon);
       moveMotor(ensureRange(Y), frontLeftTalon);
