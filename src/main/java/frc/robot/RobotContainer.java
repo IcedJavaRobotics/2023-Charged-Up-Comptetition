@@ -20,7 +20,6 @@ import frc.robot.commands.ArmCommands.ClawCloseCommand;
 import frc.robot.commands.ArmCommands.ClawOpenCommand;
 import frc.robot.commands.ArmCommands.ResetCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
-import frc.robot.commands.ArmCommands.ZeroGyroCommand;
 import frc.robot.commands.ArmCommands.checkGyroCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
@@ -73,9 +72,6 @@ public class RobotContainer {
 
     new JoystickButton(driverStation, 1)
     .whileTrue(new checkGyroCommand(driveTrainSubsystem));
-
-    new JoystickButton(driverStation, 9)
-    .whileTrue(new ZeroGyroCommand(driveTrainSubsystem)); 
 
     new JoystickButton(driverStation, 2)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));

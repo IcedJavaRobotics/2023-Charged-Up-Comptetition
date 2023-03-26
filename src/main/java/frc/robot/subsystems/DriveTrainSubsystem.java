@@ -11,9 +11,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -70,10 +67,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void autoCharging() {
 
-    if (gyro.getYComplementaryAngle() >= Constants.CHARGING_ANGLE) {
-      autoCharging();
+    if (gyro.getYComplementaryAngle() < Constants.CHARGING_MAX_ANGLE) {
+      autoMove(Constants.AUTO_TAXI_SPEED);
     } else {
-      stopMotor();
+      if (gyro.getYComplementaryAngle() >= Constants.CHARGING_MAX_ANGLE) {
+        autoMove(Constants.AUTO_CHARGING_SPEED);
+      } else if (gyro.getYComplementaryAngle() <= Constants.CHARGING_MIN_ANGLE) {
+        autoMove(-Constants.AUTO_CHARGING_SPEED);
+      } else {
+        stopMotor();
+      }
     }
   }
 
@@ -84,7 +87,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     if (stepTwo &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
     * Constants.AUTO_TAXI_DISTANCE)) {
 
-      autoTaxiMove();
+      autoMove(Constants.AUTO_TAXI_SPEED);
       return false;
 
     } else {
@@ -103,7 +106,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     if (stepOne && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
         * Constants.AUTO_SCORING_DISTANCE)) {
 
-      autoScoringMove();
+      autoMove(Constants.AUTO_SCORING_SPEED);
       return false;
 
     } else {
@@ -116,33 +119,17 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
   }
 
-  public void autoChargingMove() {
+  /**
+   * movement method for autonomous
+   * @param speed speed that robot go
+   */
+  public void autoMove(double speed) {
 
-    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
-    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
-    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
-    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_CHARGING_SPEED);
-    dropWheelsSpark.set(Constants.AUTO_CHARGING_SPEED);
-
-  }
-
-  public void autoTaxiMove() {
-
-    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
-    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
-    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
-    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
-    dropWheelsSpark.set(Constants.AUTO_TAXI_SPEED);
-
-  }
-
-  public void autoScoringMove() {
-
-    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
-    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
-    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
-    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_SCORING_SPEED);
-    dropWheelsSpark.set(Constants.AUTO_SCORING_SPEED);
+    frontLeftTalon.set(ControlMode.PercentOutput, speed);
+    backLeftTalon.set(ControlMode.PercentOutput, speed);
+    frontRightTalon.set(ControlMode.PercentOutput, speed);
+    backRightTalon.set(ControlMode.PercentOutput, speed);
+    dropWheelsSpark.set(speed);
 
   }
 
