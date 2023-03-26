@@ -51,8 +51,6 @@ public final class Constants {
   public static final int ARM_LIMIT_SWITCH = 3;
 
   // Buttons
-  //public static final int CLAW_CLOSE_BUTTON = 7;
-  //public static final int CLAW_OPEN_BUTTON = 8;
   public static final int LEFT_TRIGGER = 7;
   public static final int RIGHT_TRIGGER = 8;
   public static final int LEFT_BUMPER = 5;
@@ -69,10 +67,6 @@ public final class Constants {
   public static final int EXTENDO_MID_GRID = 100;
   public static final int EXTENDO_HIGH_GRID = 21500;
 
-  // public static final int EXTENDO_UPPER_CUBE_SETPOINT = 17000;
-  // public static final int EXTENDO_MIDDLE_CUBE_SETPOINT = 2900;
-  // public static final int EXTENDO_UPPER_CONE_SETPOINT = 16000;
-  // public static final int EXTENDO_MIDDLE_CONE_SETPOINT = 1800;
 
   // Arm
   public static final int ARM_SPARK = 6;
@@ -83,10 +77,6 @@ public final class Constants {
   public static final int ARM_MID_GRID = 555;
   public static final int ARM_HIGH_GRID = 650; 
 
-  // public static final int ARM_UPPER_CUBE_SETPOINT = 181;
-  // public static final int ARM_MIDDLE_CUBE_SETPOINT = 130;
-  // public static final int ARM_UPPER_CONE_SETPOINT = 205;
-  // public static final int ARM_MIDDLE_CONE_SETPOINT = 172;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */

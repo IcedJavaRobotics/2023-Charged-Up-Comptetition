@@ -69,39 +69,36 @@ public class RobotContainer {
     clawSubsystem = new ClawSubsystem(rightLimit, leftLimit);
     extendoSubsystem = new ExtendoSubsystem(rightLimit, leftLimit);
 
+
+    // Lights commands
     new JoystickButton(flightStick, 12)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));
 
     new JoystickButton(flightStick, 11)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
 
-    new JoystickButton(driverStation, 1)
+    
+    // Zero arms and arm movement commands
+    new JoystickButton(xboxController, 9)
         .whileTrue(new TuckArmCommand(armSubsystem, extendoSubsystem));
 
-    new JoystickButton(driverStation, 9)
+    new JoystickButton(xboxController, 10)
         .whileTrue(new PickupArmCommand(armSubsystem, extendoSubsystem));
 
-    new JoystickButton(driverStation, 6)
+    new JoystickButton(xboxController, 2)
         .whileTrue(new MidGridCommand(armSubsystem, extendoSubsystem));
 
-    new JoystickButton(driverStation, 8)
+    new JoystickButton(xboxController, 4)
         .whileTrue(new HighGridCommand(armSubsystem, extendoSubsystem));
-        
-        
-    // new JoystickButton(driverStation, 6)
-    //     .whileTrue(new MiddleConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
 
-    // new JoystickButton(driverStation, 8)
-    //     .whileTrue(new MiddleCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
+    new JoystickButton(xboxController, 1)
+        .whileTrue(new ZeroArmCommand(armSubsystem));
 
-    // new JoystickButton(driverStation, 1)
-    //     .whileTrue(new UpperConeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
-
-    // new JoystickButton(driverStation, 9)
-    //     .whileTrue(new UpperCubeCommand(extendoSubsystem, armSubsystem, clawSubsystem));
-
+    
+    // Claw movement
     new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
         .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.FAST_CLAW));
+
     new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
         .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
 
@@ -111,12 +108,13 @@ public class RobotContainer {
     new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
 	      .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
 
-    new JoystickButton(xboxController, 1)
-        .whileTrue(new ZeroArmCommand(armSubsystem));
 
+    // Reset arm
     new JoystickButton(xboxController, 3)
         .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
 
+
+    
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
             0.78 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));

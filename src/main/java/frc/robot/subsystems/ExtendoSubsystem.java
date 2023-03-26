@@ -100,7 +100,7 @@ public class ExtendoSubsystem extends SubsystemBase {
 
   public void extendoTucked() {
       extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_TUCKED));
+          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_TUCKED));
   }
 
   public void extendoPickup() {
@@ -118,58 +118,6 @@ public class ExtendoSubsystem extends SubsystemBase {
           extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_HIGH_GRID));
   }
   
-
-  // public boolean extendoUpperCube() {
-
-  //   extendoMotor.set(ControlMode.PercentOutput,
-  //       extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_UPPER_CUBE_SETPOINT));
-
-  //   if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-
-  // }
-
-  // public Boolean extendoMiddleCube() {
-
-  //   extendoMotor.set(ControlMode.PercentOutput,
-  //       extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MIDDLE_CUBE_SETPOINT));
-
-  //   if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-
-  // }
-
-  // public boolean extendoUpperCone() {
-
-  //   extendoMotor.set(ControlMode.PercentOutput,
-  //       extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_UPPER_CONE_SETPOINT));
-
-  //   if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-
-  // }
-
-  // public Boolean extendoMiddleCone() {
-
-  //   extendoMotor.set(ControlMode.PercentOutput,
-  //       extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MIDDLE_CONE_SETPOINT));
-
-  //   if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-
-  // }
 
   public boolean extendoDefault() {
 
