@@ -92,7 +92,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     } else {
 
-      stopMotor();
       stepTwo = false;
       return true;
 

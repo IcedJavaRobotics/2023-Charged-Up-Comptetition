@@ -32,9 +32,9 @@ public final class Constants {
   public static final double AUTO_SCORING_SPEED = -0.5;
   public static final int AUTO_SCORING_DISTANCE = 6;
   public static final double CHARGING_MAX_ANGLE = 101;
-  public static final double CHARGING_MIN_ANGLE = 95;   // Theoretical
+  public static final double CHARGING_MIN_ANGLE = 75;   // Theoretical
 
-  public static final double AUTO_CHARGING_SPEED = 0.2;
+  public static final double AUTO_CHARGING_SPEED = 0.15;
 
   // Controllers
   public static final int JOYSTICK = 0;
