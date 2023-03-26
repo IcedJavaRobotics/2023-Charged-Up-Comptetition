@@ -71,10 +71,10 @@ public class RobotContainer {
 
 
     // Lights commands
-    new JoystickButton(flightStick, 12)
+    new JoystickButton(flightStick, 5)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));
 
-    new JoystickButton(flightStick, 11)
+    new JoystickButton(flightStick, 3)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
 
     
