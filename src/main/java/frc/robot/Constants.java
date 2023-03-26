@@ -25,10 +25,16 @@ public final class Constants {
   public static final int BACK_RIGHT_TALON = 2;
   public static final int DROP_WHEEL_SPARK = 9;
   public static final int ROTATIONAL_CONSTANT = 2048;
-  public static final int AUTO_TAXI_DISTANCE = 70; // in inches
-  public static final double AUTO_TAXI_SPEED = 0.2;
+
+  // Auto Drive train
+  public static final int AUTO_TAXI_DISTANCE = 170; // in inches
+  public static final double AUTO_TAXI_SPEED = 0.5;
   public static final double AUTO_SCORING_SPEED = -0.5;
   public static final int AUTO_SCORING_DISTANCE = 6;
+  public static final double CHARGING_MAX_ANGLE = 101;
+  public static final double CHARGING_MIN_ANGLE = 75;   // Theoretical
+
+  public static final double AUTO_CHARGING_SPEED = 0.15;
 
   // Controllers
   public static final int JOYSTICK = 0;

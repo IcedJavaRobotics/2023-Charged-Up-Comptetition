@@ -10,7 +10,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,6 +24,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
   final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
+  final ADIS16470_IMU gyro = new ADIS16470_IMU();
 
   double kP = 0.1;
   double kI = 0.01; // PID values
@@ -30,6 +32,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   double shortTaxi = 97; // taxi
   double longTaxi = 105; // its inches
   public boolean wheelsRaised = true;
+  boolean stepOne = true;
+  boolean stepTwo = true;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -46,44 +50,98 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   // Autonomous Section
+
+  public void checkGyro(){
+    System.out.println(gyro.getYComplementaryAngle()); 
+  }
+
+  public void zeroGyro() {
+    gyro.calibrate();
+  }
+
   public void zeroEncoder() {
 
     frontLeftTalon.setSelectedSensorPosition(0);
+
+  }
+
+  public void autoCharging() {
+
+    // if (gyro.getYComplementaryAngle() < Constants.CHARGING_MAX_ANGLE) {
+    //   autoMove(Constants.AUTO_TAXI_SPEED);
+
+      if (gyro.getYComplementaryAngle() >= Constants.CHARGING_MAX_ANGLE) {
+        autoMove(Constants.AUTO_CHARGING_SPEED);
+      } else if (gyro.getYComplementaryAngle() <= Constants.CHARGING_MIN_ANGLE) {
+        autoMove(-Constants.AUTO_CHARGING_SPEED);
+      } else {
+        stopMotor();
+      }
     
   }
 
-  public void autoTaxi() {
-    if ( Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2) * Constants.AUTO_TAXI_DISTANCE) ) {
-      
-      autoMoveMotor();
+  /**
+   * method for autonomous movement out of the community
+   */
+  public Boolean autoTaxi() {
+    if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+    * Constants.AUTO_TAXI_DISTANCE)) {
+
+      autoMove(Constants.AUTO_TAXI_SPEED);
+      return false;
 
     } else {
 
-      stopMotor();
-
+      stepTwo = false;
+      return true;
 
     }
   }
 
-  public void autoMoveMotor() {
+  /**
+   * method for autonomous movement to score low hub
+   */
+  public Boolean autoScoring() {
+    if (stepOne && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * Constants.AUTO_SCORING_DISTANCE)) {
 
-    frontLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
-    backLeftTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
-    frontRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
-    backRightTalon.set(ControlMode.PercentOutput, Constants.AUTO_TAXI_SPEED);
+      autoMove(Constants.AUTO_SCORING_SPEED);
+      return false;
+
+    } else {
+
+      stopMotor();
+      frontLeftTalon.setSelectedSensorPosition(0);
+      stepOne = false;
+      return true;
+
+    }
+  }
+
+  /**
+   * movement method for autonomous
+   * @param speed speed that robot go
+   */
+  public void autoMove(double speed) {
+
+    frontLeftTalon.set(ControlMode.PercentOutput, speed);
+    backLeftTalon.set(ControlMode.PercentOutput, speed);
+    frontRightTalon.set(ControlMode.PercentOutput, speed);
+    backRightTalon.set(ControlMode.PercentOutput, speed);
+    dropWheelsSpark.set(speed);
 
   }
 
-  public void  stopMotor() {
-    
+  public void stopMotor() {
+
     frontLeftTalon.set(ControlMode.PercentOutput, 0);
     backLeftTalon.set(ControlMode.PercentOutput, 0);
     frontRightTalon.set(ControlMode.PercentOutput, 0);
     backRightTalon.set(ControlMode.PercentOutput, 0);
+    dropWheelsSpark.set(0);
 
   }
 
-  
   // Teleop Section
 
   /**
@@ -118,6 +176,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive(double X, double Y, double R, double Z) {
 
+    SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
     if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticWheelsCommand)
 
       Z = (-Z + 1) / 2;
@@ -129,6 +188,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     } else if (wheelsRaised == false) {
 
+      SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
       // Tank drive for when wheels are deployed (only forward)
       moveMotor(ensureRange(Y), backLeftTalon);
       moveMotor(ensureRange(Y), frontLeftTalon);

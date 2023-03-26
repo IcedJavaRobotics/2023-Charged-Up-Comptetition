@@ -20,6 +20,7 @@ import frc.robot.commands.ArmCommands.PickupArmCommand;
 import frc.robot.commands.ArmCommands.ResetCommand;
 import frc.robot.commands.ArmCommands.TuckArmCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
+import frc.robot.commands.ArmCommands.checkGyroCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -102,11 +103,11 @@ public class RobotContainer {
     new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
         .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
 
-    new JoystickButton(xboxController, Constants.LEFT_BUMPER)
-	      .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
+    // new JoystickButton(xboxController, Constants.LEFT_BUMPER)
+	  //     .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
 
-    new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
-	      .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
+    // new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
+	  //     .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
 
 
     // Reset arm

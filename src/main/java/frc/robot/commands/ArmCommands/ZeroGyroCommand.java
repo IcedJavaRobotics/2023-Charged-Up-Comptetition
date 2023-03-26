@@ -5,41 +5,30 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.DriveTrainSubsystem;
 
-public class ClawCloseCommand extends CommandBase {
-  /** Creates a new ClawCloseCommand. */
-
-  private final ClawSubsystem clawSubsystem;
-  private double speed;
-  public ClawCloseCommand(ClawSubsystem subsystem, double speed) {
-    this.speed = speed;
-    clawSubsystem = subsystem;
+public class ZeroGyroCommand extends CommandBase {
+  /** Creates a new ZeroGyroCommand. */
+  private final DriveTrainSubsystem driveTrainSubsystem;
+  public ZeroGyroCommand(DriveTrainSubsystem dSubsystem) {
+    driveTrainSubsystem = dSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(clawSubsystem);
-
+    addRequirements(dSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {driveTrainSubsystem.zeroGyro();}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     
-    clawSubsystem.clawClose(speed);
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-
-    clawSubsystem.clawStop();
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
