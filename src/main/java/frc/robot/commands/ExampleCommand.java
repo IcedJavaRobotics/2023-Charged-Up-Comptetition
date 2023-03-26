@@ -26,6 +26,7 @@ public class ExampleCommand extends CommandBase {
   private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
   private final BlinkinSubsystem blinkinSubsystem;
   private int mode = 1;
+  private boolean firstStepDone;
 
   /**
    * Creates a new ExampleCommand.
@@ -63,17 +64,19 @@ public class ExampleCommand extends CommandBase {
     driveTrainSubsystem.zeroEncoder();
     driveTrainSubsystem.zeroGyro();
     pneumaticWheelsSubsystem.forwardSolenoid();
+    firstStepDone = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    // if (driveTrainSubsystem.autoScoring()) {
-      
+    if (firstStepDone == false ) {
+      driveTrainSubsystem.autoTaxi();
+      firstStepDone = true;
+    } else if (firstStepDone == true ) {
       driveTrainSubsystem.autoCharging();
-
-    //}
+    }
 
     // modeFunction(mode); // changes what its excecuting based on which mode its on
 
@@ -81,7 +84,7 @@ public class ExampleCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) { }
 
   // Returns true when the command should end.
   @Override

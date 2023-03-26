@@ -67,9 +67,9 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void autoCharging() {
 
-    if (gyro.getYComplementaryAngle() < Constants.CHARGING_MAX_ANGLE) {
-      autoMove(Constants.AUTO_TAXI_SPEED);
-    } else {
+    // if (gyro.getYComplementaryAngle() < Constants.CHARGING_MAX_ANGLE) {
+    //   autoMove(Constants.AUTO_TAXI_SPEED);
+
       if (gyro.getYComplementaryAngle() >= Constants.CHARGING_MAX_ANGLE) {
         autoMove(Constants.AUTO_CHARGING_SPEED);
       } else if (gyro.getYComplementaryAngle() <= Constants.CHARGING_MIN_ANGLE) {
@@ -77,14 +77,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
       } else {
         stopMotor();
       }
-    }
+    
   }
 
   /**
    * method for autonomous movement out of the community
    */
   public Boolean autoTaxi() {
-    if (stepTwo &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+    if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
     * Constants.AUTO_TAXI_DISTANCE)) {
 
       autoMove(Constants.AUTO_TAXI_SPEED);
