@@ -77,7 +77,7 @@ public class ExampleCommand extends CommandBase {
       driveTrainSubsystem.autoCharging();
     }
 
-    // modeFunction(exampleSubsystem.getMode()); // changes what its excecuting based on which mode its on
+    //modeFunction(exampleSubsystem.getMode()); // changes what its excecuting based on which mode its on
 
   }
 

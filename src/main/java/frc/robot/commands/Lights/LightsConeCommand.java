@@ -28,7 +28,6 @@ public class LightsConeCommand extends CommandBase {
   @Override
   public void execute() {
 
-    System.out.println("yellow");
     blinkinSubsystem.colorCone();
 
   }
