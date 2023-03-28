@@ -75,7 +75,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
       } else if (gyro.getYComplementaryAngle() <= Constants.CHARGING_MIN_ANGLE) {
         autoMove(-Constants.AUTO_CHARGING_SPEED);
       } else {
-        stopMotor();
+        stopMotors();
       }
     
   }
@@ -98,6 +98,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
   }
 
+
   /**
    * method for autonomous movement to score low hub
    */
@@ -110,13 +111,16 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     } else {
 
-      stopMotor();
+      stopMotors();
       frontLeftTalon.setSelectedSensorPosition(0);
       stepOne = false;
       return true;
 
     }
+
   }
+
+
 
   /**
    * movement method for autonomous
@@ -132,7 +136,44 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void stopMotor() {
+  /**
+   * Movement for auto without the drop wheels
+   * @param speed speed that robot go
+   * @param distance How far the motors will turn in inches (maybe??)
+   */
+  public void autoMoveNoTank(double speed, int distance) {
+
+    if(Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * distance)) {
+
+      frontLeftTalon.set(ControlMode.PercentOutput, speed);
+      backLeftTalon.set(ControlMode.PercentOutput, speed);
+      frontRightTalon.set(ControlMode.PercentOutput, speed);
+      backRightTalon.set(ControlMode.PercentOutput, speed);
+    }
+
+  }
+
+  /**
+   * Movement for auto with the drop wheels
+   * @param speed speed that robot go
+   * @param distance How far the motors will turn in inches (maybe??)
+   */
+  public void autoMove(double speed, int distance) {
+
+    if(Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * distance)) {
+
+      frontLeftTalon.set(ControlMode.PercentOutput, speed);
+      backLeftTalon.set(ControlMode.PercentOutput, speed);
+      frontRightTalon.set(ControlMode.PercentOutput, speed);
+      backRightTalon.set(ControlMode.PercentOutput, speed);
+      dropWheelsSpark.set(speed);
+    }
+
+  }
+
+  public void stopMotors() {
 
     frontLeftTalon.set(ControlMode.PercentOutput, 0);
     backLeftTalon.set(ControlMode.PercentOutput, 0);

@@ -71,7 +71,6 @@ public class ExampleCommand extends CommandBase {
   public void execute() {
 
     if (firstStepDone == false ) {
-      System.out.println("taxi");
       firstStepDone = driveTrainSubsystem.autoTaxi();
     } else if (firstStepDone == true ) {
       driveTrainSubsystem.autoCharging();
