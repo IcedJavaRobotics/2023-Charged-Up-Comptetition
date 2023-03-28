@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.AutonomousStrategy;
 import frc.robot.commands.buttons.*;
 
 // import frc.robot.commands.LimelightCommand;
@@ -79,7 +80,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(AutonomousStrategy.TAXI_AND_BALANCE);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

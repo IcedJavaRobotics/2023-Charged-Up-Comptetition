@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.AutonomousStrategy;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -198,9 +199,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(AutonomousStrategy autonomousStrategy) {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem,
+    return Autos.createAutonomousCommand(autonomousStrategy, m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem,
         pneumaticWheelsSubsystem, blinkinSubsystem);
   }
 }
