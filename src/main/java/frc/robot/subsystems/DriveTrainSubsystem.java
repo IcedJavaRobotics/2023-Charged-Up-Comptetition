@@ -84,6 +84,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
    * method for autonomous movement out of the community
    */
   public Boolean autoTaxi() {
+    // TODO I don't think the stepTwo stuff is needed in this new structure
     if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
     * Constants.AUTO_TAXI_DISTANCE)) {
 

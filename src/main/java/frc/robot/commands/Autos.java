@@ -9,12 +9,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 
 public final class Autos {
-  /** Example static factory for an autonomous command. */
-  public static CommandBase exampleAuto(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem,
+  public static CommandBase createAutonomousCommand(AutonomousStrategy autonomousStrategy, ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem,
       ClawSubsystem csubsystem, ArmSubsystem asubsystem, ExtendoSubsystem esubsystem,
       PneumaticWheelsSubsystem pSubsystem, BlinkinSubsystem bSubsystem) {
-    return Commands.sequence(subsystem.exampleMethodCommand(),
-        new ExampleCommand(subsystem, msubsystem, csubsystem, asubsystem, esubsystem, pSubsystem, bSubsystem));
+
+        switch (autonomousStrategy) {
+          case TAXI_ONLY:
+            return Commands.sequence(new TaxiCommand(msubsystem));
+          case TAXI_AND_BALANCE:
+            return Commands.sequence(new TaxiCommand(msubsystem), new BalanceCommand(msubsystem));
+          case SCORE_TAXI_AND_BALANCE:
+            return Commands.sequence(new ScoreCommand(msubsystem), new TaxiCommand(msubsystem), new BalanceCommand(msubsystem));
+        }
+
+        return null;
   }
 
   private Autos() {
