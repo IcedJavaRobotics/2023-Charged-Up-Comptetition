@@ -79,7 +79,7 @@ public class ClawSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("right limit", rightLimit.get());
-    SmartDashboard.putBoolean("left limit", leftLimit.get());
+    SmartDashboard.putBoolean("Right limit", rightLimit.get());
+    SmartDashboard.putBoolean("Left limit", leftLimit.get());
   }
 }

@@ -12,7 +12,7 @@ import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.PneumaticWheelsSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -23,7 +23,7 @@ public class ExampleCommand extends CommandBase {
   private final ArmSubsystem armSubsystem;
   private final ExtendoSubsystem extendoSubsystem;
   private final ExampleSubsystem exampleSubsystem;
-  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
+  private final PneumaticSubsystem pneumaticSubsystem;
   private final BlinkinSubsystem blinkinSubsystem;
   private int mode = 1;
   private boolean firstStepDone;
@@ -34,7 +34,7 @@ public class ExampleCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ExampleCommand(ExampleSubsystem subsystem, DriveTrainSubsystem msubsystem, ClawSubsystem csubsystem,
-      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, PneumaticWheelsSubsystem pSubsystem,
+      ArmSubsystem asubsystem, ExtendoSubsystem esubsystem, PneumaticSubsystem pSubsystem,
       BlinkinSubsystem bSubsystem) {
 
     driveTrainSubsystem = msubsystem;
@@ -42,7 +42,7 @@ public class ExampleCommand extends CommandBase {
     armSubsystem = asubsystem;
     extendoSubsystem = esubsystem;
     exampleSubsystem = subsystem;
-    pneumaticWheelsSubsystem = pSubsystem;
+    pneumaticSubsystem = pSubsystem;
     blinkinSubsystem = bSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -62,7 +62,7 @@ public class ExampleCommand extends CommandBase {
     mode = exampleSubsystem.getMode();
     blinkinSubsystem.autoBlinkin();
     driveTrainSubsystem.zeroEncoder();
-    pneumaticWheelsSubsystem.forwardSolenoid();
+    pneumaticSubsystem.forwardDriveSolenoid();
     firstStepDone = false;
   }
 

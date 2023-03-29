@@ -218,7 +218,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public void mecanumDrive(double X, double Y, double R, double Z) {
 
     SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
-    if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticWheelsCommand)
+    if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticCommand)
 
       Z = (-Z + 1) / 2;
 

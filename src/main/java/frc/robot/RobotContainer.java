@@ -7,7 +7,7 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.PneumaticWheelsSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 import frc.robot.commands.PnuematicWheelsCommands.DropWheelsCommand;
 import frc.robot.commands.PnuematicWheelsCommands.RaiseWheelsCommand;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -54,7 +54,7 @@ public class RobotContainer {
   private final ExtendoSubsystem extendoSubsystem;
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClawSubsystem clawSubsystem;
-  private final PneumaticWheelsSubsystem pneumaticWheelsSubsystem = new PneumaticWheelsSubsystem();
+  private final PneumaticSubsystem pneumaticSubsystem = new PneumaticSubsystem();
   private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
 
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
@@ -103,11 +103,11 @@ public class RobotContainer {
     new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
         .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
 
-    // new JoystickButton(xboxController, Constants.LEFT_BUMPER)
-	  //     .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
+    new JoystickButton(xboxController, Constants.LEFT_BUMPER)
+	      .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
 
-    // new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
-	  //     .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
+    new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
+	      .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
 
 
     // Reset arm
@@ -128,10 +128,10 @@ public class RobotContainer {
             extendoSubsystem));
 
     new JoystickButton(flightStick, 1)
-        .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+        .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticSubsystem));
 
     new JoystickButton(flightStick, 2)
-        .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticWheelsSubsystem));
+        .whileTrue(new DropWheelsCommand(driveTrainSubsystem, pneumaticSubsystem));
 
   }
 
@@ -201,6 +201,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem, driveTrainSubsystem, clawSubsystem, armSubsystem, extendoSubsystem,
-        pneumaticWheelsSubsystem, blinkinSubsystem);
+        pneumaticSubsystem, blinkinSubsystem);
   }
 }

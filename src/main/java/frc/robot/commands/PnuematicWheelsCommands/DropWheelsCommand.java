@@ -6,15 +6,15 @@ package frc.robot.commands.PnuematicWheelsCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.PneumaticWheelsSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 
 public class DropWheelsCommand extends CommandBase {
   /** Creates a new DropWheelsCommand. */
   private DriveTrainSubsystem driveTrainSubsystem;
-  private PneumaticWheelsSubsystem pneumaticWheelsSubsystem;
+  private PneumaticSubsystem pneumaticSubsystem;
 
-  public DropWheelsCommand(DriveTrainSubsystem dSubsystem, PneumaticWheelsSubsystem pSubsystem) {
-    pneumaticWheelsSubsystem = pSubsystem;
+  public DropWheelsCommand(DriveTrainSubsystem dSubsystem, PneumaticSubsystem pSubsystem) {
+    pneumaticSubsystem = pSubsystem;
     driveTrainSubsystem = dSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pSubsystem);
@@ -29,7 +29,7 @@ public class DropWheelsCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumaticWheelsSubsystem.forwardSolenoid();
+    pneumaticSubsystem.forwardDriveSolenoid();
     driveTrainSubsystem.wheelsRaised = false;
   }
 
