@@ -19,7 +19,7 @@ public class ClawSubsystem extends SubsystemBase {
   private VictorSPX leftClawMotor = new VictorSPX(Constants.LEFT_CLAW);
   DigitalInput rightLimit;
   DigitalInput leftLimit;
- 
+
   public ClawSubsystem(DigitalInput rightSwitch, DigitalInput leftSwitch) {
 
     rightLimit = rightSwitch;
@@ -27,6 +27,26 @@ public class ClawSubsystem extends SubsystemBase {
     // Need to set this during testing
     rightClawMotor.setInverted(true);
     leftClawMotor.setInverted(true);
+
+  }
+
+  public void clawCloseTrigger(double L) {
+
+    if (L >= 0.5) {
+      clawClose(Constants.FAST_CLAW);
+    } else {
+      clawStop();
+    }
+
+  }
+
+  public void clawOpenTrigger(double R) {
+
+    if (R >= 0.5) {
+      clawOpen(Constants.FAST_CLAW);
+    } else {
+      clawStop();
+    }
 
   }
 
@@ -39,7 +59,7 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public Boolean clawOpen(double clawSpeed) {
-    
+
     // Arms fold out until limit switch is hit
     if (leftLimit.get()) {
 

@@ -12,19 +12,29 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PneumaticSubsystem extends SubsystemBase {
   /** Creates a new PnematicWheelsSubsystem. */
-  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+  DoubleSolenoid doubleDriveSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+  DoubleSolenoid doubleAutoSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
   Compressor compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
 
   public PneumaticSubsystem() {
-    doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    doubleDriveSolenoid.set(DoubleSolenoid.Value.kReverse);
+    doubleAutoSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
   public void forwardDriveSolenoid() {
-    doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+    doubleDriveSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
   public void reverseDriveSolenoid() {
-    doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    doubleDriveSolenoid.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public void forwardAutoSolenoid() {
+    doubleAutoSolenoid.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void reverseAutoSolenoid() {
+    doubleAutoSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
   @Override
