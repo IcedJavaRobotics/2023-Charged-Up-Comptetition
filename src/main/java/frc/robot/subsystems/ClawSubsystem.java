@@ -30,20 +30,22 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
-  public void clawCloseTrigger(double L) {
+  public void clawTrigger(double L, double R) {
 
-    if (L >= 0.5) {
+    if (R >= 0.25) {
       clawClose(Constants.FAST_CLAW);
+    } else if (L >= 0.25) {
+      clawOpen(Constants.FAST_CLAW);
     } else {
       clawStop();
     }
-
+    
   }
 
   public void clawOpenTrigger(double R) {
 
-    if (R >= 0.5) {
-      clawOpen(Constants.FAST_CLAW);
+    if (R >= 0.25) {
+      
     } else {
       clawStop();
     }

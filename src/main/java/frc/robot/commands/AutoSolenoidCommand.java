@@ -33,7 +33,7 @@ public class AutoSolenoidCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pneumaticSubsystem.reverseAutoSolenoid();
+    pneumaticSubsystem.offAutoSolenoid();
   }
 
   // Returns true when the command should end.
