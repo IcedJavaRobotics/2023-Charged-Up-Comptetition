@@ -118,7 +118,7 @@ public class RobotContainer {
             0.78 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
 
     armSubsystem.setDefaultCommand(
-        new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
+        new RunCommand(() -> armSubsystem.armJoystick(-getXboxLeftY()), armSubsystem));
 
     extendoSubsystem.setDefaultCommand(
         new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightY()),
@@ -150,6 +150,10 @@ public class RobotContainer {
     } else {
       return 0;
     }
+  }
+
+  public double getXboxLeftY() {
+    return deadZoneMod(xboxController.getLeftY());
   }
 
   public double getJoystickY() {

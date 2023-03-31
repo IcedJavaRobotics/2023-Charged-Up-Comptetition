@@ -76,7 +76,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 1;
+  public static final double ARM_SPEED = .8;
 
   public static final int ARM_TUCKED = 180;
   public static final int ARM_PICKUP = 530;   //not actually pickup, it's pickup high

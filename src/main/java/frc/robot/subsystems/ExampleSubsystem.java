@@ -14,7 +14,7 @@ public class ExampleSubsystem extends SubsystemBase {
   public int autoMode = 1;
 
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
-
+  
   public ExampleSubsystem() {
   }
 

@@ -51,7 +51,7 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
   }
-
+  
   public void clawClose(double clawSpeed) {
 
     // Arms fold in

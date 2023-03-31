@@ -22,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase {
   double kP = 0.01;
   double kI = 0.001;
   double kD = 0.005; // Deafault 0.002
-  double upperLimit = 700;
+  double upperLimit = 390;
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
@@ -34,19 +34,23 @@ public class ArmSubsystem extends SubsystemBase {
 
   }
 
-  public void armJoystick(double I) {
+  public void armJoystick(double Y) {
 
     SmartDashboard.putNumber("Neo Value", armMotor.getEncoder().getPosition());
-    if (I >= 0.5) {
-      lowerArm();
-    } else if (I <= -0.5) {
-      raiseArm();
+    if (Math.abs(armMotor.getEncoder().getPosition()) < upperLimit && Y > 0) {
+      armMotor.set(Y);
+    } else if (armLimitSwtich.get() == false && Y < 0) {
+      armMotor.set(Y);
     } else {
       stopArm();
     }
 
   }
-
+  /**
+   * raises arm
+   * @param none literally nothing
+   * @returns literally nothing
+   */
   public void raiseArm() {
 
     if (Math.abs(armMotor.getEncoder().getPosition()) < upperLimit) {
