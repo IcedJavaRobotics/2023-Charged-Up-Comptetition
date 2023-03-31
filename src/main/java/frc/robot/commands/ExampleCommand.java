@@ -62,6 +62,7 @@ public class ExampleCommand extends CommandBase {
     mode = exampleSubsystem.getMode();
     blinkinSubsystem.autoBlinkin();
     driveTrainSubsystem.zeroEncoder();
+    pneumaticSubsystem.forwardAutoSolenoid();
     pneumaticSubsystem.forwardDriveSolenoid();
     firstStepDone = false;
   }
@@ -70,19 +71,20 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if (firstStepDone == false ) {
+    if (firstStepDone == false) {
       firstStepDone = driveTrainSubsystem.autoTaxi();
-    } else if (firstStepDone == true ) {
+    } else if (firstStepDone == true) {
       driveTrainSubsystem.autoCharging();
     }
 
-    //modeFunction(exampleSubsystem.getMode()); // changes what its excecuting based on which mode its on
+    // modeFunction(exampleSubsystem.getMode()); // changes what its excecuting
+    // based on which mode its on
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) { 
+  public void end(boolean interrupted) {
     firstStepDone = false;
   }
 
