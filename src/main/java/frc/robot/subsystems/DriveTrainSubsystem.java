@@ -118,6 +118,20 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
   }
 
+  public Boolean autoTaxi2(double speed, int distance) {
+    if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+    * distance)) {
+
+      autoMove(speed);
+      return false;
+
+    } else {
+
+      stepTwo = false;
+      return true;
+
+    }
+  }
 
   /**
    * method for autonomous movement to score low hub
