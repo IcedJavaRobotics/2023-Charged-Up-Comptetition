@@ -33,7 +33,7 @@ public class PneumaticSubsystem extends SubsystemBase {
     doubleAutoSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void offAutoSolenoid() {
+  public void reverseAutoSolenoid() {
     doubleAutoSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 

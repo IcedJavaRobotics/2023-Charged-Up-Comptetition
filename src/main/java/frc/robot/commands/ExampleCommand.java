@@ -13,6 +13,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -71,11 +72,22 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if (firstStepDone == false) {
-      firstStepDone = driveTrainSubsystem.autoTaxi();
-    } else if (firstStepDone == true) {
-      driveTrainSubsystem.autoCharging();
+    if(Timer.getMatchTime() < 14) {
+
+      if (firstStepDone == false) {
+        firstStepDone = driveTrainSubsystem.autoTaxi();
+      } else if (firstStepDone == true) {
+        driveTrainSubsystem.autoCharging();
+        pneumaticSubsystem.reverseAutoSolenoid();
+      }
+
     }
+
+    // if (firstStepDone == false) {
+    //   firstStepDone = driveTrainSubsystem.autoTaxi();
+    // } else if (firstStepDone == true) {
+    //   driveTrainSubsystem.autoCharging();
+    // }
 
     // modeFunction(exampleSubsystem.getMode()); // changes what its excecuting
     // based on which mode its on
