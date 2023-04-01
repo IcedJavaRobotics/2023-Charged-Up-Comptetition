@@ -34,6 +34,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public boolean wheelsRaised = true;
   boolean stepOne = true;
   boolean stepTwo = true;
+  boolean taxiDone = true;
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -113,13 +114,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
     } else {
 
       stepTwo = false;
+      zeroEncoder();
       return true;
 
     }
   }
 
   public Boolean autoTaxi2(double speed, int distance) {
-    if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+    if (taxiDone == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
     * distance)) {
 
       autoMove(speed);
@@ -127,7 +129,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
     } else {
 
-      stepTwo = false;
+      taxiDone = false;
+      zeroEncoder();
       return true;
 
     }

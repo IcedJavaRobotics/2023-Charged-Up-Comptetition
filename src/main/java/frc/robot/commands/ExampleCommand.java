@@ -156,7 +156,7 @@ public class ExampleCommand extends CommandBase {
     //     // Needs to be placed on side with out bump and lined up with cube score
     //     if(Timer.getMatchTime() < 14) {
 
-    //       driveTrainSubsystem.autoMoveNoTank(0.5, 100);
+    //       driveTrainSubsystem.autoMove(0.5, 100);
     //       pneumaticSubsystem.reverseAutoSolenoid();
     //     }
 
@@ -181,7 +181,7 @@ public class ExampleCommand extends CommandBase {
 
     //       } else if (firstStepDone == true && secondStepDone == false) {
 
-    //         secondStepDone = driveTrainSubsystem.autoTaxi(-0.5,100);
+    //         secondStepDone = driveTrainSubsystem.autoTaxi2(-0.5,100);
     //         pneumaticSubsystem.reverseAutoSolenoid();
 
     //       } else if (firstStepDone == true && secondStepDone == true) {
