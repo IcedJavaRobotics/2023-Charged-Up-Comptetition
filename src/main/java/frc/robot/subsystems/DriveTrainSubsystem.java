@@ -206,6 +206,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
       frontRightTalon.set(ControlMode.PercentOutput, speed);
       backRightTalon.set(ControlMode.PercentOutput, speed);
       dropWheelsSpark.set(speed);
+    }else {
+      stopMotors();
     }
 
   }

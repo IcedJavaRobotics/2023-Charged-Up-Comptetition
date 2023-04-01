@@ -87,7 +87,7 @@ public final class Constants {
   public static final int AUTO_SCORING_DISTANCE = 6;
   // 1 is high cube and balance, 2 is high cube then taxi on non bump side, 
   // 3 is high cube and nothing else for bump side, and 4 is high cube taxi then balance
-  public static final int AUTO_MODE = 1; 
+  public static final int AUTO_MODE = 4; 
 
 
   // Limelight

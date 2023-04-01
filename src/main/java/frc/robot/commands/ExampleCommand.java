@@ -71,16 +71,16 @@ public class ExampleCommand extends CommandBase {
 
     // Shoots cube high then balances on charging station
     // Needs to be placed slightly off center and lined up with high cube score 
-    if(Timer.getMatchTime() < 14) {
+    // if(Timer.getMatchTime() < 14) {
 
-      if (firstStepDone == false) {
-        firstStepDone = driveTrainSubsystem.autoTaxi();
-      } else if (firstStepDone == true) {
-        driveTrainSubsystem.autoCharging();
-        pneumaticSubsystem.reverseAutoSolenoid();
-      }
+    //   if (firstStepDone == false) {
+    //     firstStepDone = driveTrainSubsystem.autoTaxi();
+    //   } else if (firstStepDone == true) {
+    //     driveTrainSubsystem.autoCharging();
+    //     pneumaticSubsystem.reverseAutoSolenoid();
+    //   }
 
-    }
+    // }
 
 
     // Auto 2
@@ -89,9 +89,9 @@ public class ExampleCommand extends CommandBase {
     // Needs to be placed on side with out bump and lined up with cube score
     // if(Timer.getMatchTime() < 14) {
 
-    //   driveTrainSubsystem.autoMove(0.5, 100);
+    //   driveTrainSubsystem.autoMove(0.5, 120);
     //   pneumaticSubsystem.reverseAutoSolenoid();
-    // }
+    // } 
 
 
     // Auto 3
@@ -99,7 +99,7 @@ public class ExampleCommand extends CommandBase {
     // Only shoots cube high
     // Placed on side with bump and aligned with cube score
 
-    // if (Timer.getMatchTime()< 14) {
+    // if (Timer.getMatchTime() < 14) {
     //   pneumaticSubsystem.reverseAutoSolenoid();
     // }
 
@@ -131,67 +131,67 @@ public class ExampleCommand extends CommandBase {
     // Look at AUTO_MODE in constants for more info
 
 
-    // switch(Constants.AUTO_MODE) {
+    switch(Constants.AUTO_MODE) {
 
-    //   case 1: 
+      case 1: 
 
-    //     // Shoots cube high then balances on charging station
-    //     // Needs to be placed slightly off center and lined up with high cube score 
-    //     if(Timer.getMatchTime() < 14) {
+        // Shoots cube high then balances on charging station
+        // Needs to be placed slightly off center and lined up with high cube score 
+        if(Timer.getMatchTime() < 14) {
 
-    //       if (firstStepDone == false) {
-    //         firstStepDone = driveTrainSubsystem.autoTaxi();
-    //       } else if (firstStepDone == true) {
-    //         driveTrainSubsystem.autoCharging();
-    //         pneumaticSubsystem.reverseAutoSolenoid();
-    //       }
+          if (firstStepDone == false) {
+            firstStepDone = driveTrainSubsystem.autoTaxi();
+          } else if (firstStepDone == true) {
+            driveTrainSubsystem.autoCharging();
+            pneumaticSubsystem.reverseAutoSolenoid();
+          }
 
-    //     }
+        }
 
-    //     break;
+        break;
 
-    //   case 2:
+      case 2:
 
-    //     // Shoots cube high and taxis
-    //     // Needs to be placed on side with out bump and lined up with cube score
-    //     if(Timer.getMatchTime() < 14) {
+        // Shoots cube high and taxis
+        // Needs to be placed on side with out bump and lined up with cube score
+        if(Timer.getMatchTime() < 14) {
 
-    //       driveTrainSubsystem.autoMove(0.5, 100);
-    //       pneumaticSubsystem.reverseAutoSolenoid();
-    //     }
+          driveTrainSubsystem.autoMove(0.5, 120);
+          pneumaticSubsystem.reverseAutoSolenoid();
+        }
 
-    //     break;
+        break;
 
-    //   case 3:
+      case 3:
 
-    //     // Only shoots cube high
-    //     // Placed on side with bump and aligned with cube score
-    //     pneumaticSubsystem.reverseAutoSolenoid();
+        // Only shoots cube high
+        // Placed on side with bump and aligned with cube score
+        pneumaticSubsystem.reverseAutoSolenoid();
 
-    //     break;
+        break;
 
-    //   case 4:
+      case 4:
 
-    //     // Hopefully shoots high cube, then taxis, and then balances
-    //     if(Timer.getMatchTime() < 14) {
+        // Hopefully shoots high cube, then taxis, and then balances
+        if(Timer.getMatchTime() < 14) {
 
-    //       if (firstStepDone == false) {
+          if (firstStepDone == false) {
 
-    //         firstStepDone = driveTrainSubsystem.autoTaxi(0.5, 280);
+            firstStepDone = driveTrainSubsystem.autoTaxi(0.5, 280);
 
-    //       } else if (firstStepDone == true && secondStepDone == false) {
+          } else if (firstStepDone == true && secondStepDone == false) {
 
-    //         secondStepDone = driveTrainSubsystem.autoTaxi2(-0.5,100);
-    //         pneumaticSubsystem.reverseAutoSolenoid();
+            secondStepDone = driveTrainSubsystem.autoTaxi2(-0.5,100);
+            pneumaticSubsystem.reverseAutoSolenoid();
 
-    //       } else if (firstStepDone == true && secondStepDone == true) {
+          } else if (firstStepDone == true && secondStepDone == true) {
 
-    //         driveTrainSubsystem.autoCharging();
-    //       }  
-    //     }
+            driveTrainSubsystem.autoCharging();
+          }  
+        }
 
-    //     break;
-    // }
+        break;
+    }
 
   }
 
