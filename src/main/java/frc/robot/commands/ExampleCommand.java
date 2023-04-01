@@ -11,7 +11,6 @@ import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -20,14 +19,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ExampleCommand extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrainSubsystem driveTrainSubsystem;
-  private final ClawSubsystem clawSubsystem;
-  private final ArmSubsystem armSubsystem;
-  private final ExtendoSubsystem extendoSubsystem;
   private final ExampleSubsystem exampleSubsystem;
   private final PneumaticSubsystem pneumaticSubsystem;
   private final BlinkinSubsystem blinkinSubsystem;
   private int mode = 1;
   private boolean firstStepDone;
+  private boolean secondStepDone;
 
   /**
    * Creates a new ExampleCommand.
@@ -39,9 +36,6 @@ public class ExampleCommand extends CommandBase {
       BlinkinSubsystem bSubsystem) {
 
     driveTrainSubsystem = msubsystem;
-    clawSubsystem = csubsystem;
-    armSubsystem = asubsystem;
-    extendoSubsystem = esubsystem;
     exampleSubsystem = subsystem;
     pneumaticSubsystem = pSubsystem;
     blinkinSubsystem = bSubsystem;
@@ -66,12 +60,17 @@ public class ExampleCommand extends CommandBase {
     pneumaticSubsystem.forwardAutoSolenoid();
     pneumaticSubsystem.forwardDriveSolenoid();
     firstStepDone = false;
+    secondStepDone = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
+    // Auto 1
+
+    // Shoots cube high then balances on charging station
+    // Needs to be placed slightly off center and lined up with high cube score 
     if(Timer.getMatchTime() < 14) {
 
       if (firstStepDone == false) {
@@ -83,14 +82,115 @@ public class ExampleCommand extends CommandBase {
 
     }
 
-    // if (firstStepDone == false) {
-    //   firstStepDone = driveTrainSubsystem.autoTaxi();
-    // } else if (firstStepDone == true) {
-    //   driveTrainSubsystem.autoCharging();
+
+    // Auto 2
+
+    // Shoots cube high and taxis
+    // Needs to be placed on side with out bump and lined up with cube score
+    // if(Timer.getMatchTime() < 14) {
+
+    //   driveTrainSubsystem.autoMoveNoTank(0.5, 100);
+    //   pneumaticSubsystem.reverseAutoSolenoid();
     // }
 
-    // modeFunction(exampleSubsystem.getMode()); // changes what its excecuting
-    // based on which mode its on
+
+    // Auto 3
+
+    // Only shoots cube high
+    // Placed on side with bump and aligned with cube score
+
+    // pneumaticSubsystem.reverseAutoSolenoid();
+
+
+
+    // Auto 4
+
+    // Hopefully shoots high cube, then taxis, and then balances
+
+    // if(Timer.getMatchTime() < 14) {
+
+    //   if (firstStepDone == false) {
+
+    //     firstStepDone = driveTrainSubsystem.autoTaxi(0.5, 280);
+
+    //   } else if (firstStepDone == true && secondStepDone == false) {
+
+    //     secondStepDone = driveTrainSubsystem.autoTaxi(-0.5,100);
+    //     pneumaticSubsystem.reverseAutoSolenoid();
+
+    //   } else if (firstStepDone == true && secondStepDone == true) {
+
+    //     driveTrainSubsystem.autoCharging();
+    //   }  
+    // }
+
+
+
+    // This switch statement chooses which auto to run 
+    // Look at AUTO_MODE in constants for more info
+
+
+    // switch(Constants.AUTO_MODE) {
+
+    //   case 1: 
+
+    //     // Shoots cube high then balances on charging station
+    //     // Needs to be placed slightly off center and lined up with high cube score 
+    //     if(Timer.getMatchTime() < 14) {
+
+    //       if (firstStepDone == false) {
+    //         firstStepDone = driveTrainSubsystem.autoTaxi();
+    //       } else if (firstStepDone == true) {
+    //         driveTrainSubsystem.autoCharging();
+    //         pneumaticSubsystem.reverseAutoSolenoid();
+    //       }
+
+    //     }
+
+    //     break;
+
+    //   case 2:
+
+    //     // Shoots cube high and taxis
+    //     // Needs to be placed on side with out bump and lined up with cube score
+    //     if(Timer.getMatchTime() < 14) {
+
+    //       driveTrainSubsystem.autoMoveNoTank(0.5, 100);
+    //       pneumaticSubsystem.reverseAutoSolenoid();
+    //     }
+
+    //     break;
+
+    //   case 3:
+
+    //     // Only shoots cube high
+    //     // Placed on side with bump and aligned with cube score
+    //     pneumaticSubsystem.reverseAutoSolenoid();
+
+    //     break;
+
+    //   case 4:
+
+    //     // Hopefully shoots high cube, then taxis, and then balances
+    //     if(Timer.getMatchTime() < 14) {
+
+    //       if (firstStepDone == false) {
+
+    //         firstStepDone = driveTrainSubsystem.autoTaxi(0.5, 280);
+
+    //       } else if (firstStepDone == true && secondStepDone == false) {
+
+    //         secondStepDone = driveTrainSubsystem.autoTaxi(-0.5,100);
+    //         pneumaticSubsystem.reverseAutoSolenoid();
+
+    //       } else if (firstStepDone == true && secondStepDone == true) {
+
+    //         driveTrainSubsystem.autoCharging();
+    //       }  
+    //     }
+
+    //     break;
+    // }
 
   }
 

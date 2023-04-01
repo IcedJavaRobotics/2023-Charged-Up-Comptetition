@@ -98,6 +98,26 @@ public class DriveTrainSubsystem extends SubsystemBase {
     }
   }
 
+  /**
+   * Method for auto taxi with params
+   * @param speed This is the speed at which the robot will move
+   * @param distance How far the robot will move in inches (maybe??) and false if it hasn't
+   */
+  public Boolean autoTaxi(double speed, int distance) {
+    if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+    * distance)) {
+
+      autoMove(speed);
+      return false;
+
+    } else {
+
+      stepTwo = false;
+      return true;
+
+    }
+  }
+
 
   /**
    * method for autonomous movement to score low hub

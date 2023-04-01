@@ -27,10 +27,6 @@ public final class Constants {
   public static final int ROTATIONAL_CONSTANT = 2048;
 
   // Auto Drive train
-  public static final int AUTO_TAXI_DISTANCE = 210; // 170 for auto balance and 85 for only taxi
-  public static final double AUTO_TAXI_SPEED = 0.5;
-  public static final double AUTO_SCORING_SPEED = -0.5;
-  public static final int AUTO_SCORING_DISTANCE = 6;
   public static final double CHARGING_MAX_ANGLE = 101;
   public static final double CHARGING_MIN_ANGLE = 75;   // Theoretical
 
@@ -82,6 +78,16 @@ public final class Constants {
   public static final int ARM_PICKUP = 530;   //not actually pickup, it's pickup high
   public static final int ARM_MID_GRID = 555;
   public static final int ARM_HIGH_GRID = 650; 
+
+
+  // Auto
+  public static final int AUTO_TAXI_DISTANCE = 210; // 170 for auto balance and 85 for only taxi
+  public static final double AUTO_TAXI_SPEED = 0.5;
+  public static final double AUTO_SCORING_SPEED = -0.5;
+  public static final int AUTO_SCORING_DISTANCE = 6;
+  // 1 is high cube and balance, 2 is high cube then taxi on non bump side, 
+  // 3 is high cube and nothing else for bump side, and 4 is high cube taxi then balance
+  public static final int AUTO_MODE = 1; 
 
 
   // Limelight
