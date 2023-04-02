@@ -27,7 +27,7 @@ public final class Constants {
   public static final int ROTATIONAL_CONSTANT = 2048;
 
   // Auto Drive train
-  public static final int AUTO_TAXI_DISTANCE = 170; // 170 for auto balance and 85 for only taxi
+  public static final int AUTO_TAXI_DISTANCE = 210; // 170 for auto balance and 85 for only taxi
   public static final double AUTO_TAXI_SPEED = 0.5;
   public static final double AUTO_SCORING_SPEED = -0.5;
   public static final int AUTO_SCORING_DISTANCE = 6;
@@ -76,7 +76,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = 1;
+  public static final double ARM_SPEED = .8;
 
   public static final int ARM_TUCKED = 180;
   public static final int ARM_PICKUP = 530;   //not actually pickup, it's pickup high

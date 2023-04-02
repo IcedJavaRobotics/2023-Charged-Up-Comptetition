@@ -29,10 +29,8 @@ public class MidGridCommand extends CommandBase {
   @Override
   public void execute() {
     if (armSubsystem.armController.atSetpoint() == false) {
-      //extendoSubsystem.extendoMidGrid();
       armSubsystem.armMidGrid();
     } else {
-      //armSubsystem.armMidGrid();
       extendoSubsystem.extendoMidGrid();
     }
   }

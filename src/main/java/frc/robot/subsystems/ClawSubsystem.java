@@ -19,7 +19,7 @@ public class ClawSubsystem extends SubsystemBase {
   private VictorSPX leftClawMotor = new VictorSPX(Constants.LEFT_CLAW);
   DigitalInput rightLimit;
   DigitalInput leftLimit;
- 
+
   public ClawSubsystem(DigitalInput rightSwitch, DigitalInput leftSwitch) {
 
     rightLimit = rightSwitch;
@@ -30,6 +30,28 @@ public class ClawSubsystem extends SubsystemBase {
 
   }
 
+  public void clawTrigger(double L, double R) {
+
+    if (R >= 0.25) {
+      clawClose(Constants.FAST_CLAW);
+    } else if (L >= 0.25) {
+      clawOpen(Constants.FAST_CLAW);
+    } else {
+      clawStop();
+    }
+    
+  }
+
+  public void clawOpenTrigger(double R) {
+
+    if (R >= 0.25) {
+      
+    } else {
+      clawStop();
+    }
+
+  }
+  
   public void clawClose(double clawSpeed) {
 
     // Arms fold in
@@ -39,7 +61,7 @@ public class ClawSubsystem extends SubsystemBase {
   }
 
   public Boolean clawOpen(double clawSpeed) {
-    
+
     // Arms fold out until limit switch is hit
     if (leftLimit.get()) {
 
@@ -79,7 +101,7 @@ public class ClawSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("right limit", rightLimit.get());
-    SmartDashboard.putBoolean("left limit", leftLimit.get());
+    SmartDashboard.putBoolean("Right limit", rightLimit.get());
+    SmartDashboard.putBoolean("Left limit", leftLimit.get());
   }
 }
