@@ -22,7 +22,7 @@ public class ArmSubsystem extends SubsystemBase {
   double kP = 0.01;
   double kI = 0.001;
   double kD = 0.005; // Deafault 0.002
-  double upperLimit = 390;
+  double upperLimit = 500; // 63:1 gearbox use 670, 45:1 485
 
   public final PIDController armController = new PIDController(kP, kI, kD);
 
@@ -41,6 +41,9 @@ public class ArmSubsystem extends SubsystemBase {
       armMotor.set(Y);
     } else if (armLimitSwtich.get() == false && Y < 0) {
       armMotor.set(Y);
+    } else if (armLimitSwtich.get() == true) {
+      stopArm();
+      armMotor.getEncoder().setPosition(0);
     } else {
       stopArm();
     }

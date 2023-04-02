@@ -27,8 +27,8 @@ public final class Constants {
   public static final int ROTATIONAL_CONSTANT = 2048;
 
   // Auto Drive train
-  public static final double CHARGING_MAX_ANGLE = 101;
-  public static final double CHARGING_MIN_ANGLE = 75;   // Theoretical
+  public static final double CHARGING_MAX_ANGLE = 99;
+  public static final double CHARGING_MIN_ANGLE = 77;   // Theoretical
 
   public static final double AUTO_CHARGING_SPEED = 0.15;
 
@@ -72,7 +72,7 @@ public final class Constants {
 
   // Arm
   public static final int ARM_SPARK = 6;
-  public static final double ARM_SPEED = .8;
+  public static final double ARM_SPEED = 1;
 
   public static final int ARM_TUCKED = 180;
   public static final int ARM_PICKUP = 530;   //not actually pickup, it's pickup high
@@ -87,7 +87,7 @@ public final class Constants {
   public static final int AUTO_SCORING_DISTANCE = 6;
   // 1 is high cube and balance, 2 is high cube then taxi on non bump side, 
   // 3 is high cube and nothing else for bump side, and 4 is high cube taxi then balance
-  public static final int AUTO_MODE = 4; 
+  public static final int AUTO_MODE = 1; 
 
 
   // Limelight

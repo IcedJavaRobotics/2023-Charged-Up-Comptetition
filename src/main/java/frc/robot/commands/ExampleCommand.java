@@ -166,7 +166,11 @@ public class ExampleCommand extends CommandBase {
 
         // Only shoots cube high
         // Placed on side with bump and aligned with cube score
-        pneumaticSubsystem.reverseAutoSolenoid();
+        if(Timer.getMatchTime() < 14) {
+
+          pneumaticSubsystem.reverseAutoSolenoid();
+
+        }
 
         break;
 
