@@ -34,6 +34,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public boolean wheelsRaised = true;
   boolean stepOne = true;
   boolean stepTwo = true;
+  boolean areWePannicing = false;   // set to true when the back right wheel is dead
 
   public final PIDController scoreController = new PIDController(kP, kI, kD); // PID controller being declared
 
@@ -217,27 +218,70 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void mecanumDrive(double X, double Y, double R, double Z) {
 
+    /*
+
+
+
+
+
+     * THIS IS IMPORTANT READ THIS
+     * 
+     * NOTHING SHOULD CHANGE WITH THE DRIVING BUT IF IT DOESN'T WORK FOR SOME REASON 
+     * JUST TAKE THE CODE OUT OF THE ELSE STATEMENT IT'S THE SAME AS BEFORE
+     
+
+
+     
+     
+     */
+
     SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
-    if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticCommand)
+    if (areWePannicing == true) {
 
-      Z = (-Z + 1) / 2;
+      if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticCommand)
 
-      moveMotor(Z * ensureRange(Y + X + R), frontLeftTalon);
-      moveMotor(Z * ensureRange(Y - X + R), backLeftTalon);
-      moveMotor(Z * ensureRange(Y - X - R), frontRightTalon);
-      moveMotor(Z * ensureRange(Y + X - R), backRightTalon);
+        Z = (-Z + 1) / 2;
+  
+        moveMotor(Z * ensureRange(Y + R), frontLeftTalon);
+        moveMotor(Z * ensureRange(Y + R), backLeftTalon);
+        moveMotor(Z * ensureRange(Y - R) * 1.15, frontRightTalon);
+  
+      } else if (wheelsRaised == false) {
+  
+        SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
+        // Tank drive for when wheels are deployed (only forward)
+        moveMotor(ensureRange(Y), backLeftTalon);
+        moveMotor(ensureRange(Y), frontLeftTalon);
+        moveMotor(ensureRange(Y), frontRightTalon);
+        dropWheelsSpark.set(ensureRange(Y));
+  
+      }
 
-    } else if (wheelsRaised == false) {
+    } else {
 
-      SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
-      // Tank drive for when wheels are deployed (only forward)
-      moveMotor(ensureRange(Y), backLeftTalon);
-      moveMotor(ensureRange(Y), frontLeftTalon);
-      moveMotor(ensureRange(Y), frontRightTalon);
-      moveMotor(ensureRange(Y), backRightTalon);
-      dropWheelsSpark.set(ensureRange(Y));
+      if (wheelsRaised) { // checks if pneumatic wheels are dropped (changed in PneumaticCommand)
+
+        Z = (-Z + 1) / 2;
+  
+        moveMotor(Z * ensureRange(Y + X + R), frontLeftTalon);
+        moveMotor(Z * ensureRange(Y - X + R), backLeftTalon);
+        moveMotor(Z * ensureRange(Y - X - R), frontRightTalon);
+        moveMotor(Z * ensureRange(Y + X - R), backRightTalon);
+  
+      } else if (wheelsRaised == false) {
+  
+        SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
+        // Tank drive for when wheels are deployed (only forward)
+        moveMotor(ensureRange(Y), backLeftTalon);
+        moveMotor(ensureRange(Y), frontLeftTalon);
+        moveMotor(ensureRange(Y), frontRightTalon);
+        moveMotor(ensureRange(Y), backRightTalon);
+        dropWheelsSpark.set(ensureRange(Y));
+  
+      }
 
     }
+    
 
   }
 
