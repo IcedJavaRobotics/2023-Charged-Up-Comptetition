@@ -19,10 +19,12 @@ public class DriveTrainSubsystem extends SubsystemBase {
   /** Creates a new DriveTrainSubsystem. */
 
   final LimelightSubsystem limelight = new LimelightSubsystem();
+
   final TalonFX frontLeftTalon = new TalonFX(Constants.FRONT_LEFT_TALON);
   final TalonFX backLeftTalon = new TalonFX(Constants.BACK_LEFT_TALON);
   final TalonFX frontRightTalon = new TalonFX(Constants.FRONT_RIGHT_TALON);
   final TalonFX backRightTalon = new TalonFX(Constants.BACK_RIGHT_TALON);
+
   final CANSparkMax dropWheelsSpark = new CANSparkMax(Constants.DROP_WHEEL_SPARK, MotorType.kBrushless);
   final ADIS16470_IMU gyro = new ADIS16470_IMU();
 
@@ -157,18 +159,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-
-
   /**
    * movement method for autonomous
    * @param speed speed that robot go
    */
   public void autoMove(double speed) {
 
-    frontLeftTalon.set(ControlMode.PercentOutput, speed);
-    backLeftTalon.set(ControlMode.PercentOutput, speed);
-    frontRightTalon.set(ControlMode.PercentOutput, speed);
-    backRightTalon.set(ControlMode.PercentOutput, speed);
+    setAllTalons(speed);
     dropWheelsSpark.set(speed);
 
   }
@@ -183,10 +180,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     if(Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
         * distance)) {
 
-      frontLeftTalon.set(ControlMode.PercentOutput, speed);
-      backLeftTalon.set(ControlMode.PercentOutput, speed);
-      frontRightTalon.set(ControlMode.PercentOutput, speed);
-      backRightTalon.set(ControlMode.PercentOutput, speed);
+      setAllTalons(speed);
     }
 
   }
@@ -201,10 +195,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
     if(Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
         * distance)) {
 
-      frontLeftTalon.set(ControlMode.PercentOutput, speed);
-      backLeftTalon.set(ControlMode.PercentOutput, speed);
-      frontRightTalon.set(ControlMode.PercentOutput, speed);
-      backRightTalon.set(ControlMode.PercentOutput, speed);
+      setAllTalons(speed);
       dropWheelsSpark.set(speed);
     }else {
       stopMotors();
@@ -213,15 +204,13 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public void stopMotors() {
-
-    frontLeftTalon.set(ControlMode.PercentOutput, 0);
-    backLeftTalon.set(ControlMode.PercentOutput, 0);
-    frontRightTalon.set(ControlMode.PercentOutput, 0);
-    backRightTalon.set(ControlMode.PercentOutput, 0);
+    setAllTalons(0);
     dropWheelsSpark.set(0);
-
   }
 
+  public void setAllTalons(double speed){
+    moveMotor(speed,frontRightTalon,frontLeftTalon,backRightTalon,backLeftTalon);
+  }
   // Teleop Section
 
   /**
@@ -232,10 +221,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
    * 
    * 
    */
-  public void moveMotor(double speed, TalonFX talon) {
-
-    talon.set(ControlMode.PercentOutput, speed);
-
+  public void moveMotor(double speed, TalonFX...talon) {
+    //uses varags to allow you to place as many talons as you want to prevent doing something over and over again
+    for(int x = 0; x < talon.length; x++){
+      talon[x].set(ControlMode.PercentOutput, speed);
+    }
   }
 
   public double ensureRange(double val) {
@@ -271,40 +261,36 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
       SmartDashboard.putNumber("gyro YCompAngle", gyro.getYComplementaryAngle());
       // Tank drive for when wheels are deployed (only forward)
-      moveMotor(ensureRange(Y), backLeftTalon);
-      moveMotor(ensureRange(Y), frontLeftTalon);
-      moveMotor(ensureRange(Y), frontRightTalon);
-      moveMotor(ensureRange(Y), backRightTalon);
+      setAllTalons(ensureRange(Y));
       dropWheelsSpark.set(ensureRange(Y));
 
     }
 
   }
 
+  public void tankDrive(double x, double y){
+    moveLeftTrain(0.25 * (y+x));
+    moveRightTrain(0.25 * (y-x));
+  }
+  public void moveLeftTrain(double speed){
+    moveMotor(speed, frontLeftTalon, backLeftTalon);
+  }
+  public void moveRightTrain(double speed){
+    moveMotor(speed,frontRightTalon,backRightTalon);
+  }
+
   /********** Autonomous Code **********/
 
   /** makes the robot move backwards out of the community */
   public void taxiOutShort() {
-
     double distance = limelight.getDistance();
-
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontRightTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backRightTalon);
-
+    setAllTalons(ensureRange(-scoreController.calculate(distance, shortTaxi)));
   }
 
   /** makes robot move forwards out of the community */
   public void taxiOutLong() {
-
     double distance = limelight.getDistance();
-
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontRightTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backRightTalon);
-
+    setAllTalons(ensureRange(-scoreController.calculate(distance, longTaxi)));
   }
 
   @Override

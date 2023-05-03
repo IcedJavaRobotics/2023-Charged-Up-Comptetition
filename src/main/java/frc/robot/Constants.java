@@ -25,6 +25,7 @@ public final class Constants {
   public static final int BACK_RIGHT_TALON = 2;
   public static final int DROP_WHEEL_SPARK = 9;
   public static final int ROTATIONAL_CONSTANT = 2048;
+  public static final double MOTOR_TESTING_SPEED = 0.1;
 
   // Auto Drive train
   public static final double CHARGING_MAX_ANGLE = 99;
@@ -36,6 +37,7 @@ public final class Constants {
   public static final int JOYSTICK = 0;
   public static final int DRIVER_STATION = 1;
   public static final int CONTROLLER = 2;
+  public static final int CONTROLLER2 = 3;
   // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
 
