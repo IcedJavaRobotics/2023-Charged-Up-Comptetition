@@ -268,9 +268,17 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   }
 
-  public void tankDrive(double x, double y){
-    moveLeftTrain(0.25 * (y+x));
-    moveRightTrain(0.25 * (y-x));
+  public void tankDrive(double x, double y, boolean fast){
+
+    if(fast) {
+
+      moveLeftTrain(0.5 * (y+x));
+      moveRightTrain(0.5 * (y-x));
+    } else {
+
+      moveLeftTrain(0.15 * (y+x));
+      moveRightTrain(0.15 * (y-x));
+    }
   }
   public void moveLeftTrain(double speed){
     moveMotor(speed, frontLeftTalon, backLeftTalon);
