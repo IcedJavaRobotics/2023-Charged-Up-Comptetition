@@ -40,6 +40,7 @@ public final class Constants {
   public static final int JOYSTICK = 0;
   public static final int DRIVER_STATION = 1;
   public static final int CONTROLLER = 2;
+  public static final int CONTROLLER2 = 3;
   // ^ these indicate the spot used on the driverstation ^
   public static final double DEADZONE = 0.2;
 
