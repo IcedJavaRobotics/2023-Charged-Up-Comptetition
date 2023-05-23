@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.commands.AutoSolenoidCommand;
 import frc.robot.commands.Autos;
-//import frc.robot.commands.MotorTestCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PneumaticSubsystem;
@@ -50,8 +49,6 @@ import frc.robot.commands.Lights.LightsCubeCommand;
 public class RobotContainer {
   DigitalInput rightLimit = new DigitalInput(Constants.RIGHT_CLAW_LIMIT);
   DigitalInput leftLimit = new DigitalInput(Constants.LEFT_CLAW_LIMIT);
-
-  
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -62,7 +59,6 @@ public class RobotContainer {
   private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
 
   XboxController xboxController = new XboxController(Constants.CONTROLLER);
-  XboxController xboxController2 = new XboxController(Constants.CONTROLLER2);
   Joystick flightStick = new Joystick(Constants.JOYSTICK);
   Joystick driverStation = new Joystick(Constants.DRIVER_STATION);
 
@@ -99,8 +95,6 @@ public class RobotContainer {
 
     new JoystickButton(xboxController, 1)
         .whileTrue(new ZeroArmCommand(armSubsystem));
-        
-    
 
     // Claw movement
     // new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
@@ -115,18 +109,13 @@ public class RobotContainer {
     new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
         .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
 
-        //Testing drivetrain
-    // new JoystickButton(xboxController2, Constants.LEFT_BUMPER)
-    //    .whileTrue(new MotorTestCommand(driveTrainSubsystem,2));
-    // new JoystickButton(xboxController2, Constants.RIGHT_BUMPER)
-    //    .whileTrue(new MotorTestCommand(driveTrainSubsystem, 1));
-
     // Reset arm
     new JoystickButton(xboxController, 2)
         .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
-    
+
     driveTrainSubsystem.setDefaultCommand(
-        new RunCommand(() -> driveTrainSubsystem.tankDrive(getXbox2RightX(), -getXbox2LeftY(), new JoystickButton(driverStation, 7).getAsBoolean()), driveTrainSubsystem));
+        new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
+            0.50 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
 
     armSubsystem.setDefaultCommand(
         new RunCommand(() -> armSubsystem.armJoystick(-getXboxLeftY()), armSubsystem));
@@ -155,12 +144,14 @@ public class RobotContainer {
     }
   }
 
-  public double getXbox2LeftY() {
-      return deadZoneMod(xboxController2.getLeftY());
+  public double getJoystickX() {
+    if (flightStick != null) {
+      return deadZoneMod(flightStick.getX());
+    } else {
+      return 0;
+    }
   }
-  public double getXbox2RightX() {
-      return deadZoneMod(xboxController2.getRightX());
-  }
+
   public double getXboxLeftY() {
     return deadZoneMod(xboxController.getLeftY());
   }
@@ -171,9 +162,6 @@ public class RobotContainer {
     } else {
       return 0;
     }
-  }
-  public double getJoystickX(){
-    return 0;
   }
 
   public double getJoystickTwist() {

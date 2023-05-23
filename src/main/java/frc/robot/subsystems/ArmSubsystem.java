@@ -28,7 +28,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   public ArmSubsystem() {
 
-    armMotor.setInverted(false);
+    armMotor.setInverted(true);
     armController.setTolerance(25, 5);
     armController.setIntegratorRange(-1, 1);
 
