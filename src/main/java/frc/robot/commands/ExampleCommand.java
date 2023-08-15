@@ -67,77 +67,16 @@ public class ExampleCommand extends CommandBase {
   @Override
   public void execute() {
 
-    // Auto 1
-
-    // Shoots cube high then balances on charging station
-    // Needs to be placed slightly off center and lined up with high cube score 
-    // if(Timer.getMatchTime() < 14) {
-
-    //   if (firstStepDone == false) {
-    //     firstStepDone = driveTrainSubsystem.autoTaxi();
-    //   } else if (firstStepDone == true) {
-    //     driveTrainSubsystem.autoCharging();
-    //     pneumaticSubsystem.reverseAutoSolenoid();
-    //   }
-
-    // }
-
-
-    // Auto 2
-
-    // Shoots cube high and taxis
-    // Needs to be placed on side with out bump and lined up with cube score
-    // if(Timer.getMatchTime() < 14) {
-
-    //   driveTrainSubsystem.autoMove(0.5, 120);
-    //   pneumaticSubsystem.reverseAutoSolenoid();
-    // } 
-
-
-    // Auto 3
-
-    // Only shoots cube high
-    // Placed on side with bump and aligned with cube score
-
-    // if (Timer.getMatchTime() < 14) {
-    //   pneumaticSubsystem.reverseAutoSolenoid();
-    // }
-
-
-    // Auto 4
-
-    // Hopefully shoots high cube, then taxis, and then balances
-
-    // if(Timer.getMatchTime() < 14) {
-
-    //   if (firstStepDone == false) {
-
-    //     firstStepDone = driveTrainSubsystem.autoTaxi(0.5, 280);
-
-    //   } else if (firstStepDone == true && secondStepDone == false) {
-
-    //     secondStepDone = driveTrainSubsystem.autoTaxi2(-0.5,100);
-    //     pneumaticSubsystem.reverseAutoSolenoid();
-
-    //   } else if (firstStepDone == true && secondStepDone == true) {
-
-    //     driveTrainSubsystem.autoCharging();
-    //   }  
-    // }
-
-
-
-    // This switch statement chooses which auto to run 
+    // This switch statement chooses which auto to run
     // Look at AUTO_MODE in constants for more info
 
+    switch (Constants.AUTO_MODE) {
 
-    switch(Constants.AUTO_MODE) {
-
-      case 1: 
+      case 1:
 
         // Shoots cube high then balances on charging station
-        // Needs to be placed slightly off center and lined up with high cube score 
-        if(Timer.getMatchTime() < 14) {
+        // Needs to be placed slightly off center and lined up with high cube score
+        if (Timer.getMatchTime() < 14) {
 
           if (firstStepDone == false) {
             firstStepDone = driveTrainSubsystem.autoTaxi();
@@ -154,7 +93,7 @@ public class ExampleCommand extends CommandBase {
 
         // Shoots cube high and taxis
         // Needs to be placed on side with out bump and lined up with cube score
-        if(Timer.getMatchTime() < 14) {
+        if (Timer.getMatchTime() < 14) {
 
           driveTrainSubsystem.autoMove(0.5, 120);
           pneumaticSubsystem.reverseAutoSolenoid();
@@ -166,7 +105,7 @@ public class ExampleCommand extends CommandBase {
 
         // Only shoots cube high
         // Placed on side with bump and aligned with cube score
-        if(Timer.getMatchTime() < 14) {
+        if (Timer.getMatchTime() < 14) {
 
           pneumaticSubsystem.reverseAutoSolenoid();
 
@@ -177,7 +116,7 @@ public class ExampleCommand extends CommandBase {
       case 4:
 
         // Hopefully shoots high cube, then taxis, and then balances
-        if(Timer.getMatchTime() < 14) {
+        if (Timer.getMatchTime() < 14) {
 
           if (firstStepDone == false) {
 
@@ -185,13 +124,13 @@ public class ExampleCommand extends CommandBase {
 
           } else if (firstStepDone == true && secondStepDone == false) {
 
-            secondStepDone = driveTrainSubsystem.autoTaxi2(-0.5,100);
+            secondStepDone = driveTrainSubsystem.autoTaxi2(-0.5, 100);
             pneumaticSubsystem.reverseAutoSolenoid();
 
           } else if (firstStepDone == true && secondStepDone == true) {
 
             driveTrainSubsystem.autoCharging();
-          }  
+          }
         }
 
         break;
@@ -211,32 +150,4 @@ public class ExampleCommand extends CommandBase {
     return false;
   }
 
-  /**
-   * <ul>
-   * <li>mode 1: TaxiOutShort
-   * <li>mode 2: TaxiOutLong
-   * <li>mode 3: WIP
-   * </ul>
-   * 
-   * @param Mode which mode you want,
-   * 
-   * 
-   *
-   *             public void modeFunction(int Mode) {
-   *             // sees which mode you are on(check buttons folder)
-   *             if (Mode == 1) {
-   * 
-   *             driveTrainSubsystem.taxiOutLong();
-   * 
-   *             } else if (Mode == 2) {
-   * 
-   *             } else if (Mode == 3) {
-   * 
-   *             } else {
-   * 
-   *             System.out.println("error 404: mode not found");
-   * 
-   *             }
-   *             }
-   */
 }

@@ -39,19 +39,9 @@ public class ClawSubsystem extends SubsystemBase {
     } else {
       clawStop();
     }
-    
-  }
-
-  public void clawOpenTrigger(double R) {
-
-    if (R >= 0.25) {
-      
-    } else {
-      clawStop();
-    }
 
   }
-  
+
   public void clawClose(double clawSpeed) {
 
     // Arms fold in
@@ -82,11 +72,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    // if (leftLimit.get() && rightLimit.get()) {
-    // return false; // returns false when done.
-    // } else {
     return true; // returns true when not done. duh.
-    // }
 
   }
 

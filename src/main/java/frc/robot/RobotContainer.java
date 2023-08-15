@@ -4,22 +4,14 @@
 
 package frc.robot;
 
-import frc.robot.commands.AutoSolenoidCommand;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.PneumaticSubsystem;
-import frc.robot.commands.PnuematicWheelsCommands.DropWheelsCommand;
-import frc.robot.commands.PnuematicWheelsCommands.RaiseWheelsCommand;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.ArmCommands.ClawCloseCommand;
 import frc.robot.commands.ArmCommands.ClawOpenCommand;
-import frc.robot.commands.ArmCommands.HighGridCommand;
-import frc.robot.commands.ArmCommands.MidGridCommand;
-import frc.robot.commands.ArmCommands.PickupArmCommand;
 import frc.robot.commands.ArmCommands.ResetCommand;
-import frc.robot.commands.ArmCommands.TuckArmCommand;
 import frc.robot.commands.ArmCommands.ZeroArmCommand;
 import frc.robot.commands.ArmCommands.checkGyroCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -27,7 +19,7 @@ import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ExtendoSubsystem;
-
+import frc.robot.subsystems.PneumaticSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -36,6 +28,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Lights.LightsConeCommand;
 import frc.robot.commands.Lights.LightsCubeCommand;
+import frc.robot.commands.Pnuematics.DropWheelsCommand;
+import frc.robot.commands.Pnuematics.RaiseWheelsCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -71,61 +65,31 @@ public class RobotContainer {
     clawSubsystem = new ClawSubsystem(rightLimit, leftLimit);
     extendoSubsystem = new ExtendoSubsystem(rightLimit, leftLimit);
 
-    new JoystickButton(flightStick, 4)
-        .whileTrue(new AutoSolenoidCommand(pneumaticSubsystem));
-    // Lights commands
-    new JoystickButton(flightStick, 5)
+    new JoystickButton(driverStation, 1)
+        .whileTrue(new checkGyroCommand(driveTrainSubsystem));
+
+    new JoystickButton(driverStation, 2)
         .whileTrue(new LightsConeCommand(blinkinSubsystem));
 
-    new JoystickButton(flightStick, 3)
+    new JoystickButton(driverStation, 3)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
-
-    // Zero arms and arm movement commands
-    new JoystickButton(xboxController, 8)
-        .whileTrue(new TuckArmCommand(armSubsystem, extendoSubsystem));
-
-    new JoystickButton(xboxController, 9)
-        .whileTrue(new PickupArmCommand(armSubsystem, extendoSubsystem));
-
-    new JoystickButton(xboxController, 1)
-        .whileTrue(new MidGridCommand(armSubsystem, extendoSubsystem));
-
-    new JoystickButton(xboxController, 4)
-        .whileTrue(new HighGridCommand(armSubsystem, extendoSubsystem));
 
     new JoystickButton(xboxController, 1)
         .whileTrue(new ZeroArmCommand(armSubsystem));
 
-    // Claw movement
-    // new JoystickButton(xboxController, Constants.LEFT_TRIGGER)
-    // .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.FAST_CLAW));
-
-    // new JoystickButton(xboxController, Constants.RIGHT_TRIGGER)
-    // .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.FAST_CLAW));
-
-    new JoystickButton(xboxController, Constants.LEFT_BUMPER)
-        .whileTrue(new ClawCloseCommand(clawSubsystem, Constants.SLOW_CLAW));
-
-    new JoystickButton(xboxController, Constants.RIGHT_BUMPER)
-        .whileTrue(new ClawOpenCommand(clawSubsystem, Constants.SLOW_CLAW));
-
-    // Reset arm
-    new JoystickButton(xboxController, 2)
+    new JoystickButton(xboxController, 3)
         .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
         new RunCommand(() -> driveTrainSubsystem.mecanumDrive(getJoystickX(), -getJoystickY(),
-            0.50 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
+            0.78 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
 
     armSubsystem.setDefaultCommand(
-        new RunCommand(() -> armSubsystem.armJoystick(-getXboxLeftY()), armSubsystem));
+        new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
 
     extendoSubsystem.setDefaultCommand(
-        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightY()),
+        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
             extendoSubsystem));
-
-    clawSubsystem.setDefaultCommand(
-        new RunCommand(() -> clawSubsystem.clawTrigger(xboxController.getRightTriggerAxis(), xboxController.getLeftTriggerAxis()), clawSubsystem));
 
     new JoystickButton(flightStick, 1)
         .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticSubsystem));
@@ -150,10 +114,6 @@ public class RobotContainer {
     } else {
       return 0;
     }
-  }
-
-  public double getXboxLeftY() {
-    return deadZoneMod(xboxController.getLeftY());
   }
 
   public double getJoystickY() {
@@ -187,14 +147,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    // new Trigger(m_exampleSubsystem::exampleCondition)
-    // .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-    // pressed,
-    // cancelling on release.
-    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**

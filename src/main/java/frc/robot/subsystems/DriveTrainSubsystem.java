@@ -52,8 +52,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   // Autonomous Section
 
-  public void checkGyro(){
-    System.out.println(gyro.getYComplementaryAngle()); 
+  public void checkGyro() {
+    System.out.println(gyro.getYComplementaryAngle());
   }
 
   public void zeroGyro() {
@@ -69,24 +69,24 @@ public class DriveTrainSubsystem extends SubsystemBase {
   public void autoCharging() {
 
     // if (gyro.getYComplementaryAngle() < Constants.CHARGING_MAX_ANGLE) {
-    //   autoMove(Constants.AUTO_TAXI_SPEED);
+    // autoMove(Constants.AUTO_TAXI_SPEED);
 
-      if (gyro.getYComplementaryAngle() >= Constants.CHARGING_MAX_ANGLE) {
-        autoMove(Constants.AUTO_CHARGING_SPEED);
-      } else if (gyro.getYComplementaryAngle() <= Constants.CHARGING_MIN_ANGLE) {
-        autoMove(-Constants.AUTO_CHARGING_SPEED);
-      } else {
-        stopMotors();
-      }
-    
+    if (gyro.getYComplementaryAngle() >= Constants.CHARGING_MAX_ANGLE) {
+      autoMove(Constants.AUTO_CHARGING_SPEED);
+    } else if (gyro.getYComplementaryAngle() <= Constants.CHARGING_MIN_ANGLE) {
+      autoMove(-Constants.AUTO_CHARGING_SPEED);
+    } else {
+      stopMotors();
+    }
+
   }
 
   /**
    * method for autonomous movement out of the community
    */
   public Boolean autoTaxi() {
-    if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
-    * Constants.AUTO_TAXI_DISTANCE)) {
+    if (stepTwo == true && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * Constants.AUTO_TAXI_DISTANCE)) {
 
       autoMove(Constants.AUTO_TAXI_SPEED);
       return false;
@@ -101,12 +101,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   /**
    * Method for auto taxi with params
-   * @param speed This is the speed at which the robot will move
-   * @param distance How far the robot will move in inches (maybe??) and false if it hasn't
+   * 
+   * @param speed    This is the speed at which the robot will move
+   * @param distance How far the robot will move in inches (maybe??) and false if
+   *                 it hasn't
    */
   public Boolean autoTaxi(double speed, int distance) {
-    if (stepTwo == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
-    * distance)) {
+    if (stepTwo == true && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * distance)) {
 
       autoMove(speed);
       return false;
@@ -121,8 +123,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   public Boolean autoTaxi2(double speed, int distance) {
-    if (taxiDone == true &&  Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
-    * distance)) {
+    if (taxiDone == true && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+        * distance)) {
 
       autoMove(speed);
       return false;
@@ -137,30 +139,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * method for autonomous movement to score low hub
-   */
-  public Boolean autoScoring() {
-    if (stepOne && Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
-        * Constants.AUTO_SCORING_DISTANCE)) {
-
-      autoMove(Constants.AUTO_SCORING_SPEED);
-      return false;
-
-    } else {
-
-      stopMotors();
-      frontLeftTalon.setSelectedSensorPosition(0);
-      stepOne = false;
-      return true;
-
-    }
-
-  }
-
-
-
-  /**
    * movement method for autonomous
+   * 
    * @param speed speed that robot go
    */
   public void autoMove(double speed) {
@@ -174,31 +154,14 @@ public class DriveTrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * Movement for auto without the drop wheels
-   * @param speed speed that robot go
-   * @param distance How far the motors will turn in inches (maybe??)
-   */
-  public void autoMoveNoTank(double speed, int distance) {
-
-    if(Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
-        * distance)) {
-
-      frontLeftTalon.set(ControlMode.PercentOutput, speed);
-      backLeftTalon.set(ControlMode.PercentOutput, speed);
-      frontRightTalon.set(ControlMode.PercentOutput, speed);
-      backRightTalon.set(ControlMode.PercentOutput, speed);
-    }
-
-  }
-
-  /**
    * Movement for auto with the drop wheels
-   * @param speed speed that robot go
+   * 
+   * @param speed    speed that robot go
    * @param distance How far the motors will turn in inches (maybe??)
    */
   public void autoMove(double speed, int distance) {
 
-    if(Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
+    if (Math.abs(frontLeftTalon.getSelectedSensorPosition()) <= ((Constants.ROTATIONAL_CONSTANT / 2)
         * distance)) {
 
       frontLeftTalon.set(ControlMode.PercentOutput, speed);
@@ -206,7 +169,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
       frontRightTalon.set(ControlMode.PercentOutput, speed);
       backRightTalon.set(ControlMode.PercentOutput, speed);
       dropWheelsSpark.set(speed);
-    }else {
+    } else {
       stopMotors();
     }
 
@@ -278,32 +241,6 @@ public class DriveTrainSubsystem extends SubsystemBase {
       dropWheelsSpark.set(ensureRange(Y));
 
     }
-
-  }
-
-  /********** Autonomous Code **********/
-
-  /** makes the robot move backwards out of the community */
-  public void taxiOutShort() {
-
-    double distance = limelight.getDistance();
-
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), frontRightTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, shortTaxi)), backRightTalon);
-
-  }
-
-  /** makes robot move forwards out of the community */
-  public void taxiOutLong() {
-
-    double distance = limelight.getDistance();
-
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backLeftTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), frontRightTalon);
-    moveMotor(ensureRange(-scoreController.calculate(distance, longTaxi)), backRightTalon);
 
   }
 

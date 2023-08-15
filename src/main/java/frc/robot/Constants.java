@@ -28,7 +28,7 @@ public final class Constants {
 
   // Auto Drive train
   public static final double CHARGING_MAX_ANGLE = 99;
-  public static final double CHARGING_MIN_ANGLE = 77;   // Theoretical
+  public static final double CHARGING_MIN_ANGLE = 77; // Theoretical
 
   public static final double AUTO_CHARGING_SPEED = 0.15;
 
@@ -44,7 +44,7 @@ public final class Constants {
   public static final int RIGHT_CLAW = 8;
   public static final double CLAW_SPEED = 1;
   public static final double FAST_CLAW = 1;
-  public static final double SLOW_CLAW = 0.3; 
+  public static final double SLOW_CLAW = 0.3;
 
   // Digital inputs
   public static final int RIGHT_CLAW_LIMIT = 0;
@@ -60,35 +60,34 @@ public final class Constants {
 
   // Extendo
   public static final int EXTENDO_MOTOR = 5;
-  public static final double EXTENDO_SPEED = 0.6;   // changed from 0.6 to 0.3  // Encoder values for set arm positions
+  public static final double EXTENDO_SPEED = 0.6; // changed from 0.6 to 0.3 // Encoder values for set arm positions
   public static final double EXTENDO_RETRACT_SPEED = 0.7;
   public static final int DEFAULT_SETPOINT = 0;
 
   public static final int EXTENDO_TUCKED = 50;
-  public static final int EXTENDO_PICKUP = 100; //not actually pickup1, it's pickup high
+  public static final int EXTENDO_PICKUP = 100; // not actually pickup1, it's pickup high
   public static final int EXTENDO_MID_GRID = 100;
   public static final int EXTENDO_HIGH_GRID = 21500;
-
 
   // Arm
   public static final int ARM_SPARK = 6;
   public static final double ARM_SPEED = 1;
 
   public static final int ARM_TUCKED = 180;
-  public static final int ARM_PICKUP = 530;   //not actually pickup, it's pickup high
+  public static final int ARM_PICKUP = 530; // not actually pickup, it's pickup high
   public static final int ARM_MID_GRID = 555;
-  public static final int ARM_HIGH_GRID = 650; 
-
+  public static final int ARM_HIGH_GRID = 650;
 
   // Auto
   public static final int AUTO_TAXI_DISTANCE = 210; // 170 for auto balance and 85 for only taxi
   public static final double AUTO_TAXI_SPEED = 0.5;
   public static final double AUTO_SCORING_SPEED = -0.5;
   public static final int AUTO_SCORING_DISTANCE = 6;
-  // 1 is high cube and balance, 2 is high cube then taxi on non bump side, 
-  // 3 is high cube and nothing else for bump side, and 4 is high cube taxi then balance
-  public static final int AUTO_MODE = 1; 
 
+  // 1 is high cube and balance, 2 is high cube then taxi on non bump side,
+  // 3 is high cube and nothing else for bump side, and 4 is high cube taxi then
+  // balance
+  public static final int AUTO_MODE = 1;
 
   // Limelight
   /** upward angle of limelight camera [degrees] */

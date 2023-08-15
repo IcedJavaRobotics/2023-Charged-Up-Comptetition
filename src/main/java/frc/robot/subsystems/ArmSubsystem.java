@@ -49,8 +49,10 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
   }
+
   /**
    * raises arm
+   * 
    * @param none literally nothing
    * @returns literally nothing
    */
@@ -70,7 +72,7 @@ public class ArmSubsystem extends SubsystemBase {
    */
   public void lowerArm() {
 
-    if(armLimitSwtich.get() == true) {
+    if (armLimitSwtich.get() == true) {
       stopArm();
       armMotor.getEncoder().setPosition(0);
     } else {
@@ -96,95 +98,6 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.getEncoder().setPosition(0);
 
   }
-
-  /********** Set arm scoring positions **********/
-
-  public void armTucked() {
-    if(armLimitSwtich.get() == true) {
-      stopArm();
-      zeroEncoder();
-    } else {
-      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_TUCKED), armMotor);
-    }
-  }
-
-  public void armPickup() {
-    if(armLimitSwtich.get() == true) {
-      stopArm();
-      zeroEncoder();
-    } else {
-      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_PICKUP), armMotor);
-    }
-  }
-
-  public void armMidGrid() {
-    if(armLimitSwtich.get() == true) {
-      stopArm();
-      zeroEncoder();
-    } else {
-      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MID_GRID), armMotor);
-    }
-  }
-
-  public void armHighGrid() {
-    if(armLimitSwtich.get() == true) {
-      stopArm();
-      zeroEncoder();
-    } else {
-      moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_HIGH_GRID), armMotor);
-    }
-  }
-  
-
-  // public boolean armUpperCube() {
-
-  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CUBE_SETPOINT),
-  //       armMotor);
-
-  //   if (armController.atSetpoint()) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
-  // public boolean armMiddleCube() {
-
-  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CUBE_SETPOINT),
-  //       armMotor);
-
-  //   if (armController.atSetpoint()) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-
-  // }
-
-  // public boolean armUpperCone() {
-
-  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_UPPER_CONE_SETPOINT),
-  //       armMotor);
-
-  //   if (armController.atSetpoint()) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
-  // public boolean armMiddleCone() {
-
-  //   moveMotor(armController.calculate(armMotor.getEncoder().getPosition(), Constants.ARM_MIDDLE_CONE_SETPOINT),
-  //       armMotor);
-
-  //   if (armController.atSetpoint()) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-
-  // }
 
   @Override
   public void periodic() {

@@ -88,48 +88,9 @@ public class ExtendoSubsystem extends SubsystemBase {
       return false;
     } else {
       extendoStop();
-      extendoMotor.setSelectedSensorPosition(0); // qqqqqqqqqqqqqqqqqqqqqqqqqq22TODO add this line to other
-                                                 // extendoStop();
+      extendoMotor.setSelectedSensorPosition(0);
       return true;
     }
-  }
-
-  /********** Set scoring extendo positions **********/
-
-  // Has methods for upper and middle cones and cubes
-
-  public void extendoTucked() {
-      extendoMotor.set(ControlMode.PercentOutput,
-          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_TUCKED));
-  }
-
-  public void extendoPickup() {
-      extendoMotor.set(ControlMode.PercentOutput,
-          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_PICKUP));
-  }
-
-  public void extendoMidGrid() {
-      extendoMotor.set(ControlMode.PercentOutput,
-          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_MID_GRID));
-  }
-
-  public void extendoHighGrid() {
-      extendoMotor.set(ControlMode.PercentOutput,
-          extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.EXTENDO_HIGH_GRID));
-  }
-  
-
-  public boolean extendoDefault() {
-
-    extendoMotor.set(ControlMode.PercentOutput,
-        extendoController.calculate(extendoMotor.getSelectedSensorPosition(), Constants.DEFAULT_SETPOINT));
-
-    if (extendoController.atSetpoint()) { // if it's at the setpoint return false, if it isn't return true
-      return false;
-    } else {
-      return true;
-    }
-
   }
 
   @Override
