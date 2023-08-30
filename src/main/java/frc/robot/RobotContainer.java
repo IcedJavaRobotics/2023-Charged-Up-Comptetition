@@ -74,10 +74,10 @@ public class RobotContainer {
     new JoystickButton(driverStation, 3)
         .whileTrue(new LightsCubeCommand(blinkinSubsystem));
 
-    new JoystickButton(xboxController, 1)
+    new JoystickButton(xboxController, 3)
         .whileTrue(new ZeroArmCommand(armSubsystem));
 
-    new JoystickButton(xboxController, 3)
+    new JoystickButton(xboxController, 2)
         .whileTrue(new ResetCommand(extendoSubsystem, clawSubsystem));
 
     driveTrainSubsystem.setDefaultCommand(
@@ -85,11 +85,16 @@ public class RobotContainer {
             0.78 * getJoystickTwist(), flightStick.getThrottle()), driveTrainSubsystem));
 
     armSubsystem.setDefaultCommand(
-        new RunCommand(() -> armSubsystem.armJoystick(xboxController.getLeftY()), armSubsystem));
+        new RunCommand(() -> armSubsystem.armJoystick(getControllerLeftY()), armSubsystem));
 
     extendoSubsystem.setDefaultCommand(
-        new RunCommand(() -> extendoSubsystem.extendoJoystick(-xboxController.getRightTriggerAxis()),
+        new RunCommand(() -> extendoSubsystem.extendoJoystick(-getControllerRightY()),
             extendoSubsystem));
+
+    clawSubsystem.setDefaultCommand(
+        new RunCommand(() -> clawSubsystem.clawTrigger(xboxController.getLeftTriggerAxis(), xboxController.getRightTriggerAxis()),
+            clawSubsystem));
+      
 
     new JoystickButton(flightStick, 1)
         .whileTrue(new RaiseWheelsCommand(driveTrainSubsystem, pneumaticSubsystem));
@@ -119,6 +124,22 @@ public class RobotContainer {
   public double getJoystickY() {
     if (flightStick != null) {
       return deadZoneMod(flightStick.getY());
+    } else {
+      return 0;
+    }
+  }
+
+  public double getControllerRightY() {
+    if (flightStick != null) {
+      return deadZoneMod(xboxController.getRightY());
+    } else {
+      return 0;
+    }
+  }
+
+  public double getControllerLeftY() {
+    if (flightStick != null) {
+      return deadZoneMod(xboxController.getLeftY());
     } else {
       return 0;
     }
